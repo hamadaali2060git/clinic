@@ -29,7 +29,7 @@ class User extends Authenticatable implements JWTSubject
             'mobile'  . ' as mobile',
             'address'  . ' as address',
             'photo' . ' as photo',
-
+            'type'  . ' as type',
             'height'  . ' as height',
             'weight'  . ' as weight',
             'bloode_group'  . ' as bloode_group',
