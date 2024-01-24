@@ -25,6 +25,7 @@ Route::get('/', 'Admin\DashBoardController@index');
 
 Route::get('home', 'Admin/DashBoardController@index');
 Route::get('/activation/users/{token}', 'Auth\LoginController@userActivation');
+Route::get('/activated', 'Auth\LoginController@Activated');
 
 
   ## start reset password api

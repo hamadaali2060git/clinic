@@ -5,7 +5,17 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\User;
+use Illuminate\Http\Request;
 
+
+use DB;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
+use Mail;
+use Crypt;
+use Hash;
+use Auth;
 class LoginController extends Controller
 {
     /*
@@ -55,9 +65,12 @@ class LoginController extends Controller
 
 
 
+    
 
-
-
+    public function Activated()
+    {
+        return view('activated');
+    }
 
 
     public function userActivation($token){
@@ -65,13 +78,13 @@ class LoginController extends Controller
         if(!is_null($check)){
             $user = User::find($check->id_user);
             if ($user->is_activated ==1){
-                return redirect()->to('user-login')->with('message'," الحساب مفعل ");
+                return redirect()->to('activated')->with('message'," الحساب مفعل ");
             }
             $user->update(['is_activated' => 1]);
             DB::table('user_activations')->where('token',$token)->delete();
-            return redirect()->to('user-login')->with('message',"تم تفعيل حسابك");
+            return redirect()->to('activated')->with('message',"تم تفعيل حسابك");
         }
-        return redirect()->to('/')->with('errorss',"رمز التفعيل غير صالح");
+        return redirect()->to('/activated')->with('errorss',"رمز التفعيل غير صالح");
     }
 
    
