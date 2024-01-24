@@ -24,10 +24,10 @@ Auth::routes();
 Route::get('/', 'Admin\DashBoardController@index');
 
 Route::get('home', 'Admin/DashBoardController@index');
-Route::get('/activation/users/{token}', 'Auth\InstructorLoginController@userActivation');
+Route::get('/activation/users/{token}', 'Auth\LoginController@userActivation');
 
 
   ## start reset password api
-  Route::get('reset-password-api/{token}', 'Auth\InstructorLoginController@resetPasswordGetApi')->name('reset-password-api');
-  Route::post('reset-password-api', 'Auth\InstructorLoginController@resetPasswordPostApi')->name('reset-password-post-api');
+  Route::get('reset-password-api/{token}', 'Auth\LoginController@resetPasswordGetApi')->name('reset-password-api');
+  Route::post('reset-password-api', 'Auth\LoginController@resetPasswordPostApi')->name('reset-password-post-api');
   ## end 
