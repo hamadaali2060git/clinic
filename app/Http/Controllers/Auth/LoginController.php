@@ -131,7 +131,7 @@ class LoginController extends Controller
         //      $langg=app()->getLocale();
         //  }
         //  dd($langg);
-           return redirect('user-login')->with('message', __('Your password has been changed'));
+           return redirect('activated')->with('message', __('Your password has been changed'));
 
    }
 ## end for api
