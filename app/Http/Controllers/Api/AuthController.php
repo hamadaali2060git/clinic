@@ -99,7 +99,7 @@ class AuthController extends Controller
             DB::table('user_activations')->insert(['id_user'=>$add_array['id'],'token'=>$add_array['link']]);
             Mail::send('emails.activation', $add_array, function($message) use ($add_array){
                 $message->to($add_array['email']);
-                $message->subject('Sanad - Activation code');
+                $message->subject('Doctor Ehab - Activation code');
             });
 
             return $this -> returnDataa('data',$user,__('front.email confirmation'));
