@@ -14,7 +14,12 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin','prefix' => 'admin'
    Route::resource('countries','CountryController');
    Route::resource('cities','CityController');
    Route::resource('states','StateController');
-   
+   Route::resource('doctors','DoctorController');
+   Route::resource('patients','PatientController');
+   Route::get('patients/update/status', 'PatientController@updateStatus')->name('patients.update.status');
+
+
+
    Route::get('settings','SettingController@settings');
    Route::post('settings/update','SettingController@updateSettings');
 

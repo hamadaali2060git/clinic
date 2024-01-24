@@ -33,9 +33,19 @@
                     <form action="{{route('products.store')}}" method="POST" name="le_form"  enctype="multipart/form-data">
                       @csrf
                       <div class="row form-row">
+                      
+                            <div class="form-group col-md-4 col-sm-6">
+                                <label> البائع</label>
+                                <select class="form-control select" name="user_id">
+                                    <option>اختر </option>
+                                    @foreach ($users as $user)
+                                        <option value="{{$user->id}}" >{{$user->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="form-group col-md-4 col-sm-6">
                                 <label>نوع العقار </label>
-                                <select class="form-control select" name="city_id">
+                                <select class="form-control select" name="category_id">
                                     <option>اختر نوع العقار</option>
                                     @foreach ($categories as $_item)
                                         <option value="{{$_item->id}}" >{{$_item->name}}</option>
@@ -53,7 +63,7 @@
                             </div>
                             <div class="form-group col-md-4 col-sm-6">
                                 <label>المنطقة </label>
-                                <select class="form-control select" name="city_id">
+                                <select class="form-control select" name="state_id">
                                     <option>اختر المنطقة</option>
                                     @foreach ($states as $_item)
                                         <option value="{{$_item->id}}" >{{$_item->name}}</option>
@@ -169,7 +179,7 @@
                             
                         <div class="form-group col-md-6 col-sm-6">
                             <label>صور العقار </label>
-                            <input type="file" name="image" class="form-control" accept=".JPEG,.JPG,.PNG,.GIF,.TIF,.TIFF" id="imageid">
+                            <input type="file" name="image[]" class="form-control" accept=".JPEG,.JPG,.PNG,.GIF,.TIF,.TIFF" id="imageid" multiple>
                             <span id="imageError" style="color: red;"></span>
                         </div>
                         <div class="form-group col-md-4 col-sm-6">

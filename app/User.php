@@ -14,13 +14,31 @@ class User extends Authenticatable implements JWTSubject
     use HasRoles;
     // use UseDevices;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    public function scopeSelection($query)
+    {
+        return $query->select(
+        	'id',
+            'first_name' . ' as first_name',
+        	'last_name' . ' as last_name',
+            'email'. ' as email',
+        	'country'  . ' as country',
+        	'city' . ' as city',
+            'gender'  . ' as gender',
+            'bio'  . ' as bio',
+            'dateOfBirth'  . ' as dateOfBirth',
+            'mobile'  . ' as mobile',
+            'address'  . ' as address',
+            'photo' . ' as photo',
+
+            'height'  . ' as height',
+            'weight'  . ' as weight',
+            'bloode_group'  . ' as bloode_group',
+            'marital_status'  . ' as marital_status',
+            'experience' . ' as experience',
+        );
+    }
     protected $fillable = [
-        'name', 'email', 'password','roles_name','Status'
+        'name', 'email', 'password','is_activated','first_name','last_name','mobile','type'
     ];
 
     /**

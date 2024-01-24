@@ -17,30 +17,55 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::group(['middleware' => ['api'], 'namespace' => 'Api'], function () {
+Route::group(['middleware' => ['api','changeLanguage'], 'namespace' => 'Api'], function () {
     Route::get('/admin', function () {
-        return 'bbbb';
+        return 'bbbbffff';
     });
-    // Route::post('verify-code', [AuthLoginController::class, 'verifyCode'])->name('verify-code');
-    Route::post('login', 'AuthLoginController@LoginUser')->name('login-user');
-
-    Route::post('register', 'AuthLoginController@registerNewUser')->name('user-signup');
-    Route::post('verify-register-code', 'AuthLoginController@verifyRegisterCode')->name('verify-register-code');
+   
+    Route::post('login', 'AuthController@login');
+  	Route::post('register', 'AuthController@register');
+    Route::get('user-data', 'AuthController@getUserData');
     
-    Route::get('user-data', 'AuthLoginController@getUserData');
-    Route::post('profile-update', 'AuthLoginController@ProfileUpdate');
+    Route::post('forget-password', 'AuthController@forgetPassword');
+    Route::post('profile-update', 'AuthController@profileUpdate');
+   
+    Route::get('allcourses-lives', 'AuthController@allcoursesLive');
+    Route::post('change_password', 'AuthController@changePassword');
+    Route::post('forgetpassword', 'AuthController@forgetPassword');
 
-    Route::post('forget-password', 'AuthLoginController@forgetPassword');
-    Route::post('verify-password-code', 'AuthLoginController@verifyPassword');
-    Route::post('reset-user-password-post', 'AuthLoginController@resetUserPasswordPost');
 
-    Route::get('cities', 'HomeController@cities');
-    Route::get('states', 'HomeController@states');
     Route::get('categotries', 'HomeController@categotries');
-    Route::get('products', 'HomeController@products');
-    Route::get('product-detais', 'HomeController@productDetais');
-    Route::get('products-search', 'HomeController@productsSearch');
-    Route::get('products-features', 'HomeController@features');
+    // Route::get('doctor-details', 'HomeController@doctorDetails');
+    Route::get('articles', 'HomeController@articles');
+    
+    Route::post('add-work-days', 'HomeController@addWorkDays');
+    Route::post('edit-work-days', 'HomeController@editWorkDays');
+    Route::get('doctor-work-days', 'HomeController@doctorWorkDays');
+    Route::get('doctor-appointments', 'HomeController@doctorAppointments');
+    Route::get('doctor-records', 'HomeController@doctorRecords');
+
+    Route::get('patient-profile', 'HomeController@patientProfile');
+    Route::get('patient-records', 'HomeController@patientRecords');
+
+    // patient_actions
+
+    Route::post('book-appointment', 'HomeController@bookAppointment');
+    Route::get('patient-ppointments', 'HomeController@patientAppointments');
+    
+    Route::get('patient-work-days', 'HomeController@patientWorkDays');
+
+    
+    
+    Route::get('course-detais', 'HomeController@coursesDetais');
+    Route::get('courses-user', 'HomeController@coursesUser');
+    Route::get('notices', 'HomeController@notices');
+    Route::post('inquiries', 'HomeController@inquiries');
+
+    Route::get('home', 'HomeController@home');
+    Route::get('instructors', 'HomeController@getInstructor');
+    Route::get('settings', 'HomeController@settings');
+    
+
     Route::get('favorites', 'HomeController@favorites');
     Route::get('vendor-products', 'HomeController@vendorProducts');
     

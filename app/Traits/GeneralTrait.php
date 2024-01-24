@@ -9,14 +9,15 @@ trait GeneralTrait
     {
         return app()->getLocale();
     }
-    // يييي
-    public function returnError($errNum, $msg)
+
+    public function returnError( $msg,$validator='')
     {
         return response()->json([
             'status' => false,
-            'errNum' => $errNum,
-            'msg' => $msg
-        ]);
+            // 'errNum' => $errNum,
+            'msg' => $msg,
+            // 'massage'=>$validator
+        ],200);
     }
 
 
@@ -33,28 +34,27 @@ trait GeneralTrait
     {
         return response()->json([
             'status' => true,
-            'errNum' => "200",
+            // 'errNum' => "200",
             'msg' => $msg,
             $key => $value
         ]);
     }
-    
      public function returnDataa($key, $value, $msg)
     {
         return response()->json([
             'status' => true,
-            'errNum' => "200",
+            // 'errNum' => "200",
             'msg' => $msg,
             $key => $value
-        ]);
+        ],200);
     }
+
 
     //////////////////
     public function returnValidationError($code = "E001", $validator)
     {
         return $this->returnError($code, $validator->errors()->first());
     }
-
 
     public function returnCodeAccordingToInput($validator)
     {
@@ -67,28 +67,24 @@ trait GeneralTrait
     {
         if ($input == "name")
             return '404';
-
+        else if ($input == "email")
+            return __('front.email required');
         else if ($input == "password")
-            return '404';
-
+            return __('front.password required');
+        else if ($input == "confirm_password")
+            return __('front.confirm_password');
         else if ($input == "mobile")
             return '404';
-        else if ($input == "phone")
-            return '404';
-        else if ($input == "device_token")
-            return '404';
-
+        elseif($input="device_token")
+        return __('front.device_token required');
         else if ($input == "id_number")
             return '404';
 
         else if ($input == "birth_date")
             return '404';
 
-        else if ($input == "agreement")
-            return '404';
-
-        else if ($input == "email")
-            return '404';
+       
+        
 
         else if ($input == "city_id")
             return '404';

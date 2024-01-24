@@ -7,8 +7,10 @@ use App\Category;
 use App\City;
 use App\State;
 use App\ProductImage;
+use App\User;
 use Illuminate\Http\Request;
 use App\Visit;
+
 class ProductController extends Controller
 {
     public function index()
@@ -20,6 +22,7 @@ class ProductController extends Controller
         $products=Product::with('visitViewer')->get();
         foreach ($products as $item) {
             $item->images= ProductImage::where('product_id',$item->id)->get();
+            $item->image= ProductImage::where('product_id',$item->id)->first();
             // $item->visitViewer;
         }
         // dd($products);
@@ -31,14 +34,15 @@ class ProductController extends Controller
         $categories=Category::all();
         $cities=City::all();
         $states=State::all();
-        return view('admin.products.create',compact('categories','cities','states'));
+        $users=User::where('roles_name',null)->get();
+        return view('admin.products.create',compact('categories','cities','states','users'));
     }
     
 
     public function store(Request $request)
     {
-         $add = new Product;
-        $add->user_id    = $user->id;
+        $add = new Product;
+        $add->user_id    = $request->user_id;
         $add->city_id    = $request->city_id;
         $add->category_id    = $request->category_id;
         $add->state_id    = $request->state_id;        
@@ -90,7 +94,7 @@ class ProductController extends Controller
                     $files[$i]->move('img/product/', $file_name);   
 
                     $add_image= new ProductImage;
-                    $add_image->productId    =  $add->id;
+                    $add_image->product_id    =  $add->id;
                     $add_image->image  = $file_name;             
                     // $add_image->title    =  $request->title[$i];       
                     $add_image->save();
@@ -124,7 +128,10 @@ class ProductController extends Controller
         // $product->visitViewer()->save($count);
         // dd($product);
         $categories=Category::all();
-        return view('vendors.products.edit',compact('product','categories'));
+        $users=User::where('roles_name',null)->get();
+        $cities=City::all();
+        $states=State::all();
+        return view('admin.products.edit',compact('product','categories','cities','states','users'));
     }
 
    
@@ -132,26 +139,40 @@ class ProductController extends Controller
     public function update(Request $request,Product $product)
     {   
         $edit = Product::findOrFail($product->id);
-        $edit->name    = ['ar' => $request->name_ar,'en' => $request->name_en];
-        $edit->description    = ['ar' => $request->description_ar,'en' => $request->description_en];
+        $edit->user_id    = $request->user_id;
+        $edit->city_id    = $request->city_id;
+        $edit->category_id    = $request->category_id;
+        $edit->state_id    = $request->state_id;        
+        $edit->title    = $request->title;
+        $edit->type    = $request->type;
+        $edit->address    = $request->address;
+        $edit->location    = $request->location;
+        $edit->width    = $request->width;
+        $edit->height    = $request->height;
+        $edit->total_area    = $request->total_area;
+        $edit->year    = $request->year;
+        $edit->bathrooms    = $request->bathrooms;
+        $edit->rooms    = $request->rooms;
+        $edit->role    = $request->role;   // عدد الادوار
         $edit->price    = $request->price;
-        $edit->quantity    = $request->quantity;
-        $edit->modal_number    = $request->modal_number;
-        $edit->slug    = ['ar' => $request->name_ar,'en' => $request->name_en];
+        $edit->description    = $request->description;
+        $edit->name    = $request->name;
+        $edit->email    = $request->email;
+        $edit->phone    = $request->phone;
         $edit->save();
-
         
-        if($file=$request->file('imagee'))
-         {
-            $file_extension = $request -> file('imagee') -> getClientOriginalExtension();
-            $file_name = time().'.'.$file_extension;
-            $file_nameone = $file_name;
-            $path = 'img/product/';
-            $request-> file('imagee') ->move($path,$file_name);
-            $edit->image  =$file_nameone;
-        }else{
-            $edit->image  = $edit->image; 
-        }
+        
+        // if($file=$request->file('imagee'))
+        //  {
+        //     $file_extension = $request -> file('imagee') -> getClientOriginalExtension();
+        //     $file_name = time().'.'.$file_extension;
+        //     $file_nameone = $file_name;
+        //     $path = 'img/product/';
+        //     $request-> file('imagee') ->move($path,$file_name);
+        //     $edit->image  =$file_nameone;
+        // }else{
+        //     $edit->image  = $edit->image; 
+        // }
         return back()->with("message", 'تم التعديل بنجاح'); 
     }
 

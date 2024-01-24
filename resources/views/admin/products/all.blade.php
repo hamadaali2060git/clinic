@@ -76,11 +76,15 @@
 										<tbody>
 											@foreach ($products as $_item)
 												<tr>
+													
 													<td>
+														@if($_item->image)
 														<a href="profile" class="avatar avatar-sm mr-2">
-					                                        <img class="avatar-img" src="{{asset('img/product/'.$_item->cover_img) }}" alt="Speciality">
+					                                        <img class="avatar-img" src="{{asset('img/product/'.$_item->image->image) }}" alt="Speciality">
 					                                    </a>
+														@endif
 													</td>
+													
 													<td class="text-center">
 														{{$_item->title}}
 													</td>
@@ -98,24 +102,24 @@
 														{{$_item->bathrooms}}
 													</td>
 													<td>
-													    <a href="{{url('vendors/product-image',$_item->id)}}" class="btn btn-sm bg-success-light" >
+													    <!-- <a href="{{url('vendors/product-image',$_item->id)}}" class="btn btn-sm bg-success-light" >
 																<button type="button" class="btn btn-outline-success ">تعديل الصور</i></button>
-															</a>
+															</a> -->
 													</td>
 													<td class="text-center">
 														<div class="actions">
-															<a href="{{url('vendors/alloffers',$_item->id)}}" class="add-video" >
+															<!-- <a href="{{url('vendors/alloffers',$_item->id)}}" class="add-video" >
 					                                            <button type="button" class="btn btn-outline-info ">
 					                                            	<i class="la la-plus-circle"></i>
 					                                            </button>
 					                                            <span class="addvideo">العروض</span>
-					                                        </a>
+					                                        </a> -->
 					                                       
-															<a  data-toggle="modal" data-catid="{{ $_item->id }}" data-target="#imagemodal{{ $_item->id }}" class="delete-course">
+															<!-- <a  data-toggle="modal" data-catid="{{ $_item->id }}" data-target="#imagemodal{{ $_item->id }}" class="delete-course">
 				                                           		<button type="button" class=" btn btn-outline-warning">
 				                                           			<i class="la la-image"></i>
 				                                           		</button>
-				                                        	</a>
+				                                        	</a> -->
 				                                        	
 															<a href="{{route('products.edit',$_item->id)}}" class="btn btn-sm bg-success-light" >
 																<button type="button" class="btn btn-outline-success "><i class="la la-edit"></i></button>
