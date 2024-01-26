@@ -22,56 +22,50 @@ Route::group(['middleware' => ['api','changeLanguage'], 'namespace' => 'Api'], f
         return 'bbbbffff';
     });
    
+## start auth
     Route::post('login', 'AuthController@login');
   	Route::post('register', 'AuthController@register');
     Route::get('user-data', 'AuthController@getUserData');
     
     Route::post('forget-password', 'AuthController@forgetPassword');
     Route::post('profile-update', 'AuthController@profileUpdate');
-   
-    Route::get('allcourses-lives', 'AuthController@allcoursesLive');
+
     Route::post('change_password', 'AuthController@changePassword');
     Route::post('forgetpassword', 'AuthController@forgetPassword');
 
+    Route::get('settings', 'HomeController@settings');
+## end
 
+## start patient
+    Route::get('home', 'HomeController@home');
     Route::get('categotries', 'HomeController@categotries');
-    // Route::get('doctor-details', 'HomeController@doctorDetails');
     Route::get('articles', 'HomeController@articles');
-    
+    Route::get('patient-work-days', 'HomeController@patientWorkDays');
+    Route::post('book-appointment', 'HomeController@bookAppointment');
+    Route::get('patient-ppointments', 'HomeController@patientAppointments');
+    Route::get('patient-records', 'HomeController@patientRecords');
+## end
+
+## start doctor
     Route::post('add-work-days', 'HomeController@addWorkDays');
     Route::post('edit-work-days', 'HomeController@editWorkDays');
     Route::get('doctor-work-days', 'HomeController@doctorWorkDays');
     Route::get('doctor-appointments', 'HomeController@doctorAppointments');
     Route::get('doctor-records', 'HomeController@doctorRecords');
-
     Route::get('patient-profile', 'HomeController@patientProfile');
-    Route::get('patient-records', 'HomeController@patientRecords');
+    
 
     // patient_actions
 
-    Route::post('book-appointment', 'HomeController@bookAppointment');
-    Route::get('patient-ppointments', 'HomeController@patientAppointments');
-    
-    Route::get('patient-work-days', 'HomeController@patientWorkDays');
+  
+    // Route::get('doctor-details', 'HomeController@doctorDetails');
 
+    // Route::get('instructors', 'HomeController@getInstructor');
     
     
-    Route::get('course-detais', 'HomeController@coursesDetais');
-    Route::get('courses-user', 'HomeController@coursesUser');
-    Route::get('notices', 'HomeController@notices');
-    Route::post('inquiries', 'HomeController@inquiries');
-
-    Route::get('home', 'HomeController@home');
-    Route::get('instructors', 'HomeController@getInstructor');
-    Route::get('settings', 'HomeController@settings');
     
 
-    Route::get('favorites', 'HomeController@favorites');
-    Route::get('vendor-products', 'HomeController@vendorProducts');
+
     
-    Route::get('settings', 'HomeController@settings');
-    Route::post('add-product', 'HomeController@addProduct');
-    Route::post('add-favorite', 'HomeController@addFavorite');
-    Route::post('delete-favorite', 'HomeController@deleteFavorite');
 
 });

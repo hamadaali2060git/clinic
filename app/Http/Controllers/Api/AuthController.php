@@ -229,8 +229,7 @@ class AuthController extends Controller
         if(!$user_auth)
             return $this->returnError(__('front.You must login first'));
         $user = User::selection()->findOrFail($user_auth->id);
-        // $user->photo= request()->getHttpHost()."/img/profiles/students/".$user->photo;
-        $user->photo=$this->getFile('/img/profiles/students/',$user->photo,'/img/profiles/');
+        $user->photo=$this->getFile('/img/profiles/',$user->photo,'/img/profiles/');
         return $this -> returnDataa(
             'data',$user,'riuhfer'
         );
@@ -248,7 +247,7 @@ class AuthController extends Controller
             $file_extension = $request -> file('photo')->getClientOriginalExtension();
             $file_name = time().'.'.$file_extension;
             $file_nameone = $file_name;
-            $path = 'img/profiles/students';
+            $path = 'img/profiles';
             $request-> file('photo') ->move($path,$file_name);
             $edit->photo  = $file_nameone;
         }else{
@@ -270,11 +269,32 @@ class AuthController extends Controller
         }else{
             $edit->mobile  = $edit->mobile;
         }
-        if(isset($request->detail)){
-            $edit->detail  = $request->detail;
+        if(isset($request->dateOfBirth)){
+            $edit->dateOfBirth  = $request->dateOfBirth;
         }else{
-            $edit->detail  = $edit->detail;
+            $edit->dateOfBirth  = $edit->dateOfBirth;
         }
+        if(isset($request->height)){
+            $edit->height  = $request->height;
+        }else{
+            $edit->height  = $edit->height;
+        }
+        if(isset($request->weight)){
+            $edit->weight  = $request->weight;
+        }else{
+            $edit->weight  = $edit->weight;
+        }
+        if(isset($request->bloode_group)){
+            $edit->bloode_group  = $request->bloode_group;
+        }else{
+            $edit->bloode_group  = $edit->bloode_group;
+        }
+        if(isset($request->marital_status)){
+            $edit->marital_status  = $request->marital_status;
+        }else{
+            $edit->marital_status  = $edit->marital_status;
+        }
+        
        
 
 
