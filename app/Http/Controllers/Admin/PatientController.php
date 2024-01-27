@@ -26,7 +26,7 @@ class PatientController extends Controller
     // }
     public function index()
     {
-        $patients=User::all();
+        $patients=User::where('type','patient')->get();
         return view('admin.patients.all',compact('patients'));
     }
 

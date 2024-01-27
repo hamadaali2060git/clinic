@@ -86,11 +86,11 @@
 														
 															@if($_item->photo !=null)
         														 <a href="{{url('patient-profile/'.$_item->id) }}"> 
-        												            <img class="avatar-img rounded-circle" src="{{asset('assets_admin/img/patients/'.$_item->photo) }}" alt="User Image" width="60px" height="60px">
+        												            <img class="avatar-img rounded-circle" src="{{asset('img/profiles/'.$_item->photo) }}" alt="User Image" width="60px" height="60px">
         												        </a>
         												    @else
         												         <a href="{{url('patient-profile/'.$_item->id) }}">
-        												             <img class="avatar-img rounded-circle" src="{{asset('assets_admin/img/profile_image.png') }}" alt="User Image" width="60px" height="60px">
+        												             <img class="avatar-img rounded-circle" src="{{asset('img/profile_image.png') }}" alt="User Image" width="60px" height="60px">
         												        </a>
         												    @endif
 														</td>

@@ -17,19 +17,19 @@
         @endcan
 
         <li class="nav-item {{ Request::is('admin/categories') ? 'active' : '' }}">
-            <a href="{{url('admin/categories')}}"><i class="la la-envelope"></i><span class="menu-title" data-i18n="">نوع العقار</span></a>
+            <a href="{{url('admin/categories')}}"><i class="la la-envelope"></i><span class="menu-title" data-i18n=""> التخصصات</span></a>
         </li>
 
 
-        <li class="nav-item {{ Request::is('admin/cities') ? 'active' : '' }}">
-            <a href="{{url('admin/cities')}}"><i class="la la-envelope"></i><span class="menu-title" data-i18n="">المدن</span></a>
+        <li class="nav-item {{ Request::is('admin/appointments') ? 'active' : '' }}">
+            <a href="{{url('admin/appointments')}}"><i class="la la-envelope"></i><span class="menu-title" data-i18n="">المواعيد</span></a>
         </li>
 
-        <li class="nav-item {{ Request::is('admin/states') ? 'active' : '' }}">
-            <a href="{{url('admin/states')}}"><i class="la la-envelope"></i><span class="menu-title" data-i18n="">المناطق</span></a>
+        <li class="nav-item {{ Request::is('admin/patients') ? 'active' : '' }}">
+            <a href="{{url('admin/patients')}}"><i class="la la-envelope"></i><span class="menu-title" data-i18n="">المرضى</span></a>
         </li>
         <li class="nav-item {{ Request::is('admin/products') ? 'active' : '' }}">
-            <a href="{{url('admin/products')}}"><i class="la la-envelope"></i><span class="menu-title" data-i18n="">العقار</span></a>
+            <a href="{{url('admin/products')}}"><i class="la la-envelope"></i><span class="menu-title" data-i18n="">الملفات</span></a>
         </li>
 
 
@@ -38,7 +38,7 @@
                 <a href="{{url('admin/profile')}}"><i class="la la-envelope"></i><span class="menu-title" data-i18n="">حسابي</span></a>
             </li>
 
-            <li class="nav-item {{ Request::is('admin/roles') ? 'active' : '' }}">
+            <!-- <li class="nav-item {{ Request::is('admin/roles') ? 'active' : '' }}">
                 <a href="{{url('admin/roles')}}">
                     <i class="la la-envelope"></i><span class="menu-title" data-i18n="">الصلاحيات</span></a>
             </li>
@@ -47,7 +47,7 @@
                 <a href="{{url('admin/users')}}">
                     <i class="la la-envelope"></i><span class="menu-title" data-i18n="">المستخدمين</span>
                 </a>
-            </li>
+            </li> -->
             <li class="nav-item {{ Request::is('admin/settings') ? 'active' : '' }}">
                 <a href="{{url('admin/settings')}}">
                     <i class="la la-envelope"></i><span class="menu-title" data-i18n="">الاعدادات</span>

@@ -302,30 +302,10 @@ class AuthController extends Controller
         // return $request->all();
         $user = User::selection()->find($edit->id);
         // $user->photo= request()->getHttpHost()."/img/profiles/students/".$user->photo;
-        $user->photo=$this->getFile('/img/profiles/students/',$user->photo,'/img/profiles/');
+        $user->photo=$this->getFile('/img/profiles/',$user->photo,'/img/profiles/');
         return $this -> returnDataa('data',$user,__('front.updated successfully'));
     }
-    public function contactInfo()
-    {
-         $contactinfo = ContactInfo::first();
-
-         $contactinfo->logo="https://deutschtests.com/img/settings/".$contactinfo->logo;
-         $contactinfo->favicon="https://deutschtests.com/img/settings/".$contactinfo->favicon;
-         $contactinfo->image="https://deutschtests.com/img/settings/".$contactinfo->image;
-
-         $contactinfo->a1="https://deutschtests.com/img/settings/".$contactinfo->a1;
-         $contactinfo->a2="https://deutschtests.com/img/settings/".$contactinfo->a2;
-         $contactinfo->b1="https://deutschtests.com/img/settings/".$contactinfo->b1;
-         $contactinfo->b2="https://deutschtests.com/img/settings/".$contactinfo->b2;
-         $contactinfo->c1="https://deutschtests.com/img/settings/".$contactinfo->c1;
-         $contactinfo->m1="https://deutschtests.com/img/settings/".$contactinfo->m1;
-
-
-
-         return $this -> returnDataa(
-             'data',$contactinfo,'erifhr'
-         );
-     }
+   
      public function checkUserAuth(Request $request)
      {
          $user = Auth::guard('user-api')->user();

@@ -9,12 +9,11 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin','prefix' => 'admin'
    Route::resource('roles','RoleController');
    Route::resource('users','UserController');
    Route::resource('categories','CategoryController');     
-   Route::resource('products','ProductController');
    Route::resource('dashboard','DashBoardController');
    Route::resource('countries','CountryController');
    Route::resource('cities','CityController');
-   Route::resource('states','StateController');
    Route::resource('doctors','DoctorController');
+   Route::resource('appointments','AppointmentController');
    Route::resource('patients','PatientController');
    Route::get('patients/update/status', 'PatientController@updateStatus')->name('patients.update.status');
 

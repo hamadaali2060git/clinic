@@ -3,13 +3,13 @@
 
 <div class="content-header row">
 	<div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
-		<h3 class="content-header-title mb-0 d-inline-block">نوع العقار</h3><br>
+		<h3 class="content-header-title mb-0 d-inline-block"> التخصصات</h3><br>
 		<div class="row breadcrumbs-top d-inline-block">
 			<div class="breadcrumb-wrapper col-12">
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">الرئيسية</a>
 					</li>
-					<li class="breadcrumb-item active">نوع العقار
+					<li class="breadcrumb-item active"> التخصصات
 					</li>
 				</ol>
 			</div>
@@ -65,9 +65,9 @@
 									<thead>
 										<tr>
 											<th>#</th>
-											<th class="text-center">نوع العاقر</th>
-											<!-- <th>التخصص انجليزي</th>
-											<th>الترتيب</th> -->
+											<th class="text-center">التخصص عربي </th>
+											<th>التخصص انجليزي</th>
+											
 											<th class="text-center">العمليات</th>
 										</tr>
 									</thead>
@@ -79,7 +79,10 @@
 												{{$_item->id}}
 											</td>
 											<td class="text-center">
-												{{$_item->name}}
+												{{$_item->title_ar}}
+											</td>
+											<td class="text-center">
+												{{$_item->title_en}}
 											</td>
 											<td class="text-center">
 												<div class="actions">
