@@ -117,21 +117,7 @@ class HomeController extends Controller
         $add->date  = $request->date;
         $add->time  = $request->time;
         $add->price  = $request->price;
-        // $add->type  = $request->type;
-
-
-        // $todayDate = date("Y-m-d");
-        //     $time = new DateTime();
-        //     $time->modify('+3 hours');
-        //     $add->date  = $todayDate;
-        //     $add->time  = $time->format("H:i");
-
         $add->save();
-       
-
-
-
-
         return $this -> returnSuccessMessage('تم الإضافة');
     }
     public function patientAppointments(Request $request)
@@ -160,18 +146,37 @@ class HomeController extends Controller
         );
         
     }
-     public function addRecord(Request $request)
+     public function addReview(Request $request)
     {
         $user = Auth::guard('user-api')->user();
         if(!$user)
             return $this->returnError('يجب تسجيل الدخول أولا');
-        $file_redocd = $this->upload($request, 'image', 'img/records');
+        
+        $add = new Review;
+        $add->user_id    = $user->id;
+        $add->appointment_id    = $request->appointment_id;
+        $add->rate   = $request->rate;
+        $add->comment   = $request->comment;
+        $add->date   = Carbon::now()->format('d-m-Y');
+        $add->time   = Carbon::now()->format('H:i:s');
+        $add->save();
+        return $this -> returnSuccessMessage('تم الإضافة');
+    }
+    public function addRecord(Request $request)
+    {
+        $user = Auth::guard('user-api')->user();
+        if(!$user)
+            return $this->returnError('يجب تسجيل الدخول أولا');
+        $file_redocd = $this->upload($request, 'file', 'img/records');
         $add = new Record;
         $add->user_id    = $user->id;
         $add->url    = $file_redocd;
         $add->name   = $request->name;
+        $add->date   = Carbon::now()->format('d-m-Y');
+        $add->time   = Carbon::now()->format('H:i:s');
+        $add->day   =Carbon::now()->format('l');
         $add->save();
-        return redirect()->back()->with("message",'تمت الإضافة بنجاح'); 
+        return $this -> returnSuccessMessage('تم الإضافة');
     }
     public function patientRecords(Request $request)
     {
@@ -185,6 +190,12 @@ class HomeController extends Controller
 ## end   
 
 ## start  doctor
+    public function patients(Request $request)
+    {
+        $user = User::where('type','patient')->get();
+        
+        return $this -> returnDataa('data',UserResource::collection($user),''); 
+    }
     public function patientProfile(Request $request)
     {
         $user = User::findOrFail($request->user_id);

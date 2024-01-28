@@ -43,15 +43,22 @@ Route::group(['middleware' => ['api','changeLanguage'], 'namespace' => 'Api'], f
     Route::get('patient-work-days', 'HomeController@patientWorkDays');
     Route::post('book-appointment', 'HomeController@bookAppointment');
     Route::get('patient-ppointments', 'HomeController@patientAppointments');
+    Route::post('add-review', 'HomeController@addReview');
+    
+    Route::post('add-record', 'HomeController@addRecord');
     Route::get('patient-records', 'HomeController@patientRecords');
+
 ## end
 
 ## start doctor
     Route::post('add-work-days', 'HomeController@addWorkDays');
+    
     Route::post('edit-work-days', 'HomeController@editWorkDays');
     Route::get('doctor-work-days', 'HomeController@doctorWorkDays');
     Route::get('doctor-appointments', 'HomeController@doctorAppointments');
     Route::get('doctor-records', 'HomeController@doctorRecords');
+    Route::get('patients', 'HomeController@patients');
+    
     Route::get('patient-profile', 'HomeController@patientProfile');
     
 
