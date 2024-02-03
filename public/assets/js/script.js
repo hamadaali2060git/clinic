@@ -1,7 +1,7 @@
 /*
 Author       : Dreamguys
 Template Name: Doccure - Bootstrap Template
-Version      : 1.3
+Version      : 1.0
 */
 
 (function($) {
@@ -18,8 +18,7 @@ Version      : 1.3
 		}
 	}
 	
-	// Sidebar
-	
+// Sidebar
 	if($(window).width() <= 991){
 	var Sidemenu = function() {
 		this.$menuItem = $('.main-nav a');
@@ -41,6 +40,7 @@ Version      : 1.3
 				$(this).next('ul').slideUp(350);
 			}
 		});
+		//$('.main-nav li.has-submenu a.active').parents('li:last').children('a:first').addClass('active').trigger('click');
 	}
 
 	// Sidebar Initiate
@@ -73,10 +73,21 @@ Version      : 1.3
 			icons: {
 				up: "fas fa-chevron-up",
 				down: "fas fa-chevron-down",
-				next: 'fas fa-chevron-left',
-				previous: 'fas fa-chevron-right'
+				next: 'fas fa-chevron-right',
+				previous: 'fas fa-chevron-left'
 			}
 		});
+	}
+	
+	// Fancybox Gallery
+	
+	if($('.clinic-gallery a').length > 0) {
+		$('.clinic-gallery a').fancybox({
+			buttons: [
+				"thumbs",
+				"close"
+			],
+		});	
 	}
 	
 	// Floating Label
@@ -108,6 +119,28 @@ Version      : 1.3
 		$('.sidebar-overlay').removeClass('opened');
 		$('main-wrapper').removeClass('slide-nav');
 	});
+	
+	// Mobile Menu
+	
+	/*if($(window).width() <= 991){
+		mobileSidebar();
+	} else {
+		$('html').removeClass('menu-opened');
+	}*/
+	
+	/*function mobileSidebar() {
+		$('.main-nav a').on('click', function(e) {
+			$('.dropdown-menu').each(function() {
+			  if($(this).hasClass('show')) {
+				  $(this).slideUp(350);
+			  }
+			});
+			if(!$(this).next('.dropdown-menu').hasClass('show')) {
+				$(this).next('.dropdown-menu').slideDown(350);
+			}
+			
+		});
+	}*/
 	
 	// Tooltip
 	
@@ -179,6 +212,11 @@ Version      : 1.3
 		if($('.content').length > 0 ){
 			resizeInnerDiv();
 		}
+		/*if($(window).width() <= 991){
+			mobileSidebar();
+		} else {
+			$('html').removeClass('menu-opened');
+		}*/
 	});
 	
 	// Slick Slider
@@ -189,7 +227,6 @@ Version      : 1.3
 			autoplay:false,
 			infinite: true,
 			variableWidth: true,
-			rtl: true,
 			prevArrow: false,
 			nextArrow: false
 		});
@@ -200,7 +237,6 @@ Version      : 1.3
 			dots: false,
 			autoplay:false,
 			infinite: true,
-			rtl: true,
 			variableWidth: true,
 		});
 	}
@@ -214,7 +250,6 @@ Version      : 1.3
 			variableWidth: true,
 			arrows: false,
 			autoplay:false,
-			rtl: true,
 			responsive: [{
 				  breakpoint: 992,
 				  settings: {
@@ -225,30 +260,21 @@ Version      : 1.3
 		});
 	}
 	
-	// Date Range Picker
-	if($('.bookingrange').length > 0) {
-		var start = moment().subtract(6, 'days');
-		var end = moment();
-
-		function booking_range(start, end) {
-			$('.bookingrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-		}
-
-		$('.bookingrange').daterangepicker({
-			startDate: start,
-			endDate: end,
-			ranges: {
-				'Today': [moment(), moment()],
-				'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-				'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-				'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-				'This Month': [moment().startOf('month'), moment().endOf('month')],
-				'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+	// Date Time Picker
+	
+	if($('.datepicker').length > 0) {
+		$('.datepicker').datetimepicker({
+			viewMode: 'years',
+			showTodayButton: true,
+			format: 'DD-MM-YYYY',
+			// minDate:new Date(),
+			widgetPositioning:{
+				horizontal: 'auto',	
+				vertical: 'bottom'
 			}
-		}, booking_range);
-
-		booking_range(start, end);
+		});
 	}
+	
 	// Chat
 
 	var chatAppTarget = $('.chat-window');
@@ -330,14 +356,5 @@ Version      : 1.3
 		animateElements();
 	}
 	$(window).scroll(animateElements);
-	
-	// Preloader
-	
-	$(window).on('load', function () {
-		if($('#loader').length > 0) {
-			$('#loader').delay(350).fadeOut('slow');
-			$('body').delay(350).css({ 'overflow': 'visible' });
-		}
-	})
 	
 })(jQuery);

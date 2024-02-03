@@ -1,283 +1,486 @@
-@extends('layout.admin_main')
+<?php $page="doctor-dashboard";?>
+@extends('layout.front.main')
 @section('content')
-
-<div class="content-header row">
-    <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
-        <h3 class="content-header-title mb-0 d-inline-block">نوع العقار</h3><br>
-        <div class="row breadcrumbs-top d-inline-block">
-            <div class="breadcrumb-wrapper col-12">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">الرئيسية</a>
-                    </li>
-                    <li class="breadcrumb-item active">نوع العقار
-                    </li>
-                </ol>
+	<!-- Breadcrumb -->
+    <div class="breadcrumb-bar">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-md-12 col-12">
+                    <nav aria-label="breadcrumb" class="page-breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                        </ol>
+                    </nav>
+                    <h2 class="breadcrumb-title">Dashboard</h2>
+                </div>
             </div>
         </div>
     </div>
-    <div class="content-header-right col-md-6 col-12">
-        <div class="dropdown float-md-right">
-            <a href="#Add_Specialities_details" data-toggle="modal" class="btn btn-primary float-right mt-2">اضافة </a>
-        </div>
-    </div>
+    <!-- /Breadcrumb -->
+    
+    <!-- Page Content -->
+    <div class="content">
+        <div class="container-fluid">
 
-    @if (session('message'))
-    <div class="alert alert-success">
-        {{ session('message') }}
-    </div>
-    @endif
-
-    @if (count($errors) > 0)
-    <div class="alert alert-danger">
-        <button aria-label="Close" class="close" data-dismiss="alert" type="button">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <strong>خطا</strong>
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
-</div>
-<section id="keytable">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title"></h4>
-                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-                    <div class="heading-elements">
-                        <ul class="list-inline mb-0">
-                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                            <li><a data-action="close"><i class="ft-x"></i></a></li>
-                        </ul>
-                    </div>
+            <div class="row">
+                <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+                    
+                    <!-- Profile Sidebar -->
+                        @include('layout.front.Sidebar')
+                    <!-- /Profile Sidebar -->
+                    
                 </div>
-                <div class="card-content collapse show">
-                    <div class="card-body card-dashboard">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered keytable-integration">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th class="text-center"> اسم المريض</th>
-                                            <th> التاريخ</th>
-                                            <th> الوقت</th>
-                                            <th>اليوم</th>
-                                            <th class="text-center">العمليات</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($appointments as $_item)
-                                        <tr>
-                                            <td class="text-center">
-                                                <!-- <img class="avatar-img" src="{{asset('assets_admin/img/categories/'.$_item->icon) }}" alt="Speciality" width="50" height="50"> -->
-                                                {{$_item->id}}
-                                            </td>
-                                            <td class="text-center">
-                                                {{$_item->user_appointment->first_name}}
-                                                {{$_item->user_appointment->last_name}}
-                                            </td>
-                                            <td class="text-center">
-                                                {{$_item->date}}
-                                            </td>
-                                            <td class="text-center">
-                                                {{$_item->time}}
-                                            </td>
-                                            <td class="text-center">
-                                                {{$_item->workdays->days->name}}
-                                            </td>
-                                            <td class="text-center">
-                                                <div class="actions">
-                                                    <a class="btn btn-sm bg-success-light" data-toggle="modal"
-                                                        data-name="{{$_item->name}}" data-catid="{{ $_item->id }}"
-                                                        data-target="#edit">
-                                                        <button type="button" class="btn btn-outline-success "><i
-                                                                class="la la-edit"></i></button>
-                                                    </a>
-                                                    <a data-toggle="modal" data-catid="{{ $_item->id }}"
-                                                        data-target="#delete" class="delete-course">
-                                                        <button type="button" class=" btn btn-outline-warning"><i
-                                                                class="la la-trash-o"></i></button>
-                                                    </a>
+                
+                <div class="col-md-7 col-lg-8 col-xl-9">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card dash-card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-4">
+                                            <div class="dash-widget dct-border-rht">
+                                                <div class="circle-bar circle-bar1">
+                                                    <div class="circle-graph1" data-percent="75">
+                                                        <img src="assets/img/icon-01.png" class="img-fluid" alt="patient">
+                                                    </div>
                                                 </div>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="modal fade" id="Add_Specialities_details" aria-hidden="true" role="dialog">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">اضافة </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{route('categories.store')}}" method="POST" name="le_form"
-                        enctype="multipart/form-data">
-                        @csrf
-                        <div class="row form-row">
-                            <div class="col-12 col-sm-12">
-                                <div class="form-group">
-                                    <label>نوع العقار</label>
-                                    <input type="text" name="name" class="form-control" value="{{old('name')}}">
+                                                <div class="dash-widget-info">
+                                                    <h6>Total Patient</h6>
+                                                    <h3>1500</h3>
+                                                    <p class="text-muted">Till Today</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-12 col-lg-4">
+                                            <div class="dash-widget dct-border-rht">
+                                                <div class="circle-bar circle-bar2">
+                                                    <div class="circle-graph2" data-percent="65">
+                                                        <img src="assets/img/icon-02.png" class="img-fluid" alt="Patient">
+                                                    </div>
+                                                </div>
+                                                <div class="dash-widget-info">
+                                                    <h6>Today Patient</h6>
+                                                    <h3>160</h3>
+                                                    <p class="text-muted">06, Nov 2019</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-12 col-lg-4">
+                                            <div class="dash-widget">
+                                                <div class="circle-bar circle-bar3">
+                                                    <div class="circle-graph3" data-percent="50">
+                                                        <img src="assets/img/icon-03.png" class="img-fluid" alt="Patient">
+                                                    </div>
+                                                </div>
+                                                <div class="dash-widget-info">
+                                                    <h6>Appoinments</h6>
+                                                    <h3>85</h3>
+                                                    <p class="text-muted">06, Apr 2019</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block">اضافة </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /ADD Modal -->
-
-    <!-- Edit Details Modal -->
-    <div class="modal fade" id="edit" aria-hidden="true" role="dialog">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">تعديل </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <form method="post" action="{{route('categories.update','test')}}" enctype="multipart/form-data">
-                        @csrf
-                        @method('put')
-
-                        <div class="row form-row">
-                            <input type="hidden" name="id" id="cat_id">
-                            <div class="col-12 col-sm-12">
-                                <div class="form-group">
-                                    <label>نوع العقار</label>
-                                    <input type="text" name="name" class="form-control" id="name">
-
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 class="mb-4">Patient Appoinment</h4>
+                            <div class="appointment-tab">
+                            
+                                <!-- Appointment Tab -->
+                                <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#upcoming-appointments" data-toggle="tab">Upcoming</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#today-appointments" data-toggle="tab">Today</a>
+                                    </li> 
+                                </ul>
+                                <!-- /Appointment Tab -->
+                                
+                                <div class="tab-content">
+                                
+                                    <!-- Upcoming Appointment Tab -->
+                                    <div class="tab-pane show active" id="upcoming-appointments">
+                                        <div class="card card-table mb-0">
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover table-center mb-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Patient Name</th>
+                                                                <th>Appt Date</th>
+                                                                <th>Purpose</th>
+                                                                <th>Type</th>
+                                                                <th class="text-center">Paid Amount</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <h2 class="table-avatar">
+                                                                        <a href="patient-profile" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient.jpg" alt="User Image"></a>
+                                                                        <a href="patient-profile">Richard Wilson <span>#PT0016</span></a>
+                                                                    </h2>
+                                                                </td>
+                                                                <td>11 Nov 2019 <span class="d-block text-info">10.00 AM</span></td>
+                                                                <td>General</td>
+                                                                <td>New Patient</td>
+                                                                <td class="text-center">$150</td>
+                                                                <td class="text-right">
+                                                                    <div class="table-action">
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                                            <i class="far fa-eye"></i> View
+                                                                        </a>
+                                                                        
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+                                                                            <i class="fas fa-check"></i> Accept
+                                                                        </a>
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
+                                                                            <i class="fas fa-times"></i> Cancel
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <h2 class="table-avatar">
+                                                                        <a href="patient-profile" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient1.jpg" alt="User Image"></a>
+                                                                        <a href="patient-profile">Charlene Reed <span>#PT0001</span></a>
+                                                                    </h2>
+                                                                </td>
+                                                                <td>3 Nov 2019 <span class="d-block text-info">11.00 AM</span></td>
+                                                                <td>General</td>
+                                                                <td>Old Patient</td>
+                                                                <td class="text-center">$200</td>
+                                                                <td class="text-right">
+                                                                    <div class="table-action">
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                                            <i class="far fa-eye"></i> View
+                                                                        </a>
+                                                                        
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+                                                                            <i class="fas fa-check"></i> Accept
+                                                                        </a>
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
+                                                                            <i class="fas fa-times"></i> Cancel
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <h2 class="table-avatar">
+                                                                        <a href="patient-profile" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient2.jpg" alt="User Image"></a>
+                                                                        <a href="patient-profile">Travis Trimble  <span>#PT0002</span></a>
+                                                                    </h2>
+                                                                </td>
+                                                                <td>1 Nov 2019 <span class="d-block text-info">1.00 PM</span></td>
+                                                                <td>General</td>
+                                                                <td>New Patient</td>
+                                                                <td class="text-center">$75</td>
+                                                                <td class="text-right">
+                                                                    <div class="table-action">
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                                            <i class="far fa-eye"></i> View
+                                                                        </a>
+                                                                        
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+                                                                            <i class="fas fa-check"></i> Accept
+                                                                        </a>
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
+                                                                            <i class="fas fa-times"></i> Cancel
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <h2 class="table-avatar">
+                                                                        <a href="patient-profile" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient3.jpg" alt="User Image"></a>
+                                                                        <a href="patient-profile">Carl Kelly <span>#PT0003</span></a>
+                                                                    </h2>
+                                                                </td>
+                                                                <td>30 Oct 2019 <span class="d-block text-info">9.00 AM</span></td>
+                                                                <td>General</td>
+                                                                <td>Old Patient</td>
+                                                                <td class="text-center">$100</td>
+                                                                <td class="text-right">
+                                                                    <div class="table-action">
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                                            <i class="far fa-eye"></i> View
+                                                                        </a>
+                                                                        
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+                                                                            <i class="fas fa-check"></i> Accept
+                                                                        </a>
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
+                                                                            <i class="fas fa-times"></i> Cancel
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <h2 class="table-avatar">
+                                                                        <a href="patient-profile" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient4.jpg" alt="User Image"></a>
+                                                                        <a href="patient-profile">Michelle Fairfax <span>#PT0004</span></a>
+                                                                    </h2>
+                                                                </td>
+                                                                <td>28 Oct 2019 <span class="d-block text-info">6.00 PM</span></td>
+                                                                <td>General</td>
+                                                                <td>New Patient</td>
+                                                                <td class="text-center">$350</td>
+                                                                <td class="text-right">
+                                                                    <div class="table-action">
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                                            <i class="far fa-eye"></i> View
+                                                                        </a>
+                                                                        
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+                                                                            <i class="fas fa-check"></i> Accept
+                                                                        </a>
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
+                                                                            <i class="fas fa-times"></i> Cancel
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <h2 class="table-avatar">
+                                                                        <a href="patient-profile" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient5.jpg" alt="User Image"></a>
+                                                                        <a href="patient-profile">Gina Moore <span>#PT0005</span></a>
+                                                                    </h2>
+                                                                </td>
+                                                                <td>27 Oct 2019 <span class="d-block text-info">8.00 AM</span></td>
+                                                                <td>General</td>
+                                                                <td>Old Patient</td>
+                                                                <td class="text-center">$250</td>
+                                                                <td class="text-right">
+                                                                    <div class="table-action">
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                                            <i class="far fa-eye"></i> View
+                                                                        </a>
+                                                                        
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+                                                                            <i class="fas fa-check"></i> Accept
+                                                                        </a>
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
+                                                                            <i class="fas fa-times"></i> Cancel
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>		
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /Upcoming Appointment Tab -->
+                               
+                                    <!-- Today Appointment Tab -->
+                                    <div class="tab-pane" id="today-appointments">
+                                        <div class="card card-table mb-0">
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover table-center mb-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Patient Name</th>
+                                                                <th>Appt Date</th>
+                                                                <th>Purpose</th>
+                                                                <th>Type</th>
+                                                                <th class="text-center">Paid Amount</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <h2 class="table-avatar">
+                                                                        <a href="patient-profile" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient6.jpg" alt="User Image"></a>
+                                                                        <a href="patient-profile">Elsie Gilley <span>#PT0006</span></a>
+                                                                    </h2>
+                                                                </td>
+                                                                <td>14 Nov 2019 <span class="d-block text-info">6.00 PM</span></td>
+                                                                <td>Fever</td>
+                                                                <td>Old Patient</td>
+                                                                <td class="text-center">$300</td>
+                                                                <td class="text-right">
+                                                                    <div class="table-action">
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                                            <i class="far fa-eye"></i> View
+                                                                        </a>
+                                                                        
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+                                                                            <i class="fas fa-check"></i> Accept
+                                                                        </a>
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
+                                                                            <i class="fas fa-times"></i> Cancel
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <h2 class="table-avatar">
+                                                                        <a href="patient-profile" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient7.jpg" alt="User Image"></a>
+                                                                        <a href="patient-profile">Joan Gardner <span>#PT0006</span></a>
+                                                                    </h2>
+                                                                </td>
+                                                                <td>14 Nov 2019 <span class="d-block text-info">5.00 PM</span></td>
+                                                                <td>General</td>
+                                                                <td>Old Patient</td>
+                                                                <td class="text-center">$100</td>
+                                                                <td class="text-right">
+                                                                    <div class="table-action">
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                                            <i class="far fa-eye"></i> View
+                                                                        </a>
+                                                                        
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+                                                                            <i class="fas fa-check"></i> Accept
+                                                                        </a>
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
+                                                                            <i class="fas fa-times"></i> Cancel
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <h2 class="table-avatar">
+                                                                        <a href="patient-profile" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient8.jpg" alt="User Image"></a>
+                                                                        <a href="patient-profile">Daniel Griffing <span>#PT0007</span></a>
+                                                                    </h2>
+                                                                </td>
+                                                                <td>14 Nov 2019 <span class="d-block text-info">3.00 PM</span></td>
+                                                                <td>General</td>
+                                                                <td>New Patient</td>
+                                                                <td class="text-center">$75</td>
+                                                                <td class="text-right">
+                                                                    <div class="table-action">
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                                            <i class="far fa-eye"></i> View
+                                                                        </a>
+                                                                        
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+                                                                            <i class="fas fa-check"></i> Accept
+                                                                        </a>
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
+                                                                            <i class="fas fa-times"></i> Cancel
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <h2 class="table-avatar">
+                                                                        <a href="patient-profile" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient9.jpg" alt="User Image"></a>
+                                                                        <a href="patient-profile">Walter Roberson <span>#PT0008</span></a>
+                                                                    </h2>
+                                                                </td>
+                                                                <td>14 Nov 2019 <span class="d-block text-info">1.00 PM</span></td>
+                                                                <td>General</td>
+                                                                <td>Old Patient</td>
+                                                                <td class="text-center">$350</td>
+                                                                <td class="text-right">
+                                                                    <div class="table-action">
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                                            <i class="far fa-eye"></i> View
+                                                                        </a>
+                                                                        
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+                                                                            <i class="fas fa-check"></i> Accept
+                                                                        </a>
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
+                                                                            <i class="fas fa-times"></i> Cancel
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <h2 class="table-avatar">
+                                                                        <a href="patient-profile" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient10.jpg" alt="User Image"></a>
+                                                                        <a href="patient-profile">Robert Rhodes <span>#PT0010</span></a>
+                                                                    </h2>
+                                                                </td>
+                                                                <td>14 Nov 2019 <span class="d-block text-info">10.00 AM</span></td>
+                                                                <td>General</td>
+                                                                <td>New Patient</td>
+                                                                <td class="text-center">$175</td>
+                                                                <td class="text-right">
+                                                                    <div class="table-action">
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                                            <i class="far fa-eye"></i> View
+                                                                        </a>
+                                                                        
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+                                                                            <i class="fas fa-check"></i> Accept
+                                                                        </a>
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
+                                                                            <i class="fas fa-times"></i> Cancel
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <h2 class="table-avatar">
+                                                                        <a href="patient-profile" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/patients/patient11.jpg" alt="User Image"></a>
+                                                                        <a href="patient-profile">Harry Williams <span>#PT0011</span></a>
+                                                                    </h2>
+                                                                </td>
+                                                                <td>14 Nov 2019 <span class="d-block text-info">11.00 AM</span></td>
+                                                                <td>General</td>
+                                                                <td>New Patient</td>
+                                                                <td class="text-center">$450</td>
+                                                                <td class="text-right">
+                                                                    <div class="table-action">
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                                            <i class="far fa-eye"></i> View
+                                                                        </a>
+                                                                        
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+                                                                            <i class="fas fa-check"></i> Accept
+                                                                        </a>
+                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
+                                                                            <i class="fas fa-times"></i> Cancel
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>		
+                                                </div>	
+                                            </div>	
+                                        </div>	
+                                    </div>
+                                    <!-- /Today Appointment Tab -->
+                                    
                                 </div>
-                            </div>
-                            <!-- <div class="col-12 col-sm-6">
-							<div class="form-group">
-								<label>التخصص انجليزي</label>
-								<input type="text" name="name_en" class="form-control" id="nameen" >
-							</div>
-						</div>
-						<div class="col-12 col-sm-6">
-							<div class="form-group">
-								<label>الترتيب</label>
-								<input type="text" name="num" class="form-control" id="num" >
-							</div>
-						</div> -->
-                            <!--<div class="col-12 col-sm-6">-->
-                            <!--	<div class="form-group">-->
-                            <!--		<label>الايكون</label>-->
-                            <!--		<input type="file" name="icon"  class="form-control" accept=".JPEG,.JPG,.PNG,.GIF,.TIF,.TIFF">-->
-                            <!--		<input type="hidden" name="url"  class="form-control" id="icon">-->
-                            <!--	</div>-->
-                            <!--</div>-->
-
-                            <!--<div class="col-12 col-sm-6 text-center" style="margin-top: 30px">-->
-                            <!--	<div class="form-check">-->
-                            <!--		<input class="form-check-input" name="top" type="checkbox" value="0" id="top">-->
-                            <!--		<label class="form-check-label" for="invalidCheck">الظهور في الرئيسية</label>	-->
-                            <!--	</div>-->
-                            <!--</div>-->
-
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">حفظ التغيير</button>
-                    </form>
-
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Edit Details Modal -->
-
-    <!-- Delete Modal -->
-    <div class="modal fade" id="delete" aria-hidden="true" role="dialog">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="form-content p-2">
-                        <h4 class="modal-title">حذف</h4>
-                        <p class="mb-4">هل انت متأكد من حذف هذا العنصر ؟</p>
-                        <div class="row text-center">
-                            <div class="col-sm-3">
-                            </div>
-                            <div class="col-sm-2">
-                                <form method="post" action="{{route('categories.destroy','test')}}">
-                                    @csrf
-                                    @method('delete')
-                                    <input type="hidden" name="id" id="cat_id">
-                                    <button type="submit" class="btn btn-primary">حذف </button>
-                                </form>
-                            </div>
-                            <div class="col-sm-2">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
+
         </div>
-    </div>
-</section>
 
-
-
-<script src="{{asset('js/app.js')}}"></script>
-
-<script>
-    $('#edit').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget)
-        var name = button.data('name')
-        // var name_en = button.data('name_en')
-        // var num = button.data('num')
-        // var icon = button.data('icon')
-        // var top = button.data('top')
-        var cat_id = button.data('catid')
-        var modal = $(this)
-
-        modal.find('.modal-body #name').val(name);
-        // modal.find('.modal-body #nameen').val(name_en);
-        // modal.find('.modal-body #num').val(num);
-        // modal.find('.modal-body #icon').val(icon);
-        modal.find('.modal-body #cat_id').val(cat_id);
-    })
-
-
-    $('#delete').on('show.bs.modal', function (event) {
-
-        var button = $(event.relatedTarget)
-
-        var cat_id = button.data('catid')
-        var modal = $(this)
-
-        modal.find('.modal-body #cat_id').val(cat_id);
-    })
-
-
-</script>
-
+    </div>		
+    <!-- /Page Content -->
+</div>
 @endsection
+

@@ -1,0 +1,99 @@
+<!-- Profile Sidebar -->
+
+                    <div class="profile-sidebar">
+                        <div class="widget-profile pro-widget-content">
+                            <div class="profile-info-widget">
+                                <a href="#" class="booking-doc-img">
+                                    <img src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+                                </a>
+                                <div class="profile-det-info">
+                                    <h3>Dr. Darren Elder</h3>
+                                    
+                                    <div class="patient-details">
+                                        <h5 class="mb-0">BDS, MDS - Oral & Maxillofacial Surgery</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dashboard-widget">
+                            <nav class="dashboard-menu">
+                                <ul>
+                                    <li class="{{ Request::is('categories') ? 'active' : '' }}">
+                                        <a href="categories">
+                                            <i class="fas fa-columns"></i>
+                                            <span>التخصص</span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ Request::is('appointments') ? 'active' : '' }}">
+                                        <a href="appointments">
+                                            <i class="fas fa-columns"></i>
+                                            <span>المواعيد الحالية</span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ Request::is('previous-appointments') ? 'active' : '' }}">
+                                        <a href="previous-appointments">
+                                            <i class="fas fa-calendar-check"></i>
+                                            <span>المواعيد السابقة</span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ Request::is('patients') ? 'active' : '' }}">
+                                        <a href="patients">
+                                            <i class="fas fa-user-injured"></i>
+                                            <span>المرضى</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="schedule-timings">
+                                            <i class="fas fa-hourglass-start"></i>
+                                            <span>Schedule Timings</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="invoices">
+                                            <i class="fas fa-file-invoice"></i>
+                                            <span>Invoices</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="reviews">
+                                            <i class="fas fa-star"></i>
+                                            <span>Reviews</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="chat-doctor">
+                                            <i class="fas fa-comments"></i>
+                                            <span>Message</span>
+                                            <small class="unread-msg">23</small>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="doctor-profile-settings">
+                                            <i class="fas fa-user-cog"></i>
+                                            <span>Profile Settings</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="social-media">
+                                            <i class="fas fa-share-alt"></i>
+                                            <span>Social Media</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="doctor-change-password">
+                                            <i class="fas fa-lock"></i>
+                                            <span>Change Password</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="index">
+                                            <i class="fas fa-sign-out-alt"></i>
+                                            <span>Logout</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <!-- /Profile Sidebar -->
+                    

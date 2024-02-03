@@ -6,6 +6,9 @@
 							<li class="menu-title"> 
 								<span>Main</span>
 							</li>
+							<li class="{{ Request::is('admin/categories') ? 'active' : '' }}"> 
+								<a href="categories"><i class="fe fe-layout"></i> <span>categories</span></a>
+							</li>
 							<li class="{{ Request::is('admin/index_admin') ? 'active' : '' }}"> 
 								<a href="index_admin"><i class="fe fe-home"></i> <span>Dashboard</span></a>
 							</li>

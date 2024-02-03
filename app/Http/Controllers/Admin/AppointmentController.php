@@ -31,7 +31,24 @@ class AppointmentController extends Controller
        
         return view('admin.appointments.all',compact('appointments'));
     }
-
+    public function previous()
+    {
+        $appointments = Appointment::with('categories')
+                            ->with('user_appointment')
+                            ->with('workdays')
+                            ->where("status" ,'pending')
+                            ->orderBy('id', 'DESC')->get();
+        // $previous_appointments = Appointment::with('categories')
+        //             ->with('user_appointment')
+        //             ->with('workdays')
+        //             ->where("status" ,'expired')
+        //             ->orderBy('id', 'DESC')->get();
+        
+        // dd($appointments);
+       
+        return view('admin.appointments.previous',compact('appointments'));
+    }
+    
     public function create()
     {
         return view('admin.cities.create');

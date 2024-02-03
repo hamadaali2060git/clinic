@@ -2,7 +2,8 @@
 		
 		<!-- Bootstrap Core JS -->
 		<script src="assets/js/popper.min.js"></script>
-		<script src="assets/plugins/bootstrap-rtl/js/bootstrap.min.js"></script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<!-- <script src="assets/plugins/bootstrap-rtl/js/bootstrap.min.js"></script> -->
 		<!-- Datetimepicker JS -->
 		<script src="assets/js/moment.min.js"></script>
 		<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
@@ -37,3 +38,6 @@
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6adZVdzTvBpE2yBRK8cDfsss8QXChK0I"></script>
 		<script src="assets/js/map.js"></script>
 		@endif
+
+
+

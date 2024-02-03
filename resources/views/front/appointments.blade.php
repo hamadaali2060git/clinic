@@ -1,5 +1,5 @@
 <?php $page="appointments";?>
-@extends('layout.mainlayout')
+@extends('layout.front.main')
 @section('content')
 <!-- Breadcrumb -->
 <div class="breadcrumb-bar">

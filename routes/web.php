@@ -37,12 +37,6 @@ Route::get('/activated', 'Auth\LoginController@Activated')->name('activated');
 
 
 
-
-
-
-
-
-
   // Route::get('/', function () {
 //         return view('index');
 //     })->name('page');
@@ -51,9 +45,7 @@ Route::get('/front-home', function () {
   return view('front.index');
 })->name('page');
 
-// Route::get('/index', function () {
-// return view('index');
-// })->name('page');
+
 
 Route::get('/doctor-dashboard', function () {
 return view('front.doctor-dashboard');

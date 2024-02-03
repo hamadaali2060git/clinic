@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 ####  admin #######################
 // Auth::routes();
  Route::get('admin-login', 'Auth\LoginController@LoginAdmin')->name('admin-login');
-Route::group(['middleware' => 'auth', 'namespace' => 'Admin','prefix' => 'admin'], function () {        
+Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function () {        
    Route::resource('roles','RoleController');
    Route::resource('users','UserController');
    Route::resource('categories','CategoryController');     
@@ -14,6 +14,8 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin','prefix' => 'admin'
    Route::resource('cities','CityController');
    Route::resource('doctors','DoctorController');
    Route::resource('appointments','AppointmentController');
+   
+   Route::get('previous-appointments','AppointmentController@previous')->name('previous-appointments');
    Route::resource('patients','PatientController');
    Route::get('patients/update/status', 'PatientController@updateStatus')->name('patients.update.status');
 
@@ -32,3 +34,5 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin','prefix' => 'admin'
     //      Route::post('user/changepassword', 'ProfileController@instructorChangePassword')->name('instructor.changepassword');    
    
 }); 
+
+
