@@ -44,6 +44,7 @@ Route::group(['middleware' => ['api','changeLanguage'], 'namespace' => 'Api'], f
     Route::post('book-appointment', 'HomeController@bookAppointment');
     Route::get('patient-ppointments', 'HomeController@patientAppointments');
     Route::post('add-review', 'HomeController@addReview');
+    Route::post('edit-review', 'HomeController@editReview');
     
     Route::post('add-record', 'HomeController@addRecord');
     Route::get('patient-records', 'HomeController@patientRecords');
@@ -58,6 +59,9 @@ Route::group(['middleware' => ['api','changeLanguage'], 'namespace' => 'Api'], f
     Route::get('doctor-appointments', 'HomeController@doctorAppointments');
     Route::get('doctor-records', 'HomeController@doctorRecords');
     Route::get('patients', 'HomeController@patients');
+    Route::post('add-diagnos', 'HomeController@addDiagnos');
+    Route::post('edit-diagnos', 'HomeController@editDiagnos');
+    
     
     Route::get('patient-profile', 'HomeController@patientProfile');
     
