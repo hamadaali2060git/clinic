@@ -324,7 +324,7 @@ class HomeController extends Controller
             return $this->returnError('يجب تسجيل الدخول أولا');
         
         $add = new Diagnos;
-        $add->user_id    = $user->user_id;
+        $add->user_id    = $request->user_id;
         $add->category_id    = $request->category_id;
         $add->medicine   = $request->medicine;
         $add->note   = $request->note;
