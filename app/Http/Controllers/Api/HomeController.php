@@ -168,7 +168,6 @@ class HomeController extends Controller
         if(!$user)
             return $this->returnError('يجب تسجيل الدخول أولا');
         $edit = Review::findOrFail($request->id);
-        $edit->appointment_id    = $request->appointment_id;
         $edit->rate   = $request->rate;
         $edit->comment   = $request->comment;
         $edit->date   = Carbon::now()->format('d-m-Y');
