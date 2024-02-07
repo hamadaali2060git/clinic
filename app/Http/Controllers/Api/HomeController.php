@@ -146,21 +146,35 @@ class HomeController extends Controller
         );
         
     }
-    public function addDiagnos(Request $request)
+     public function addReview(Request $request)
     {
         $user = Auth::guard('user-api')->user();
         if(!$user)
             return $this->returnError('يجب تسجيل الدخول أولا');
         
-        $add = new Diagnos;
-        $add->user_id    = $user->user_id;
-        $add->category_id    = $request->category_id;
-        $add->medicine   = $request->medicine;
-        $add->note   = $request->note;
+        $add = new Review;
+        $add->user_id    = $user->id;
+        $add->appointment_id    = $request->appointment_id;
+        $add->rate   = $request->rate;
+        $add->comment   = $request->comment;
         $add->date   = Carbon::now()->format('d-m-Y');
         $add->time   = Carbon::now()->format('H:i:s');
         $add->save();
         return $this -> returnSuccessMessage('تم الإضافة');
+    }
+    public function editReview(Request $request)
+    {
+        $user = Auth::guard('user-api')->user();
+        if(!$user)
+            return $this->returnError('يجب تسجيل الدخول أولا');
+        $edit = Review::findOrFail($request->id);
+        $edit->appointment_id    = $request->appointment_id;
+        $edit->rate   = $request->rate;
+        $edit->comment   = $request->comment;
+        $edit->date   = Carbon::now()->format('d-m-Y');
+        $edit->time   = Carbon::now()->format('H:i:s');
+        $edit->save();
+        return $this -> returnSuccessMessage('تم التعديل');
     }
     public function addRecord(Request $request)
     {
@@ -295,22 +309,7 @@ class HomeController extends Controller
         );
         
     }
-    public function addReview(Request $request)
-    {
-        $user = Auth::guard('user-api')->user();
-        if(!$user)
-            return $this->returnError('يجب تسجيل الدخول أولا');
-        
-        $add = new Review;
-        $add->user_id    = $user->id;
-        $add->appointment_id    = $request->appointment_id;
-        $add->rate   = $request->rate;
-        $add->comment   = $request->comment;
-        $add->date   = Carbon::now()->format('d-m-Y');
-        $add->time   = Carbon::now()->format('H:i:s');
-        $add->save();
-        return $this -> returnSuccessMessage('تم الإضافة');
-    }
+   
     
     public function doctorRecords(Request $request)
     {
@@ -318,7 +317,37 @@ class HomeController extends Controller
         return $this -> returnDataa('data',RecordResource::collection($records),''); 
     }
    
-   
+    public function addDiagnos(Request $request)
+    {
+        $user = Auth::guard('user-api')->user();
+        if(!$user)
+            return $this->returnError('يجب تسجيل الدخول أولا');
+        
+        $add = new Diagnos;
+        $add->user_id    = $user->user_id;
+        $add->category_id    = $request->category_id;
+        $add->medicine   = $request->medicine;
+        $add->note   = $request->note;
+        $add->date   = Carbon::now()->format('d-m-Y');
+        $add->time   = Carbon::now()->format('H:i:s');
+        $add->save();
+        return $this -> returnSuccessMessage('تم الإضافة');
+    }
+    public function editDiagnos(Request $request)
+    {
+        $user = Auth::guard('user-api')->user();
+        if(!$user)
+            return $this->returnError('يجب تسجيل الدخول أولا');
+        $edit = Diagnos::findOrFail($request->id);
+        $edit->category_id    = $request->category_id;
+        $edit->medicine   = $request->medicine;
+        $edit->note   = $request->note;
+        $edit->date   = Carbon::now()->format('d-m-Y');
+        $edit->time   = Carbon::now()->format('H:i:s');
+        $edit->save();
+        return $this -> returnSuccessMessage('تم التعديل');
+    }
+    
     
     public function settings(Request $request)
     {    
