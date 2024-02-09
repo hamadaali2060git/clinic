@@ -65,9 +65,9 @@ class HomeController extends Controller
     }
     public function categotries(Request $request)
     {    
-        $categotries = Category::selection()->orderBy('id', 'DESC')->paginate(1); 
+        $categotries = Category::selection()->paginate(1); 
         return $this -> returnDataa(
-            'data', CategoryResource::collection($categotries),''
+            'data', $categotries,''
         );
     }
     public function articles(Request $request)
