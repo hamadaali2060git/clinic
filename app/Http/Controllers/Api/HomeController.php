@@ -48,8 +48,8 @@ class HomeController extends Controller
 
     public function home(Request $request)
     {    
-        $categotries = Category::selection()->get();   
-        $articles = Article::selection()->get(); 
+        $categotries = Category::selection()->orderBy('order','ASC')->paginate(1);   
+        $articles = Article::selection()->orderBy('order','ASC')->paginate(1);; 
         $sliders = Slider::get(); 
         $data  =[  
             // 'upcoming_appointments'=>AppointmentResource::collection($upcoming_appointments),
@@ -65,14 +65,14 @@ class HomeController extends Controller
     }
     public function categotries(Request $request)
     {    
-        $categotries = Category::selection()->get(); 
+        $categotries = Category::selection()->orderBy('order','ASC')->paginate(1); 
         return $this -> returnDataa(
             'data', CategoryResource::collection($categotries),''
         );
     }
     public function articles(Request $request)
     {    
-        $articles = Article::selection()->get();   
+        $articles = Article::selection()->orderBy('order','ASC')->paginate(1);  
         return $this -> returnDataa(
             'data', ArticleResource::collection($articles),''
         );
@@ -129,12 +129,12 @@ class HomeController extends Controller
                             ->with('workdays')
                             ->where("status" ,'pending')
                             ->where("user_id" ,$user->id)
-                            ->orderBy('id', 'DESC')->get();
+                            ->orderBy('id', 'DESC')->orderBy('order','ASC')->paginate(1);;
         $previous_appointments = Appointment::with('user_appointment')
                     ->with('workdays')
                     ->where("status" ,'expired')
                     ->where("user_id" ,$user->id)
-                    ->orderBy('id', 'DESC')->get();
+                    ->orderBy('id', 'DESC')->orderBy('order','ASC')->paginate(1);
         
         
         $data  =[  
@@ -206,7 +206,7 @@ class HomeController extends Controller
         $user = Auth::guard('user-api')->user();
         if(!$user)
             return $this->returnError('يجب تسجيل الدخول أولا');
-        $records = Record::where("user_id" , $user->id)->get();  
+        $records = Record::where("user_id" , $user->id)->orderBy('order','ASC')->paginate(1);  
         return $this -> returnDataa('data',RecordResource::collection($records),''); 
     }
 
@@ -215,14 +215,14 @@ class HomeController extends Controller
 ## start  doctor
     public function patients(Request $request)
     {
-        $user = User::where('type','patient')->get();
+        $user = User::where('type','patient')->orderBy('order','ASC')->paginate(1);
         
         return $this -> returnDataa('data',UserResource::collection($user),''); 
     }
     public function patientProfile(Request $request)
     {
         $user = User::findOrFail($request->user_id);
-        $diagnosis = Diagnos::where('user_id',$request->user_id)->get();
+        $diagnosis = Diagnos::where('user_id',$request->user_id)->orderBy('order','ASC')->paginate(1);
         
         $data  =[  
             'user'=>new UserResource($user),
@@ -301,12 +301,12 @@ class HomeController extends Controller
                             ->with('user_appointment')
                             ->with('workdays')
                             ->where("status" ,'pending')
-                            ->orderBy('id', 'DESC')->get();
+                            ->orderBy('id', 'DESC')->paginate(1);
         $previous_appointments = Appointment::with('categories')
                     ->with('user_appointment')
                     ->with('workdays')
                     ->where("status" ,'expired')
-                    ->orderBy('id', 'DESC')->get();
+                    ->orderBy('id', 'DESC')->paginate(1);
         
         
         $data  =[  
@@ -322,7 +322,7 @@ class HomeController extends Controller
     
     public function doctorRecords(Request $request)
     {
-        $records = Record::where("user_id" , $request->user_id)->get();   
+        $records = Record::where("user_id" , $request->user_id)->orderBy('id', 'DESC')->paginate(1);  
         return $this -> returnDataa('data',RecordResource::collection($records),''); 
     }
    
