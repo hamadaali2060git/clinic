@@ -17,7 +17,7 @@ trait GeneralTrait
             // 'errNum' => $errNum,
             'msg' => $msg,
             // 'massage'=>$validator
-        ],200);
+        ],401);
     }
 
 
