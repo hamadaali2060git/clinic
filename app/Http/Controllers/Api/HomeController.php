@@ -176,6 +176,15 @@ class HomeController extends Controller
         $edit->save();
         return $this -> returnSuccessMessage('تم التعديل');
     }
+    public function removeReview(Request $request){
+        $user = Auth::guard('user-api')->user();
+        if(!$user)
+            return $this->returnError('يجب تسجيل الدخول أولا');
+        $review = Review::find($request->id);
+        $review->delete();     
+        return $this -> returnSuccessMessage('Deleted Successfully');
+        
+    }
     public function addRecord(Request $request)
     {
         $user = Auth::guard('user-api')->user();

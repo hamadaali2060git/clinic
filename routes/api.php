@@ -45,6 +45,7 @@ Route::group(['middleware' => ['api','changeLanguage'], 'namespace' => 'Api'], f
     Route::get('patient-ppointments', 'HomeController@patientAppointments');
     Route::post('add-review', 'HomeController@addReview');
     Route::post('edit-review', 'HomeController@editReview');
+    Route::post('remove-review', 'HomeController@removeReview');
     
     Route::post('add-record', 'HomeController@addRecord');
     Route::get('patient-records', 'HomeController@patientRecords');
