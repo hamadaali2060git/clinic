@@ -42,7 +42,8 @@ Route::group(['middleware' => ['api','changeLanguage'], 'namespace' => 'Api'], f
     Route::get('articles', 'HomeController@articles');
     Route::get('patient-work-days', 'HomeController@patientWorkDays');
     Route::post('book-appointment', 'HomeController@bookAppointment');
-    Route::get('patient-ppointments', 'HomeController@patientAppointments');
+    Route::get('patient-upcoming-ppointments', 'HomeController@patientUpcomingAppointments');
+    Route::get('patient-previous-ppointments', 'HomeController@patientPreviousAppointments');
     Route::post('add-review', 'HomeController@addReview');
     Route::post('edit-review', 'HomeController@editReview');
     Route::post('remove-review', 'HomeController@removeReview');
@@ -50,6 +51,7 @@ Route::group(['middleware' => ['api','changeLanguage'], 'namespace' => 'Api'], f
     Route::post('add-record', 'HomeController@addRecord');
     Route::get('patient-records', 'HomeController@patientRecords');
 
+    
 ## end
 
 ## start doctor
@@ -57,7 +59,8 @@ Route::group(['middleware' => ['api','changeLanguage'], 'namespace' => 'Api'], f
     
     Route::post('edit-work-days', 'HomeController@editWorkDays');
     Route::get('doctor-work-days', 'HomeController@doctorWorkDays');
-    Route::get('doctor-appointments', 'HomeController@doctorAppointments');
+    Route::get('doctor-upcoming-appointments', 'HomeController@doctorUpcomingAppointments');
+    Route::get('doctor-previous-appointments', 'HomeController@doctorPreviousAppointments');
     Route::get('doctor-records', 'HomeController@doctorRecords');
     Route::get('patients', 'HomeController@patients');
     Route::post('add-diagnos', 'HomeController@addDiagnos');

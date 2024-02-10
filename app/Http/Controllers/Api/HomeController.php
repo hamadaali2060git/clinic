@@ -46,10 +46,11 @@ class HomeController extends Controller
     use GeneralTrait;
     use ImageUploadTrait;
 
+    
     public function home(Request $request)
     {    
-        $categotries = Category::selection()->orderBy('id', 'DESC')->paginate(1);   
-        $articles = Article::selection()->orderBy('id', 'DESC')->paginate(1);; 
+        $categotries = Category::selection()->orderBy('id', 'DESC')->get();   
+        $articles = Article::selection()->orderBy('id', 'DESC')->get();; 
         $sliders = Slider::get(); 
         $data  =[  
             // 'upcoming_appointments'=>AppointmentResource::collection($upcoming_appointments),
@@ -65,14 +66,17 @@ class HomeController extends Controller
     }
     public function categotries(Request $request)
     {    
-        $categotries = Category::selection()->paginate(1); 
-        return $this -> returnDataa(
-            'data', CategoryResource::collection($categotries),''
-        );
+        $categotries = Category::selection()->paginate();
+        return CategoryResource::collection($categotries);
+        // return $this -> returnDataa(
+        //     'hamada', CategoryResource::collection($categotries),''
+        // );
     }
     public function articles(Request $request)
     {    
+        // dd('dd');
         $articles = Article::selection()->orderBy('id', 'DESC')->paginate(1);  
+        return ArticleResource::collection($articles);
         return $this -> returnDataa(
             'data', ArticleResource::collection($articles),''
         );
@@ -120,7 +124,7 @@ class HomeController extends Controller
         $add->save();
         return $this -> returnSuccessMessage('تم الإضافة');
     }
-    public function patientAppointments(Request $request)
+    public function patientUpcomingAppointments(Request $request)
     {    
         $user = Auth::guard('user-api')->user();
         if(!$user)
@@ -129,21 +133,40 @@ class HomeController extends Controller
                             ->with('workdays')
                             ->where("status" ,'pending')
                             ->where("user_id" ,$user->id)
-                            ->orderBy('id', 'DESC')->paginate(1);;
+                            ->orderBy('id', 'DESC')->paginate(1);
+        
+        
+        
+        return AppointmentResource::collection($upcoming_appointments);
+        // $data  =[  
+        //     'upcoming_appointments'=>AppointmentResource::collection($upcoming_appointments),
+        //     'previous_appointments'=>AppointmentResource::collection($previous_appointments),
+        // ];
+        // return $this -> returnDataa(
+        //     'data',$data,''
+        // );
+        
+    }
+    public function patientPreviousAppointments(Request $request)
+    {    
+        $user = Auth::guard('user-api')->user();
+        if(!$user)
+            return $this->returnError('يجب تسجيل الدخول أولا');
+       
         $previous_appointments = Appointment::with('user_appointment')
                     ->with('workdays')
                     ->where("status" ,'expired')
                     ->where("user_id" ,$user->id)
                     ->orderBy('id', 'DESC')->paginate(1);
         
-        
-        $data  =[  
-            'upcoming_appointments'=>AppointmentResource::collection($upcoming_appointments),
-            'previous_appointments'=>AppointmentResource::collection($previous_appointments),
-        ];
-        return $this -> returnDataa(
-            'data',$data,''
-        );
+        return AppointmentResource::collection($previous_appointments);
+        // $data  =[  
+        //     'upcoming_appointments'=>AppointmentResource::collection($upcoming_appointments),
+        //     'previous_appointments'=>AppointmentResource::collection($previous_appointments),
+        // ];
+        // return $this -> returnDataa(
+        //     'data',$data,''
+        // );
         
     }
      public function addReview(Request $request)
@@ -206,8 +229,9 @@ class HomeController extends Controller
         $user = Auth::guard('user-api')->user();
         if(!$user)
             return $this->returnError('يجب تسجيل الدخول أولا');
-        $records = Record::where("user_id" , $user->id)->orderBy('id', 'DESC')->paginate(1);  
-        return $this -> returnDataa('data',RecordResource::collection($records),''); 
+        $records = Record::where("user_id" , $user->id)->orderBy('id', 'DESC')->paginate(1); 
+        return RecordResource::collection($records);
+        // return $this -> returnDataa('data',RecordResource::collection($records),''); 
     }
 
 ## end   
@@ -216,20 +240,18 @@ class HomeController extends Controller
     public function patients(Request $request)
     {
         $user = User::where('type','patient')->orderBy('id', 'DESC')->paginate(1);
-        
-        return $this -> returnDataa('data',UserResource::collection($user),''); 
+        return UserResource::collection($user);
+        // return $this -> returnDataa('data',UserResource::collection($user),''); 
     }
     public function patientProfile(Request $request)
     {
         $user = User::findOrFail($request->user_id);
-        $diagnosis = Diagnos::where('user_id',$request->user_id)->orderBy('id', 'DESC')->paginate(1);
+        $diagnosis = Diagnos::where('user_id',$request->user_id)->orderBy('id', 'DESC')->get();
         
         $data  =[  
             'user'=>new UserResource($user),
             'diagnosis'=>$diagnosis
             // 'count_reviews'=>$reviews,
-           
-
         ]; 
         return $this -> returnDataa('data',$data,''); 
     }
@@ -295,35 +317,50 @@ class HomeController extends Controller
         ); 
     }
     
-    public function doctorAppointments(Request $request)
+    public function doctorUpcomingAppointments(Request $request)
     {    
         $upcoming_appointments = Appointment::with('categories')
                             ->with('user_appointment')
                             ->with('workdays')
                             ->where("status" ,'pending')
                             ->orderBy('id', 'DESC')->paginate(1);
+       
+        return AppointmentResource::collection($upcoming_appointments);
+        // $data  =[  
+        //     'upcoming_appointments'=>AppointmentResource::collection($upcoming_appointments),
+        //     'previous_appointments'=>AppointmentResource::collection($previous_appointments),
+        // ];
+        // return $this -> returnDataa(
+        //     'data',$data,''
+        // );
+        
+    }
+    public function doctorPreviousAppointments(Request $request)
+    {    
+       
         $previous_appointments = Appointment::with('categories')
                     ->with('user_appointment')
                     ->with('workdays')
                     ->where("status" ,'expired')
                     ->orderBy('id', 'DESC')->paginate(1);
         
-        
-        $data  =[  
-            'upcoming_appointments'=>AppointmentResource::collection($upcoming_appointments),
-            'previous_appointments'=>AppointmentResource::collection($previous_appointments),
-        ];
-        return $this -> returnDataa(
-            'data',$data,''
-        );
+        return AppointmentResource::collection($previous_appointments);
+        // $data  =[  
+        //     'upcoming_appointments'=>AppointmentResource::collection($upcoming_appointments),
+        //     'previous_appointments'=>AppointmentResource::collection($previous_appointments),
+        // ];
+        // return $this -> returnDataa(
+        //     'data',$data,''
+        // );
         
     }
    
     
     public function doctorRecords(Request $request)
     {
-        $records = Record::where("user_id" , $request->user_id)->orderBy('id', 'DESC')->paginate(1);  
-        return $this -> returnDataa('data',RecordResource::collection($records),''); 
+        $records = Record::where("user_id" , $request->user_id)->orderBy('id', 'DESC')->paginate(1);
+        return RecordResource::collection($records);
+        // return $this -> returnDataa('data',RecordResource::collection($records),''); 
     }
    
     public function addDiagnos(Request $request)

@@ -41,12 +41,12 @@ trait GeneralTrait
     }
      public function returnDataa($key, $value, $msg)
     {
-        return response()->json([
+        return [
             'status' => true,
             // 'errNum' => "200",
             'msg' => $msg,
             $key => $value
-        ],200);
+        ];
     }
 
 
