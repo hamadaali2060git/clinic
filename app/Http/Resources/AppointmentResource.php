@@ -15,18 +15,29 @@ class AppointmentResource extends JsonResource
     public function toArray($request)
     {
         // return parent::toArray($request);
-        return [
-            'id'=>$this->id,
-            'price'=>$this->price,
-            'date'=>$this->date,
-            'time'=>$this->time,
-            'status'=>$this->status,
-            'categories'=>$this->categories,
-            'patient'=>$this->user_appointment,
-            'workdays'=>$this->workdays,
-            'workdays'=>$this->workdays,
-            // 'photo'=>$this->getFile('/img/profiles/instructor/', $this->photo,'/img/profiles/')
-           
-        ];
+        if($this->reviews){
+            return [
+                'id'=>$this->id,
+                'price'=>$this->price,
+                'date'=>$this->date,
+                'time'=>$this->time,
+                'status'=>$this->status,
+                'categories'=>$this->categories,
+                'patient'=>$this->user_appointment,
+                'workdays'=>$this->workdays,
+                'reviews'=>$this->reviews,
+            ];
+        }else{
+            return [
+                'id'=>$this->id,
+                'price'=>$this->price,
+                'date'=>$this->date,
+                'time'=>$this->time,
+                'status'=>$this->status,
+                'categories'=>$this->categories,
+                'patient'=>$this->user_appointment,
+                'workdays'=>$this->workdays,
+            ];
+        }
     }
 }

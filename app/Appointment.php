@@ -18,4 +18,9 @@ class Appointment extends Model
         return $this->belongsTo(WorkDay::class,"work_day_id","id")->with('days')->with('worktimes')->selection();
   
     }
+    public function reviews()
+    {
+      return $this->hasMany(Review::class,'appointment_id','id')->selection();
+    }
+    
 }

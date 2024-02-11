@@ -155,6 +155,7 @@ class HomeController extends Controller
        
         $previous_appointments = Appointment::with('user_appointment')
                     ->with('workdays')
+                    ->with('reviews')
                     ->where("status" ,'expired')
                     ->where("user_id" ,$user->id)
                     ->orderBy('id', 'DESC')->paginate(1);
@@ -340,6 +341,7 @@ class HomeController extends Controller
        
         $previous_appointments = Appointment::with('categories')
                     ->with('user_appointment')
+                    ->with('reviews')
                     ->with('workdays')
                     ->where("status" ,'expired')
                     ->orderBy('id', 'DESC')->paginate(1);
