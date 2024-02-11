@@ -12,7 +12,8 @@ class Article extends Model
         	'id',
         	'title_' . app()->getLocale() . ' as title',
             'description_' . app()->getLocale() . ' as description',
-            'image'
+            'image',
+            'date'
         );
     }
 }

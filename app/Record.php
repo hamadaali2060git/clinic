@@ -11,7 +11,10 @@ class Record extends Model
         return $query->select(
         	'id',
             'name',
-            'url'
+            'url',
+            'date',
+            'time',
+            'day'
         );
     }
 }

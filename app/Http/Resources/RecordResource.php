@@ -19,7 +19,10 @@ class RecordResource extends JsonResource
             'id'=>$this->id,
             'name'=>$this->name,
             'url'=>url('/img/records/' . $this->url),
-            
+            'size'=>'12 MB',
+            'date'=>$this->date,
+            'time'=>$this->time,
+            'day'=>$this->day,
         ];
     }
 }

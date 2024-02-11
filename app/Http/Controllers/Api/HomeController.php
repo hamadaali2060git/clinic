@@ -66,7 +66,7 @@ class HomeController extends Controller
     }
     public function categotries(Request $request)
     {    
-        $categotries = Category::selection()->paginate();
+        $categotries = Category::selection()->paginate(10);
         return CategoryResource::collection($categotries);
         // return $this -> returnDataa(
         //     'hamada', CategoryResource::collection($categotries),''
@@ -74,12 +74,11 @@ class HomeController extends Controller
     }
     public function articles(Request $request)
     {    
-        // dd('dd');
-        $articles = Article::selection()->orderBy('id', 'DESC')->paginate(1);  
+        $articles = Article::selection()->orderBy('id', 'DESC')->paginate(10);  
         return ArticleResource::collection($articles);
-        return $this -> returnDataa(
-            'data', ArticleResource::collection($articles),''
-        );
+        // return $this -> returnDataa(
+        //     'data', ArticleResource::collection($articles),''
+        // );
     }
     public function patientWorkDays(Request $request)
     {   
@@ -133,7 +132,7 @@ class HomeController extends Controller
                             ->with('workdays')
                             ->where("status" ,'pending')
                             ->where("user_id" ,$user->id)
-                            ->orderBy('id', 'DESC')->paginate(1);
+                            ->orderBy('id', 'DESC')->paginate(10);
         
         
         
@@ -158,7 +157,7 @@ class HomeController extends Controller
                     ->with('reviews')
                     ->where("status" ,'expired')
                     ->where("user_id" ,$user->id)
-                    ->orderBy('id', 'DESC')->paginate(1);
+                    ->orderBy('id', 'DESC')->paginate(10);
         
         return AppointmentResource::collection($previous_appointments);
         // $data  =[  
@@ -230,7 +229,7 @@ class HomeController extends Controller
         $user = Auth::guard('user-api')->user();
         if(!$user)
             return $this->returnError('يجب تسجيل الدخول أولا');
-        $records = Record::where("user_id" , $user->id)->orderBy('id', 'DESC')->paginate(1); 
+        $records = Record::where("user_id" , $user->id)->orderBy('id', 'DESC')->paginate(10); 
         return RecordResource::collection($records);
         // return $this -> returnDataa('data',RecordResource::collection($records),''); 
     }
@@ -324,7 +323,7 @@ class HomeController extends Controller
                             ->with('user_appointment')
                             ->with('workdays')
                             ->where("status" ,'pending')
-                            ->orderBy('id', 'DESC')->paginate(1);
+                            ->orderBy('id', 'DESC')->paginate(10);
        
         return AppointmentResource::collection($upcoming_appointments);
         // $data  =[  
@@ -344,7 +343,7 @@ class HomeController extends Controller
                     ->with('reviews')
                     ->with('workdays')
                     ->where("status" ,'expired')
-                    ->orderBy('id', 'DESC')->paginate(1);
+                    ->orderBy('id', 'DESC')->paginate(10);
         
         return AppointmentResource::collection($previous_appointments);
         // $data  =[  
@@ -360,7 +359,7 @@ class HomeController extends Controller
     
     public function doctorRecords(Request $request)
     {
-        $records = Record::where("user_id" , $request->user_id)->orderBy('id', 'DESC')->paginate(1);
+        $records = Record::where("user_id" , $request->user_id)->orderBy('id', 'DESC')->paginate(10);
         return RecordResource::collection($records);
         // return $this -> returnDataa('data',RecordResource::collection($records),''); 
     }
