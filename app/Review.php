@@ -15,5 +15,6 @@ class Review extends Model
             'date',
             'time'
         );
+        
     }
 }

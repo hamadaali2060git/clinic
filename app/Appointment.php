@@ -12,15 +12,15 @@ class Appointment extends Model
     }
     public function user_appointment() {
       return $this->belongsTo(User::class,"user_id","id")->selection();
-
     }
+    
     public function workdays() {
         return $this->belongsTo(WorkDay::class,"work_day_id","id")->with('days')->with('worktimes')->selection();
   
     }
     public function reviews()
     {
-      return $this->hasMany(Review::class,'appointment_id','id')->selection();
+      return $this->hasOne(Review::class,'appointment_id','id');
     }
     
 }

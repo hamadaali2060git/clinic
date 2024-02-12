@@ -151,7 +151,7 @@ class HomeController extends Controller
         $user = Auth::guard('user-api')->user();
         if(!$user)
             return $this->returnError('يجب تسجيل الدخول أولا');
-       
+        
         $previous_appointments = Appointment::with('user_appointment')
                     ->with('workdays')
                     ->with('reviews')
