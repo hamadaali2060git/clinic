@@ -113,6 +113,11 @@ class HomeController extends Controller
         if($check_appointment){
             return $this->returnError('تم حجز الموعد مسبقا');
         }
+        $patient_appointment = Appointment::where("date" , $request->date)
+                                    ->where("student_id" , $user->id)->first();
+        if($patient_appointment){
+            return $this->returnError('لديك موعد بالفعل في هذا اليوم');
+        }
         $add = new Appointment();
         $add->user_id  = $user->id;
         // $add->category_id  = $request->category_id;
