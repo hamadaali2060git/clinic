@@ -192,7 +192,8 @@ class HomeController extends Controller
         $add->date   = Carbon::now()->format('d-m-Y');
         $add->time   = Carbon::now()->format('H:i:s');
         $add->save();
-        return $this -> returnSuccessMessage('تم الإضافة');
+        // return $this -> returnSuccessMessage('تم الإضافة');
+        return $this -> returnDataa('data',$add,'تم الاضافة');
     }
     public function editReview(Request $request)
     {
@@ -205,7 +206,8 @@ class HomeController extends Controller
         $edit->date   = Carbon::now()->format('d-m-Y');
         $edit->time   = Carbon::now()->format('H:i:s');
         $edit->save();
-        return $this -> returnSuccessMessage('تم التعديل');
+        // return $this -> returnSuccessMessage('تم التعديل');
+        return $this -> returnDataa('data',$edit,'تم التعديل');
     }
     public function removeReview(Request $request){
         $user = Auth::guard('user-api')->user();
@@ -230,7 +232,8 @@ class HomeController extends Controller
         $add->time   = Carbon::now()->format('H:i:s');
         $add->day   =Carbon::now()->format('l');
         $add->save();
-        return $this -> returnSuccessMessage('تم الإضافة');
+        // return $this -> returnSuccessMessage('تم الإضافة');
+        return $this -> returnDataa('data',new RecordResource($add),'تم الاضافة');
     }
     public function patientRecords(Request $request)
     {
