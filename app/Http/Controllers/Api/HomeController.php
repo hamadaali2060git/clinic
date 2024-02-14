@@ -180,7 +180,10 @@ class HomeController extends Controller
         $user = Auth::guard('user-api')->user();
         if(!$user)
             return $this->returnError('يجب تسجيل الدخول أولا');
-        
+        $check_review = Review::where("appointment_id" , $request->appointment_id)->first();
+        if($check_review){
+            return $this->returnError('تم التقييم مسبقا');
+        }
         $add = new Review;
         $add->user_id    = $user->id;
         $add->appointment_id    = $request->appointment_id;
