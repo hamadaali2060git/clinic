@@ -91,7 +91,7 @@
                             <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded" style="direction: rtl;">
                                 <li class="nav-item">
                                     <a class="nav-link active" href="#" data-toggle="modal" data-target="#appt_details">Add
-                                        Category</a>
+                                    Article</a>
                                        
                                 </li>
 
@@ -117,15 +117,18 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($categories as $_item)
+                                                        @foreach ($articles as $_item)
                                                         <tr>
                                                             <td>
                                                                 <h2 class="table-avatar">
                                                                     <img class="avatar-img rounded-circle"
-                                                                        src="{{asset('img/categories/'.$_item->icon) }}"
+                                                                        src="{{asset('img/articles/'.$_item->image) }}"
                                                                         alt="User Image"></a>
-                                                                    {{$_item->title_ar}}
+                                                                    
                                                                 </h2>
+                                                            </td>
+                                                            <td>
+                                                                {{$_item->title_ar}}
                                                             </td>
                                                             <td>
                                                                 {{$_item->title_en}}

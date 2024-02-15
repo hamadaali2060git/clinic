@@ -21,25 +21,37 @@
                                     <li class="{{ Request::is('categories') ? 'active' : '' }}">
                                         <a href="categories">
                                             <i class="fas fa-columns"></i>
-                                            <span>التخصص</span>
+                                            <span>categories</span>
                                         </a>
                                     </li>
                                     <li class="{{ Request::is('appointments') ? 'active' : '' }}">
                                         <a href="appointments">
                                             <i class="fas fa-columns"></i>
-                                            <span>المواعيد الحالية</span>
+                                            <span> Upcomoing</span>
                                         </a>
                                     </li>
                                     <li class="{{ Request::is('previous-appointments') ? 'active' : '' }}">
                                         <a href="previous-appointments">
                                             <i class="fas fa-calendar-check"></i>
-                                            <span>المواعيد السابقة</span>
+                                            <span> previous appointments</span>
                                         </a>
                                     </li>
                                     <li class="{{ Request::is('patients') ? 'active' : '' }}">
                                         <a href="patients">
                                             <i class="fas fa-user-injured"></i>
-                                            <span>المرضى</span>
+                                            <span>Patients</span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ Request::is('articles') ? 'active' : '' }}">
+                                        <a href="articles">
+                                            <i class="fas fa-user-injured"></i>
+                                            <span>articles</span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ Request::is('sliders') ? 'active' : '' }}">
+                                        <a href="sliders">
+                                            <i class="fas fa-user-injured"></i>
+                                            <span>sliders</span>
                                         </a>
                                     </li>
                                     <li>

@@ -13,6 +13,7 @@ class Setting extends Model
             'name',
         	'title_' . app()->getLocale() . ' as title',
         	'desc_' . app()->getLocale() . ' as desc',
+            'privacy_' . app()->getLocale() . ' as privacy',
             'phone',
             'mail',
             'logo',

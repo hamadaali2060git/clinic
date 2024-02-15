@@ -14,7 +14,8 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function () {
    Route::resource('cities','CityController');
    Route::resource('doctors','DoctorController');
    Route::resource('appointments','AppointmentController');
-   
+   Route::resource('articles','ArticleController');     
+   Route::resource('WorkDay','WorkDayController');  
    Route::get('previous-appointments','AppointmentController@previous')->name('previous-appointments');
    Route::resource('patients','PatientController');
    Route::get('patients/update/status', 'PatientController@updateStatus')->name('patients.update.status');

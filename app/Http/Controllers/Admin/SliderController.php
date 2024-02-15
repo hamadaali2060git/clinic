@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
-use App\Category;
+use App\Slider;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class SliderController extends Controller
 {
    public function __construct()
     {
@@ -20,8 +20,8 @@ class CategoryController extends Controller
      public function index()
     {
         // dd('dd');
-        $categories=Category::all();
-        return view('admin.categories.all',compact('categories'));
+        $sliders=Slider::all();
+        return view('admin.sliders.all',compact('sliders'));
     }
 
     public function create()
