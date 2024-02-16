@@ -7,10 +7,10 @@
                                     <img src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
                                 </a>
                                 <div class="profile-det-info">
-                                    <h3>Dr. Darren Elder</h3>
+                                    <h3> {{Auth::user()->first_name}} {{Auth::user()->last_name}}</h3>
                                     
                                     <div class="patient-details">
-                                        <h5 class="mb-0">BDS, MDS - Oral & Maxillofacial Surgery</h5>
+                                        <h5 class="mb-0">{{Auth::user()->bio}}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -54,12 +54,18 @@
                                             <span>sliders</span>
                                         </a>
                                     </li>
-                                    <li>
+                                     <li class="{{ Request::is('schedules') ? 'active' : '' }}">
+                                        <a href="schedules">
+                                            <i class="fas fa-user-injured"></i>
+                                            <span>Schedule Timings</span>
+                                        </a>
+                                    </li>
+                                    <!-- <li>
                                         <a href="schedule-timings">
                                             <i class="fas fa-hourglass-start"></i>
                                             <span>Schedule Timings</span>
                                         </a>
-                                    </li>
+                                    </li> -->
                                     <li>
                                         <a href="invoices">
                                             <i class="fas fa-file-invoice"></i>

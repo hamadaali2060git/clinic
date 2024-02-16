@@ -108,6 +108,7 @@
                                                 <table class="table table-hover table-center mb-0">
                                                     <thead>
                                                         <tr>
+                                                            <th>image</th>
                                                             <th>Title Ar</th>
                                                             <th>Title En</th>
                                                             <!-- <th>Purpose</th>
@@ -121,10 +122,9 @@
                                                         <tr>
                                                             <td>
                                                                 <h2 class="table-avatar">
-                                                                    <img class="avatar-img rounded-circle"
+                                                                    <img class="avatar-img "
                                                                         src="{{asset('img/sliders/'.$_item->image) }}"
-                                                                        alt="User Image"></a>
-                                                                    
+                                                                        alt="User Image"  style="width: 80px;height: 31px;"></a>
                                                                 </h2>
                                                             </td>
                                                             <td>

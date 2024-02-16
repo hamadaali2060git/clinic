@@ -15,6 +15,10 @@ class WorkDay extends Model
     {
       return $this->belongsTo(Day::class,'day_id','id')->selection();
     }
+    public function alldays()
+    {
+      return $this->belongsTo(Day::class,'day_id','id');
+    }
     public function scopeSelection($query)
     {
         return $query->select(

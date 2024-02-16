@@ -123,8 +123,8 @@
                                                                 <h2 class="table-avatar">
                                                                     <img class="avatar-img rounded-circle"
                                                                         src="{{asset('img/categories/'.$_item->icon) }}"
-                                                                        alt="User Image"></a>
-                                                                    {{$_item->title_ar}}
+                                                                        alt="User Image" style="background: #15558d;    margin: 11px;"></a>
+                                                                        {{ $_item->title_ar }}
                                                                 </h2>
                                                             </td>
                                                             <td>

@@ -274,6 +274,11 @@ class AuthController extends Controller
         }else{
             $edit->dateOfBirth  = $edit->dateOfBirth;
         }
+        if(isset($request->gender)){
+            $edit->gender  = $request->gender;
+        }else{
+            $edit->gender  = $edit->gender;
+        }
         if(isset($request->height)){
             $edit->height  = $request->height;
         }else{
