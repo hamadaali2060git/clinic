@@ -23,7 +23,7 @@ class WorkDay extends Model
     {
         return $query->select(
         	'id',
-            'day_id'
+          'day_id'
         );
     }
 }

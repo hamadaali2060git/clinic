@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
-use App\WorkDay;
+use App\WorkTime;
 use App\Day;
 
 use Illuminate\Http\Request;
+
+use App\Http\Resources\DayResource;
 
 class WorkDayController extends Controller
 {
@@ -20,11 +22,18 @@ class WorkDayController extends Controller
     }
     public function index()
     {
-        $days=Day::all();
-        $schedules =WorkDay::with('alldays')->with('worktimes')->get();
+        $days=Day::with('work_days')->get();
+        foreach ($days as $item) {
+            if($item->work_days)
+                $item->work_times=WorkTime::where("work_day_id",$item->work_days->id)->get();
+            
+        }
+        // $schedules =WorkDay::with('alldays')->with('worktimes')->get();
         // return $schedules;
-        // dd($schedules);
-        return view('admin.schedules.all',compact('schedules','days'));
+        // dd($days);
+        // $schedules=DayResource::collection($days);
+        // dd($days);
+        return view('admin.schedules.all',compact('days'));
     }
 
     public function create()

@@ -87,6 +87,7 @@ class AuthController extends Controller
             $add = User::create([
                 'first_name'  => $request->first_name,
                 'last_name'  => $request->last_name,
+                'name'  => $request->first_name.''. $request->last_name,
                 'mobile'  => $request->mobile,
                 'email'      => $request->email,
                 'password'   => Hash::make($request->password),
@@ -181,7 +182,13 @@ class AuthController extends Controller
         // return \Response::json('doneeeee');
     }
 
-
+    public function logOut() {
+        $user = Auth::guard('user-api')->user(); 
+        if(!$user)
+            return $this->returnError('يجب تسجيل الدخول أولا');
+        Auth::guard('user-api')->logout();
+        return $this -> returnSuccessMessage('تم تسجيل الخروج');
+    }
    public function changePassword(Request $request)
    {
        $userid = Auth::guard('user-api')->user();

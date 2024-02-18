@@ -74,7 +74,15 @@ class HomeController extends Controller
     }
     public function articles(Request $request)
     {    
-        $articles = Article::selection()->orderBy('id', 'DESC')->paginate(10);  
+        $search = $request->get('title');
+        if($search){
+            $articles = Article::selection()->where('title_ar', 'like', "%{$search}%"))
+                 ->orWhere('title_en', 'like', "%{$search}%"))
+                 ->orderBy('id', 'DESC')->paginate(10);
+        }else{
+             $articles = Article::selection()->orderBy('id', 'DESC')->paginate(10);  
+            
+        }
         return ArticleResource::collection($articles);
         // return $this -> returnDataa(
         //     'data', ArticleResource::collection($articles),''
@@ -250,7 +258,14 @@ class HomeController extends Controller
 ## start  doctor
     public function patients(Request $request)
     {
-        $user = User::where('type','patient')->orderBy('id', 'DESC')->paginate(1);
+        $search = $request->get('name');
+        if($search){
+            $user = User::->where('first_name', 'like', "%{$search}%")
+                 ->orWhere('last_name', 'like', "%{$search}%")
+                 ->orderBy('id', 'DESC')->paginate(10);
+        }else{
+            $user = User::where('type','patient')->orderBy('id', 'DESC')->paginate(10);
+        }
         return UserResource::collection($user);
         // return $this -> returnDataa('data',UserResource::collection($user),''); 
     }
@@ -330,12 +345,22 @@ class HomeController extends Controller
     
     public function doctorUpcomingAppointments(Request $request)
     {    
-        $upcoming_appointments = Appointment::with('categories')
+        $search = $request->get('name');
+        if($search){
+            $user = User::->where('name', 'like', "%{$search}%")->first();
+            $upcoming_appointments = Appointment::with('categories')
+                            ->with('user_appointment')
+                            ->with('workdays')
+                            ->where("status" ,'pending')
+                            ->where("user_id" ,$user->id)
+                            ->orderBy('id', 'DESC')->paginate(10);
+        }else{
+            $upcoming_appointments = Appointment::with('categories')
                             ->with('user_appointment')
                             ->with('workdays')
                             ->where("status" ,'pending')
                             ->orderBy('id', 'DESC')->paginate(10);
-       
+        }
         return AppointmentResource::collection($upcoming_appointments);
         // $data  =[  
         //     'upcoming_appointments'=>AppointmentResource::collection($upcoming_appointments),
@@ -349,13 +374,24 @@ class HomeController extends Controller
     public function doctorPreviousAppointments(Request $request)
     {    
        
-        $previous_appointments = Appointment::with('categories')
+       $search = $request->get('name');
+        if($search){
+            $user = User::->where('name', 'like', "%{$search}%")->first();
+            $previous_appointments = Appointment::with('categories')
+                    ->with('user_appointment')
+                    ->with('reviews')
+                    ->with('workdays')
+                    ->where("status" ,'expired')
+                    ->where("user_id" ,$user->id)
+                    ->orderBy('id', 'DESC')->paginate(10);
+        }else{
+            $previous_appointments = Appointment::with('categories')
                     ->with('user_appointment')
                     ->with('reviews')
                     ->with('workdays')
                     ->where("status" ,'expired')
                     ->orderBy('id', 'DESC')->paginate(10);
-        
+        }
         return AppointmentResource::collection($previous_appointments);
         // $data  =[  
         //     'upcoming_appointments'=>AppointmentResource::collection($upcoming_appointments),

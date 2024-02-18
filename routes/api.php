@@ -25,6 +25,9 @@ Route::group(['middleware' => ['api','changeLanguage'], 'namespace' => 'Api'], f
 ## start auth
     Route::post('login', 'AuthController@login');
   	Route::post('register', 'AuthController@register');
+    Route::post('logout', 'AuthController@logOut');
+
+    
     Route::get('user-data', 'AuthController@getUserData');
     
     Route::post('forget-password', 'AuthController@forgetPassword');

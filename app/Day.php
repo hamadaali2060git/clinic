@@ -13,4 +13,8 @@ class Day extends Model
         	'name_' . app()->getLocale() . ' as name'
         );
     }
+    public function work_days()
+    {
+      return $this->hasOne(WorkDay::class,'day_id','id');
+    }
 }
