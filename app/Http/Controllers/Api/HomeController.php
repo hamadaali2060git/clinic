@@ -76,8 +76,8 @@ class HomeController extends Controller
     {    
         $search = $request->get('title');
         if($search){
-            $articles = Article::selection()->where('title_ar', 'like', "%{$search}%"))
-                 ->orWhere('title_en', 'like', "%{$search}%"))
+            $articles = Article::selection()->where('title_ar', 'like', "%{$search}%")
+                 ->orWhere('title_en', 'like', "%{$search}%")
                  ->orderBy('id', 'DESC')->paginate(10);
         }else{
              $articles = Article::selection()->orderBy('id', 'DESC')->paginate(10);  
@@ -260,7 +260,7 @@ class HomeController extends Controller
     {
         $search = $request->get('name');
         if($search){
-            $user = User::->where('first_name', 'like', "%{$search}%")
+            $user = User::where('first_name', 'like', "%{$search}%")
                  ->orWhere('last_name', 'like', "%{$search}%")
                  ->orderBy('id', 'DESC')->paginate(10);
         }else{
@@ -347,7 +347,7 @@ class HomeController extends Controller
     {    
         $search = $request->get('name');
         if($search){
-            $user = User::->where('name', 'like', "%{$search}%")->first();
+            $user = User::where('name', 'like', "%{$search}%")->first();
             $upcoming_appointments = Appointment::with('categories')
                             ->with('user_appointment')
                             ->with('workdays')
@@ -376,7 +376,7 @@ class HomeController extends Controller
        
        $search = $request->get('name');
         if($search){
-            $user = User::->where('name', 'like', "%{$search}%")->first();
+            $user = User::where('name', 'like', "%{$search}%")->first();
             $previous_appointments = Appointment::with('categories')
                     ->with('user_appointment')
                     ->with('reviews')

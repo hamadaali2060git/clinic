@@ -87,7 +87,7 @@ class AuthController extends Controller
             $add = User::create([
                 'first_name'  => $request->first_name,
                 'last_name'  => $request->last_name,
-                'name'  => $request->first_name.' '. $request->last_name,
+                'name'  => $request->first_name ." ". $request->last_name,
                 'mobile'  => $request->mobile,
                 'email'      => $request->email,
                 'password'   => Hash::make($request->password),
@@ -271,8 +271,8 @@ class AuthController extends Controller
         }else{
             $edit->last_name  = $edit->last_name;
         }
-        if(isset($request->first_name && isset($request->last_name)){
-            $edit->name  = $request->first_name.' '. $request->last_name,
+        if(isset($request->first_name) && isset($request->last_name)){
+            $edit->name  = $request->first_name.' '. $request->last_name;
         }else{
             $edit->name  = $edit->name;
         }
