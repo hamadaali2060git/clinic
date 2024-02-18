@@ -272,7 +272,7 @@ class HomeController extends Controller
     public function patientProfile(Request $request)
     {
         $user = User::findOrFail($request->user_id);
-        $diagnosis = Diagnos::where('user_id',$request->user_id)->orderBy('id', 'DESC')->get();
+        $diagnosis = Diagnos::where('user_id',$request->user_id)->orderBy('id', 'DESC')->take(10)->get();
         
         $data  =[  
             'user'=>new UserResource($user),
@@ -280,6 +280,11 @@ class HomeController extends Controller
             // 'count_reviews'=>$reviews,
         ]; 
         return $this -> returnDataa('data',$data,''); 
+    }
+    public function diagnosis(Request $request)
+    {
+        $diagnosis = Diagnos::where('user_id',$request->user_id)->orderBy('id', 'DESC')->get();
+        return $this -> returnDataa('data',$diagnosis,''); 
     }
     public function addWorkDays(Request $request)
     {
@@ -425,7 +430,8 @@ class HomeController extends Controller
         $add->date   = Carbon::now()->format('d-m-Y');
         $add->time   = Carbon::now()->format('H:i:s');
         $add->save();
-        return $this -> returnSuccessMessage('تم الإضافة');
+        return $this -> returnDataa('data',$add,'تم الاضافة');
+        // return $this -> returnSuccessMessage('تم الإضافة');
     }
     public function editDiagnos(Request $request)
     {
@@ -439,7 +445,8 @@ class HomeController extends Controller
         $edit->date   = Carbon::now()->format('d-m-Y');
         $edit->time   = Carbon::now()->format('H:i:s');
         $edit->save();
-        return $this -> returnSuccessMessage('تم التعديل');
+        return $this -> returnDataa('data',$edit,'تم التعديل');
+        // return $this -> returnSuccessMessage('تم التعديل');
     }
     
     

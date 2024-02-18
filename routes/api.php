@@ -71,6 +71,7 @@ Route::group(['middleware' => ['api','changeLanguage'], 'namespace' => 'Api'], f
     
     
     Route::get('patient-profile', 'HomeController@patientProfile');
+    Route::get('diagnosis', 'HomeController@diagnosis');
     
 
     // patient_actions
