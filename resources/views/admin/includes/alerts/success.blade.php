@@ -10,8 +10,5 @@
 
 
         <div class="alert alert-success">
-           <strong>حسناً</strong> {{ session()->get('message') }} 
+           <strong>Well</strong> {{ session()->get('message') }} 
         </div>
-                  
-
-

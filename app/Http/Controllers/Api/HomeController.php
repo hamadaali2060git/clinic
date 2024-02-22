@@ -46,42 +46,42 @@ class HomeController extends Controller
     use GeneralTrait;
     use ImageUploadTrait;
 
-    
+
     public function home(Request $request)
-    {    
-        $categotries = Category::selection()->orderBy('id', 'DESC')->get();   
-        $articles = Article::selection()->orderBy('id', 'DESC')->get();; 
-        $sliders = Slider::get(); 
-        $data  =[  
+    {
+        $categotries = Category::selection()->orderBy('id', 'DESC')->get();
+        $articles = Article::selection()->orderBy('id', 'DESC')->get();;
+        $sliders = Slider::get();
+        $data  =[
             // 'upcoming_appointments'=>AppointmentResource::collection($upcoming_appointments),
             // 'previous_appointments'=>AppointmentResource::collection($previous_appointments),
             'sliders'=>SliderResource::collection($sliders),
             'categotries'=> CategoryResource::collection($categotries),
             'articles'=>   ArticleResource::collection($articles),
-            
+
         ];
         return $this -> returnDataa(
             'data',$data,''
         );
     }
     public function categotries(Request $request)
-    {    
-        $categotries = Category::selection()->paginate(10);
-        return CategoryResource::collection($categotries);
-        // return $this -> returnDataa(
-        //     'hamada', CategoryResource::collection($categotries),''
-        // );
+    {
+        $categotries = Category::selection()->get();
+        // return CategoryResource::collection($categotries);
+        return $this -> returnDataa(
+            'data', CategoryResource::collection($categotries),''
+        );
     }
     public function articles(Request $request)
-    {    
+    {
         $search = $request->get('title');
         if($search){
             $articles = Article::selection()->where('title_ar', 'like', "%{$search}%")
                  ->orWhere('title_en', 'like', "%{$search}%")
                  ->orderBy('id', 'DESC')->paginate(10);
         }else{
-             $articles = Article::selection()->orderBy('id', 'DESC')->paginate(10);  
-            
+             $articles = Article::selection()->orderBy('id', 'DESC')->paginate(10);
+
         }
         return ArticleResource::collection($articles);
         // return $this -> returnDataa(
@@ -89,7 +89,7 @@ class HomeController extends Controller
         // );
     }
     public function patientWorkDays(Request $request)
-    {   
+    {
         $day_name = Carbon::parse($request->date)->format('l');
         $day =Day::where("name" ,$day_name)->first();
         $work_day =WorkDay::selection()
@@ -99,7 +99,7 @@ class HomeController extends Controller
         $doctor = User::where('type','doctor')->first();
         $patients = User::where('type','patient')->count();
         $reviews = Review::count();
-        $data  =[  
+        $data  =[
             'work_day'=>$work_day,
             'doctor'=>new DoctorResource($doctor),
             'count_patients'=>$patients,
@@ -107,8 +107,8 @@ class HomeController extends Controller
             'rate'=>2,
             'price'=>20,
 
-        ]; 
-        return $this -> returnDataa('data',$data,''); 
+        ];
+        return $this -> returnDataa('data',$data,'');
     }
     public function bookAppointment(Request $request)
     {
@@ -137,7 +137,7 @@ class HomeController extends Controller
         return $this -> returnSuccessMessage('تم الإضافة');
     }
     public function patientUpcomingAppointments(Request $request)
-    {    
+    {
         $user = Auth::guard('user-api')->user();
         if(!$user)
             return $this->returnError('يجب تسجيل الدخول أولا');
@@ -146,41 +146,41 @@ class HomeController extends Controller
                             ->where("status" ,'pending')
                             ->where("user_id" ,$user->id)
                             ->orderBy('id', 'DESC')->paginate(10);
-        
-        
-        
+
+
+
         return AppointmentResource::collection($upcoming_appointments);
-        // $data  =[  
+        // $data  =[
         //     'upcoming_appointments'=>AppointmentResource::collection($upcoming_appointments),
         //     'previous_appointments'=>AppointmentResource::collection($previous_appointments),
         // ];
         // return $this -> returnDataa(
         //     'data',$data,''
         // );
-        
+
     }
     public function patientPreviousAppointments(Request $request)
-    {    
+    {
         $user = Auth::guard('user-api')->user();
         if(!$user)
             return $this->returnError('يجب تسجيل الدخول أولا');
-        
+
         $previous_appointments = Appointment::with('user_appointment')
                     ->with('workdays')
                     ->with('reviews')
                     ->where("status" ,'expired')
                     ->where("user_id" ,$user->id)
                     ->orderBy('id', 'DESC')->paginate(10);
-        
+
         return AppointmentResource::collection($previous_appointments);
-        // $data  =[  
+        // $data  =[
         //     'upcoming_appointments'=>AppointmentResource::collection($upcoming_appointments),
         //     'previous_appointments'=>AppointmentResource::collection($previous_appointments),
         // ];
         // return $this -> returnDataa(
         //     'data',$data,''
         // );
-        
+
     }
      public function addReview(Request $request)
     {
@@ -222,9 +222,9 @@ class HomeController extends Controller
         if(!$user)
             return $this->returnError('يجب تسجيل الدخول أولا');
         $review = Review::find($request->id);
-        $review->delete();     
+        $review->delete();
         return $this -> returnSuccessMessage('Deleted Successfully');
-        
+
     }
     public function addRecord(Request $request)
     {
@@ -248,12 +248,12 @@ class HomeController extends Controller
         $user = Auth::guard('user-api')->user();
         if(!$user)
             return $this->returnError('يجب تسجيل الدخول أولا');
-        $records = Record::where("user_id" , $user->id)->orderBy('id', 'DESC')->paginate(10); 
+        $records = Record::where("user_id" , $user->id)->orderBy('id', 'DESC')->paginate(10);
         return RecordResource::collection($records);
-        // return $this -> returnDataa('data',RecordResource::collection($records),''); 
+        // return $this -> returnDataa('data',RecordResource::collection($records),'');
     }
 
-## end   
+## end
 
 ## start  doctor
     public function patients(Request $request)
@@ -267,24 +267,24 @@ class HomeController extends Controller
             $user = User::where('type','patient')->orderBy('id', 'DESC')->paginate(10);
         }
         return UserResource::collection($user);
-        // return $this -> returnDataa('data',UserResource::collection($user),''); 
+        // return $this -> returnDataa('data',UserResource::collection($user),'');
     }
     public function patientProfile(Request $request)
     {
         $user = User::findOrFail($request->user_id);
-        $diagnosis = Diagnos::where('user_id',$request->user_id)->orderBy('id', 'DESC')->take(10)->get();
-        
-        $data  =[  
+        $diagnosis = Diagnos::with('categories')->where('user_id',$request->user_id)->orderBy('id', 'DESC')->take(10)->get();
+
+        $data  =[
             'user'=>new UserResource($user),
             'diagnosis'=>$diagnosis
             // 'count_reviews'=>$reviews,
-        ]; 
-        return $this -> returnDataa('data',$data,''); 
+        ];
+        return $this -> returnDataa('data',$data,'');
     }
     public function diagnosis(Request $request)
     {
-        $diagnosis = Diagnos::where('user_id',$request->user_id)->orderBy('id', 'DESC')->get();
-        return $this -> returnDataa('data',$diagnosis,''); 
+        $diagnosis = Diagnos::with('categories')->where('user_id',$request->user_id)->orderBy('id', 'DESC')->paginate(10);;
+        return $this -> returnDataa('data',$diagnosis,'');
     }
     public function addWorkDays(Request $request)
     {
@@ -304,12 +304,12 @@ class HomeController extends Controller
                 $add_lecture->work_day_id    = $add->id;
                 $add_lecture->time    = $request->times[$i]['time'];
                 $add_lecture->type    = $request->times[$i]['type'];
-                
+
                 $add_lecture->save();
-                
-                
+
+
             }
-             
+
         }
         return $this -> returnSuccessMessage('تم الإضافة');
     }
@@ -319,7 +319,7 @@ class HomeController extends Controller
         if(!$user)
             return $this->returnError('يجب تسجيل الدخول أولا');
         $work_times= WorkTime::where('work_day_id',$request->work_day_id)->get();
-        foreach ($work_times as $item) {         
+        foreach ($work_times as $item) {
             // $delete_course = Courses_joined::findOrFail($item->id);
             $item->delete();
         }
@@ -338,18 +338,18 @@ class HomeController extends Controller
         return $this -> returnSuccessMessage('تم التعديل بنجاح');
     }
     public function doctorWorkDays(Request $request)
-    {    
+    {
         $user = Auth::guard('user-api')->user();
         if(!$user)
             return $this->returnError('يجب تسجيل الدخول أولا');
         $work_day =WorkDay::selection()->with('days')->with('worktimes')->get();
         return $this -> returnDataa(
             'data',$work_day,''
-        ); 
+        );
     }
-    
+
     public function doctorUpcomingAppointments(Request $request)
-    {    
+    {
         $search = $request->get('name');
         if($search){
             $user = User::where('name', 'like', "%{$search}%")->first();
@@ -367,18 +367,18 @@ class HomeController extends Controller
                             ->orderBy('id', 'DESC')->paginate(10);
         }
         return AppointmentResource::collection($upcoming_appointments);
-        // $data  =[  
+        // $data  =[
         //     'upcoming_appointments'=>AppointmentResource::collection($upcoming_appointments),
         //     'previous_appointments'=>AppointmentResource::collection($previous_appointments),
         // ];
         // return $this -> returnDataa(
         //     'data',$data,''
         // );
-        
+
     }
     public function doctorPreviousAppointments(Request $request)
-    {    
-       
+    {
+
        $search = $request->get('name');
         if($search){
             $user = User::where('name', 'like', "%{$search}%")->first();
@@ -398,30 +398,30 @@ class HomeController extends Controller
                     ->orderBy('id', 'DESC')->paginate(10);
         }
         return AppointmentResource::collection($previous_appointments);
-        // $data  =[  
+        // $data  =[
         //     'upcoming_appointments'=>AppointmentResource::collection($upcoming_appointments),
         //     'previous_appointments'=>AppointmentResource::collection($previous_appointments),
         // ];
         // return $this -> returnDataa(
         //     'data',$data,''
         // );
-        
+
     }
-   
-    
+
+
     public function doctorRecords(Request $request)
     {
         $records = Record::where("user_id" , $request->user_id)->orderBy('id', 'DESC')->paginate(10);
         return RecordResource::collection($records);
-        // return $this -> returnDataa('data',RecordResource::collection($records),''); 
+        // return $this -> returnDataa('data',RecordResource::collection($records),'');
     }
-   
+
     public function addDiagnos(Request $request)
     {
         $user = Auth::guard('user-api')->user();
         if(!$user)
             return $this->returnError('يجب تسجيل الدخول أولا');
-        
+
         $add = new Diagnos;
         $add->user_id    = $request->user_id;
         $add->category_id    = $request->category_id;
@@ -448,20 +448,20 @@ class HomeController extends Controller
         return $this -> returnDataa('data',$edit,'تم التعديل');
         // return $this -> returnSuccessMessage('تم التعديل');
     }
-    
-    
+
+
     public function settings(Request $request)
-    {    
-        $settings = Setting::selection()->first(); 
-        
+    {
+        $settings = Setting::selection()->first();
+
         return $this -> returnDataa(
             'data',new SettingResource($settings),''
         );
     }
-    
 
-    
-   
-    
-   
+
+
+
+
+
 }

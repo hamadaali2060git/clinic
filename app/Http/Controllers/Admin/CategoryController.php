@@ -5,9 +5,11 @@ use App\Http\Controllers\Controller;
 
 use App\Category;
 use Illuminate\Http\Request;
+use App\Traits\ImageUploadTrait;
 
 class CategoryController extends Controller
 {
+    use ImageUploadTrait;
    public function __construct()
     {
         $this->middleware('auth');
@@ -33,19 +35,24 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-
         $this->validate( $request,[
-                'name'=>'required',
+                'title_ar'=>'required',
+                'title_en'=>'required',
+                'icon'=>'required',
             ],
             [
-                'name.required'=>'يرجى ادخال نوع العقار',
+                'title_ar.required'=>'العنوان عربي مطلوب',
+                'title_en.required'=>'العنوان انجليزي مطلوب',
+                'icon.required'=>' يرجي إختيار صورة jpeg,jpg,png',
             ]
         );
+        $file_name = $this->upload($request, 'icon', 'img/categories');
         $add = new Category;
-
-        $add->name= $request->name;
+        $add->title_ar= $request->title_ar;
+        $add->title_en= $request->title_en;
+        $add->icon= $file_name;
         $add->save();
-        return redirect()->back()->with("message", 'تم الإضافة بنجاح');
+        return redirect()->back()->with("message", 'Added successfully');
     }
 
 
@@ -56,29 +63,41 @@ class CategoryController extends Controller
 
     public function update(Request $request)
     {
-        $this->validate( $request,[
-                'name'=>'required',
-            ],
-            [
-                'name.required'=>'يرجى ادخال نوع العقار',
-            ]
-        );
+        // $this->validate( $request,[
+        //         'name'=>'required',
+        //     ],
+        //     [
+        //         'name.required'=>'يرجى ادخال نوع العقار',
+        //     ]
+        // );
 
         $edit = Category::findOrFail($request->id);
 
-        if($request->name !=''){
-            $edit->name    = $request->name;
+        if($request->title_ar !=''){
+            $edit->title_ar    = $request->title_ar;
          }else{
-            $edit->name    = $edit->name;
+            $edit->title_ar    = $edit->title_ar;
         }
+        if($request->title_en !=''){
+            $edit->title_en    = $request->title_en;
+         }else{
+            $edit->title_en    = $edit->title_en;
+        }
+        if($request->file('icon'))
+                {
+                    $file_name = $this->upload($request, 'icon', 'img/categories');
+                    $edit->icon=$file_name;
+                }else{
+                    $edit->icon  = $edit->icon;
+                }
         $edit->save();
-        return redirect()->route('categories.index')->with("message", 'تم التعديل بنجاح');
+        return redirect()->route('categories.index')->with("message", 'Updated successfully');
     }
 
     public function destroy(Request $request )
     {
         $category = Category::findOrFail($request->id);
         $category->delete();
-        return redirect()->route('categories.index')->with("message",'تم الحذف بنجاح');
+        return redirect()->route('categories.index')->with("message",'Deleted successfully');
     }
 }

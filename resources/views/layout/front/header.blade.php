@@ -9,7 +9,7 @@
 	</div>
 	@endif
 	<!-- /Loader  -->
-<div class="main-wrapper">
+<
 <!-- Header -->
 <header class="header">
 				<nav class="navbar navbar-expand-lg header-nav">
@@ -52,7 +52,7 @@
 									<li class="<?php if($page=="review") { echo 'active'; } ?>"><a href="reviews">Reviews</a></li>
 									<li class="<?php if($page=="register") { echo 'active'; } ?>"><a href="doctor-register">Doctor Register</a></li>
 								</ul>
-							</li>		
+							</li>
 							<li class="has-submenu <?php if($page=="map-grid" || $page=="map-list" || $page=="search1" || $page=="doctor-profile" || $page=="booking" || $page=="checkout" || $page=="booking-success" || $page=="patient-dashboard" || $page=="favourites" || $page=="chat" || $page=="profile-settings" || $page=="change-password") { echo 'active'; } ?>">
 								<a href="">Patients <i class="fas fa-chevron-down"></i></a>
 								<ul class="submenu">
@@ -117,14 +117,14 @@
                             </ul>
                         </li>
 						<li>
-								
+
 							</li>
-						</ul>		 
-					</div>		 
+						</ul>
+					</div>
 					<ul class="nav header-navbar-rht">
 						<li class="nav-item contact-item">
 							<div class="header-contact-img">
-								<i class="far fa-hospital"></i>							
+								<i class="far fa-hospital"></i>
 							</div>
 							<div class="header-contact-detail">
 								<p class="contact-header">Contact</p>
@@ -184,7 +184,7 @@
 						</li>
 						<!-- /User Menu -->
 						@endif
-						
+
 					</ul>
 				</nav>
 			</header>

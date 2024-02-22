@@ -34,60 +34,7 @@
 
             <div class="col-md-7 col-lg-8 col-xl-9">
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card dash-card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12 col-lg-4">
-                                        <div class="dash-widget dct-border-rht">
-                                            <div class="circle-bar circle-bar1">
-                                                <div class="circle-graph1" data-percent="75">
-                                                    <img src="assets/img/icon-01.png" class="img-fluid" alt="patient">
-                                                </div>
-                                            </div>
-                                            <div class="dash-widget-info">
-                                                <h6>Total Patient</h6>
-                                                <h3>1500</h3>
-                                                <p class="text-muted">Till Today</p>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="col-md-12 col-lg-4">
-                                        <div class="dash-widget dct-border-rht">
-                                            <div class="circle-bar circle-bar2">
-                                                <div class="circle-graph2" data-percent="65">
-                                                    <img src="assets/img/icon-02.png" class="img-fluid" alt="Patient">
-                                                </div>
-                                            </div>
-                                            <div class="dash-widget-info">
-                                                <h6>Today Patient</h6>
-                                                <h3>160</h3>
-                                                <p class="text-muted">06, Nov 2019</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12 col-lg-4">
-                                        <div class="dash-widget">
-                                            <div class="circle-bar circle-bar3">
-                                                <div class="circle-graph3" data-percent="50">
-                                                    <img src="assets/img/icon-03.png" class="img-fluid" alt="Patient">
-                                                </div>
-                                            </div>
-                                            <div class="dash-widget-info">
-                                                <h6>Appoinments</h6>
-                                                <h3>85</h3>
-                                                <p class="text-muted">06, Apr 2019</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="row">
                     <div class="col-md-12">
@@ -125,7 +72,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($appointments as $item)
+                                                        @foreach ($appointments as $key =>$item)
                                                         <tr>
                                                             <td>
                                                                 <h2 class="table-avatar">
@@ -151,17 +98,62 @@
                                                                         <i class="far fa-eye"></i> View
                                                                     </a>
 
-                                                                    <a href="javascript:void(0);"
+                                                                    <a href="javascript:void(0);" data-toggle="modal"
+                                                                      data-target="#status{{$key}}"
                                                                         class="btn btn-sm bg-success-light">
                                                                         <i class="fas fa-check"></i> {{$item->status}}
-                                                                    </a>
-                                                                    <a href="javascript:void(0);"
-                                                                        class="btn btn-sm bg-danger-light">
-                                                                        <i class="fas fa-times"></i> Cancel
                                                                     </a>
                                                                 </div>
                                                             </td>
                                                         </tr>
+                                                        <div class="modal fade" id="status{{$key}}" aria-hidden="true" role="dialog">
+                                                                <div class="modal-dialog modal-dialog-centered" role="document" >
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-body">
+                                                                            <div class="form-content p-2">
+                                                                                <h4 class="modal-title">Change appointment status</h4>
+
+                                                                                <div class="row text-center">
+                                                                                <div class="col-sm-3">
+                                                                                    </div>
+                                                                                    <div class="col-md-12">
+                                                                                        <form method="post" action="{{route('appointments.update.status')}}">
+                                                                                            @csrf
+                                                                                            <input type="hidden" name="id" value="{{ $item->id }}">
+                                                                                            <div class="col-md-12">
+                                                                                              <div class="">
+                                                                                                <div class="card-content">
+                                                                                                  <div class="card-body" style="text-align: right;">
+                                                                                                    <fieldset>
+                                                                                                      <div class="float-left">
+<br>
+                                                                                                        <input type="radio" name="status" class="switchBootstrap" value="1" {{ $item->status == 'pending' ? 'checked' : '' }}>
+                                                                                                        <label>Pending </label>
+                                                                                                        <br>
+                                                                                                        <input type="radio" name="status" class="switchBootstrap" value="0" {{ $item->status == 'accept' ? 'checked' : '' }}>
+                                                                                                        <label>Accept</label>
+                                                                                                        <br>
+                                                                                                        <input type="radio" name="status" class="switchBootstrap" value="2" {{ $item->status == 'expired' ? 'checked' : '' }}>
+                                                                                                        <label>Expired</label>
+                                                                                                        <br>
+                                                                                                      </div>
+                                                                                                    </fieldset>
+                                                                                                  </div>
+                                                                                                </div>
+                                                                                              </div>
+                                                                                            </div>
+
+                                                                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                                                        </form>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                        </div>
+
                                                         @endforeach
                                                     </tbody>
                                                 </table>
@@ -188,7 +180,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($appointments_today as $_item)
+                                                        @foreach ($appointments_today as $key => $_item)
                                                         <tr>
                                                             <td>
                                                                 <h2 class="table-avatar">
@@ -214,17 +206,69 @@
                                                                         <i class="far fa-eye"></i> View
                                                                     </a>
 
-                                                                    <a href="javascript:void(0);"
+                                                                    <a href="javascript:void(0);" data-toggle="modal"
+                                                                      data-target="#status_today{{$key}}"
                                                                         class="btn btn-sm bg-success-light">
                                                                         <i class="fas fa-check"></i> {{$_item->status}}
                                                                     </a>
-                                                                    <a href="javascript:void(0);"
+                                                                    <!-- <a href="javascript:void(0);"
                                                                         class="btn btn-sm bg-danger-light">
                                                                         <i class="fas fa-times"></i> Cancel
-                                                                    </a>
+                                                                    </a> -->
                                                                 </div>
                                                             </td>
                                                         </tr>
+
+
+                                                        <div class="modal fade" id="status_today{{$key}}" aria-hidden="true" role="dialog">
+                                                                <div class="modal-dialog modal-dialog-centered" role="document" >
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-body">
+                                                                            <div class="form-content p-2">
+                                                                                <h4 class="modal-title">Change appointment status </h4>
+
+                                                                                <div class="row text-center">
+                                                                                <div class="col-sm-3">
+                                                                                    </div>
+                                                                                    <div class="col-md-12">
+                                                                                        <form method="post" action="{{route('appointments.update.status')}}">
+                                                                                            @csrf
+                                                                                            <input type="hidden" name="id" value="{{ $_item->id }}">
+                                                                                            <div class="col-md-12">
+                                                                                              <div class="">
+                                                                                                <div class="card-content">
+                                                                                                  <div class="card-body" style="text-align: right;">
+                                                                                                    <fieldset>
+                                                                                                      <div class="float-left">
+<br>
+                                                                                                        <input type="radio" name="status" class="switchBootstrap" value="pending" {{ $_item->status == 'pending' ? 'checked' : '' }}>
+                                                                                                        <label>Pending </label>
+                                                                                                        <br>
+                                                                                                        <input type="radio" name="status" class="switchBootstrap" value="accept" {{ $_item->status == 'accept' ? 'checked' : '' }}>
+                                                                                                        <label>Accept</label>
+                                                                                                        <br>
+                                                                                                        <input type="radio" name="status" class="switchBootstrap" value="expired" {{ $_item->status == 'expired' ? 'checked' : '' }}>
+                                                                                                        <label>Expired</label>
+                                                                                                        <br>
+
+                                                                                                      </div>
+                                                                                                    </fieldset>
+                                                                                                  </div>
+                                                                                                </div>
+                                                                                              </div>
+                                                                                            </div>
+
+                                                                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                                                        </form>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                        </div>
+
                                                         @endforeach
                                                     </tbody>
                                                 </table>
@@ -246,7 +290,8 @@
 
 </div>
 <!-- /Page Content -->
-</div><!-- Appointment Details Modal -->
+
+<!-- Appointment Details Modal -->
 <div class="modal fade custom-modal" id="appt_details">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -292,4 +337,56 @@
     </div>
 </div>
 <!-- /Appointment Details Modal -->
+<!-- edit Modal -->
+<div class="modal fade custom-modal" id="edit_element">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form  method="post" action="{{route('appointments.update','test')}}" enctype="multipart/form-data">
+    					@csrf
+    					@method('put')
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="cat_id" >
+                    <div class="form-group">
+                        <label>title Ar</label>
+                        <input type="text" name="title_ar" class="form-control" value="" id="appntStatus">
+                    </div>
+                    <div class="form-group">
+                        <label>title En</label>
+                        <input type="text" name="title_en" class="form-control" value="" id="titleEn">
+                    </div>
+                    <!-- <div class="form-group">
+								<label>Description ( Optional )</label>
+								<textarea class="form-control"></textarea>
+							</div> -->
+                    <div class="form-group">
+                        <label>Upload icon</label>
+                        <input type="file" name="icon" class="form-control">
+                    </div>
+                    <div class="submit-section text-center">
+                        <button type="submit" class="btn btn-primary submit-btn">Submit</button>
+                        <button type="button" class="btn btn-secondary submit-btn" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /edit Modal -->
+<script src="{{asset('js/app.js')}}"></script>
+<script>
+  $('#edit_element').on('show.bs.modal', function (event) {
+  	var button = $(event.relatedTarget)
+  	var appntStatus = button.data('appnt_status')
+  	var cat_id = button.data('catid')
+  	var modal = $(this)
+  	modal.find('.modal-body #appntStatus').val(appntStatus);
+  	modal.find('.modal-body #cat_id').val(cat_id);
+  })
+</script>
 @endsection

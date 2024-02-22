@@ -19,7 +19,7 @@
 				</div>
 			</div>
 			<!-- /Breadcrumb -->
-			
+
 			<!-- Page Content -->
 			<div class="content">
 				<div class="container-fluid">
@@ -30,12 +30,12 @@
                             @include('layout.front.Sidebar')
                             <!-- /Profile Sidebar -->
 						</div>
-						
+
 						<div class="col-md-7 col-lg-8 col-xl-9">
 							<div class="appointments">
-							
+
 								<!-- Appointment List -->
-								@foreach ($appointments as $item)
+								@foreach ($appointments as $key =>$item)
 								<div class="appointment-list">
 									<div class="profile-info-widget">
 										<a href="patient-profile" class="booking-doc-img">
@@ -56,25 +56,71 @@
 										<a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#appt_details">
 											<i class="far fa-eye"></i> View
 										</a>
-										<a href="javascript:void(0);" class="btn btn-sm bg-success-light">
-											<i class="fas fa-check"></i> {{$item->status}}
-										</a>
-										<a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
-											<i class="fas fa-times"></i> Cancel
+										<a href="javascript:void(0);" data-toggle="modal"
+											data-target="#status{{$key}}"
+												class="btn btn-sm bg-success-light">
+												<i class="fas fa-check"></i> {{$item->status}}
 										</a>
 									</div>
 								</div>
+								<div class="modal fade" id="status{{$key}}" aria-hidden="true" role="dialog">
+												<div class="modal-dialog modal-dialog-centered" role="document" >
+														<div class="modal-content">
+																<div class="modal-body">
+																		<div class="form-content p-2">
+																				<h4 class="modal-title">Change appointment status</h4>
+
+																				<div class="row text-center">
+																				<div class="col-sm-3">
+																						</div>
+																						<div class="col-md-12">
+																								<form method="post" action="{{route('appointments.update.status')}}">
+																										@csrf
+																										<input type="hidden" name="id" value="{{ $item->id }}">
+																										<div class="col-md-12">
+																											<div class="">
+																												<div class="card-content">
+																													<div class="card-body" style="text-align: right;">
+																														<fieldset>
+																															<div class="float-left">
+								<br>
+																																<input type="radio" name="status" class="switchBootstrap" value="1" {{ $item->status == 'pending' ? 'checked' : '' }}>
+																																<label>Pending </label>
+																																<br>
+																																<input type="radio" name="status" class="switchBootstrap" value="0" {{ $item->status == 'accept' ? 'checked' : '' }}>
+																																<label>Accept</label>
+																																<br>
+																																<input type="radio" name="status" class="switchBootstrap" value="2" {{ $item->status == 'expired' ? 'checked' : '' }}>
+																																<label>Expired</label>
+																																<br>
+																															</div>
+																														</fieldset>
+																													</div>
+																												</div>
+																											</div>
+																										</div>
+
+																										<button type="submit" class="btn btn-primary">Save</button>
+																								</form>
+																						</div>
+
+																				</div>
+																		</div>
+																</div>
+														</div>
+												</div>
+								</div>
 								@endforeach
 								<!-- /Appointment List -->
-							
-								
+
+
 							</div>
 						</div>
 					</div>
 
 				</div>
 
-			</div>		
+			</div>
             <!-- /Page Content -->
 </div>
 

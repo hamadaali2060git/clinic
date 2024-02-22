@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\WorkTime;
 use App\Day;
-
+use App\WorkDay;
 use Illuminate\Http\Request;
 
 use App\Http\Resources\DayResource;
@@ -26,7 +26,7 @@ class WorkDayController extends Controller
         foreach ($days as $item) {
             if($item->work_days)
                 $item->work_times=WorkTime::where("work_day_id",$item->work_days->id)->get();
-            
+
         }
         // $schedules =WorkDay::with('alldays')->with('worktimes')->get();
         // return $schedules;
@@ -45,19 +45,31 @@ class WorkDayController extends Controller
 
     public function store(Request $request)
     {
+      $work_day = WorkDay::where('day_id',$request->id)->first();
+      if($work_day){
+        $work_times= WorkTime::where('work_day_id',$work_day->id)->get();
+        foreach ($work_times as $item) {
+              $item->delete();
+        }
+        $work_day->delete();
+      }
 
-        $this->validate( $request,[
-                'name'=>'required',
-            ],
-            [
-                'name.required'=>'يرجى ادخال نوع العقار',
-            ]
-        );
-        $add = new Category;
-
-        $add->name= $request->name;
-        $add->save();
-        return redirect()->back()->with("message", 'تم الإضافة بنجاح');
+      $add = new WorkDay();
+      $add->day_id  = $request->id;
+      $add->save();
+      $length = count($request->time);
+      if($length > 0)
+      {
+          for($i=0; $i<$length; $i++)
+          {
+              $add_time= new WorkTime;
+              $add_time->work_day_id    = $add->id;
+              $add_time->time    = $request->time[$i];
+              $add_time->type    = $request->type[$i];
+              $add_time->save();
+          }
+      }
+      return redirect()->back()->with("message", 'Added successfully');
     }
 
 

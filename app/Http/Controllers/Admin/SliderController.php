@@ -5,9 +5,12 @@ use App\Http\Controllers\Controller;
 
 use App\Slider;
 use Illuminate\Http\Request;
+use App\Traits\ImageUploadTrait;
 
 class SliderController extends Controller
 {
+    use ImageUploadTrait;
+
    public function __construct()
     {
         $this->middleware('auth');
@@ -33,19 +36,18 @@ class SliderController extends Controller
 
     public function store(Request $request)
     {
-
         $this->validate( $request,[
-                'name'=>'required',
+                'image'=>'required',
             ],
             [
-                'name.required'=>'يرجى ادخال نوع العقار',
+                'image.required'=>' يرجي إختيار صورة jpeg,jpg,png',
             ]
         );
-        $add = new Category;
-
-        $add->name= $request->name;
+        $file_name = $this->upload($request, 'image', 'img/sliders');
+        $add = new Slider;
+        $add->image= $file_name;
         $add->save();
-        return redirect()->back()->with("message", 'تم الإضافة بنجاح');
+        return redirect()->back()->with("message", 'Added successfully');
     }
 
 
@@ -56,29 +58,22 @@ class SliderController extends Controller
 
     public function update(Request $request)
     {
-        $this->validate( $request,[
-                'name'=>'required',
-            ],
-            [
-                'name.required'=>'يرجى ادخال نوع العقار',
-            ]
-        );
-
-        $edit = Category::findOrFail($request->id);
-
-        if($request->name !=''){
-            $edit->name    = $request->name;
-         }else{
-            $edit->name    = $edit->name;
-        }
-        $edit->save();
-        return redirect()->route('categories.index')->with("message", 'تم التعديل بنجاح');
+      $edit = Slider::findOrFail($request->id);
+      if($request->file('image'))
+      {
+         $file_name = $this->upload($request, 'image', 'img/sliders');
+         $edit->image=$file_name;
+      }else{
+          $edit->image  = $edit->image;
+      }
+      $edit->save();
+      return redirect()->route('sliders.index')->with("message", 'Updated successfully');
     }
 
     public function destroy(Request $request )
     {
-        $category = Category::findOrFail($request->id);
-        $category->delete();
-        return redirect()->route('categories.index')->with("message",'تم الحذف بنجاح');
+        $delete = Slider::findOrFail($request->id);
+        $delete->delete();
+        return redirect()->route('sliders.index')->with("message",'Deleted successfully');
     }
 }

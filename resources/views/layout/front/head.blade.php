@@ -19,16 +19,12 @@
 		<link rel="stylesheet" href="assets/plugins/select2/css/select2.min.css">
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="assets/plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css">
-		
+
 		<link rel="stylesheet" href="assets/plugins/dropzone/dropzone.min.css">
 		<!-- Datetimepicker CSS -->
 		<link rel="stylesheet" href="assets/css/bootstrap-datetimepicker.min.css">
 		<!-- Full Calander CSS -->
         <link rel="stylesheet" href="assets/plugins/fullcalendar/fullcalendar.min.css">
-		
+
 		<!-- Main CSS -->
 		<link rel="stylesheet" href="assets/css/style.css">
-  
-
-
-		

@@ -22,7 +22,7 @@ $(document).ready(function(){
    $(this).addClass("active");
    $('.has-submenu a').removeClass("active");
    $('.has-submenu a').addClass("active");
-   
+
    //$(this).toggleClass("active");
  });*/
 });

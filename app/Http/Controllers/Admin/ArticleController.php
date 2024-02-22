@@ -5,9 +5,12 @@ use App\Http\Controllers\Controller;
 
 use App\Article;
 use Illuminate\Http\Request;
+use App\Traits\ImageUploadTrait;
 
 class ArticleController extends Controller
 {
+    use ImageUploadTrait;
+
    public function __construct()
     {
         $this->middleware('auth');
@@ -26,26 +29,34 @@ class ArticleController extends Controller
 
     public function create()
     {
-        return view('admin.categories.create');
+        return view('admin.articles.create');
     }
 
 
 
     public function store(Request $request)
     {
+      $this->validate( $request,[
+              'title_ar'=>'required',
+              'title_en'=>'required',
+              'image'=>'required',
+          ],
+          [
+              'title_ar.required'=>'العنوان عربي مطلوب',
+              'title_en.required'=>'العنوان انجليزي مطلوب',
+              'image.required'=>' يرجي إختيار صورة jpeg,jpg,png',
+          ]
+      );
 
-        $this->validate( $request,[
-                'name'=>'required',
-            ],
-            [
-                'name.required'=>'يرجى ادخال نوع العقار',
-            ]
-        );
-        $add = new Category;
-
-        $add->name= $request->name;
+        $file_name = $this->upload($request, 'image', 'img/articles');
+        $add = new Article;
+        $add->title_ar= $request->title_ar;
+        $add->title_en= $request->title_en;
+        $add->description_ar= $request->description_ar;
+        $add->description_en= $request->description_en;
+        $add->image= $file_name;
         $add->save();
-        return redirect()->back()->with("message", 'تم الإضافة بنجاح');
+        return redirect()->back()->with("message", 'Added successfully');
     }
 
 
@@ -56,29 +67,45 @@ class ArticleController extends Controller
 
     public function update(Request $request)
     {
-        $this->validate( $request,[
-                'name'=>'required',
-            ],
-            [
-                'name.required'=>'يرجى ادخال نوع العقار',
-            ]
-        );
 
-        $edit = Category::findOrFail($request->id);
 
-        if($request->name !=''){
-            $edit->name    = $request->name;
+        $edit = Article::findOrFail($request->id);
+
+        if($request->title_ar !=''){
+            $edit->title_ar    = $request->title_ar;
          }else{
-            $edit->name    = $edit->name;
+            $edit->title_ar    = $edit->title_ar;
         }
+        if($request->title_en !=''){
+            $edit->title_en    = $request->title_en;
+         }else{
+            $edit->title_en    = $edit->title_en;
+        }
+        if($request->description_ar !=''){
+            $edit->description_ar    = $request->description_ar;
+         }else{
+            $edit->description_ar    = $edit->description_ar;
+        }
+        if($request->description_en !=''){
+            $edit->description_en    = $request->description_en;
+         }else{
+            $edit->description_en    = $edit->description_en;
+        }
+        if($request->file('image'))
+                {
+                    $file_name = $this->upload($request, 'image', 'img/articles');
+                    $edit->image=$file_name;
+                }else{
+                    $edit->image  = $edit->image;
+                }
         $edit->save();
-        return redirect()->route('categories.index')->with("message", 'تم التعديل بنجاح');
+        return redirect()->route('articles.index')->with("message", 'Updated successfully');
     }
 
     public function destroy(Request $request )
     {
-        $category = Category::findOrFail($request->id);
-        $category->delete();
-        return redirect()->route('categories.index')->with("message",'تم الحذف بنجاح');
+        $delete = Article::findOrFail($request->id);
+        $delete->delete();
+        return redirect()->route('articles.index')->with("message",'Deleted successfully');
     }
 }
