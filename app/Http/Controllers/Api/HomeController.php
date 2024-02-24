@@ -283,7 +283,7 @@ class HomeController extends Controller
     }
     public function diagnosis(Request $request)
     {
-        $diagnosis = Diagnos::with('categories')->where('user_id',$request->user_id)->orderBy('id', 'DESC')->paginate(10);;
+        $diagnosis = Diagnos::with('categories')->where('user_id',$request->user_id)->orderBy('id', 'DESC')->paginate(10);
         return $this -> returnDataa('data',$diagnosis,'');
     }
     public function addWorkDays(Request $request)
