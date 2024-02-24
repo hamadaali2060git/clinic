@@ -40,7 +40,7 @@
                             <div class="card-body">
                                 <div class="pro-widget-content">
                                     <div class="profile-info-widget">
-                                        <a href="patient-profile" class="booking-doc-img">
+                                        <a href="{{url('patient-profile/'.$item->id)}}" class="booking-doc-img">
                                             <img src="{{asset('img/profiles/'.$item->photo) }}" alt="User Image">
                                         </a>
                                         <div class="profile-det-info">
@@ -49,7 +49,7 @@
                                             <div class="patient-details">
                                             <h5 class="mb-0"> {{$item->first_name}} {{$item->last_name}}</h5>
                                                 <h5><b>{{$item->email}}</b> </h5>
-                                                
+
                                             </div>
                                         </div>
                                     </div>

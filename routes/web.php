@@ -31,7 +31,7 @@ Route::get('/activated', 'Auth\LoginController@Activated')->name('activated');
   ## start reset password api
   Route::get('reset-password-api/{token}', 'Auth\LoginController@resetPasswordGetApi')->name('reset-password-api');
   Route::post('reset-password-api', 'Auth\LoginController@resetPasswordPostApi')->name('reset-password-post-api');
-  ## end 
+  ## end
 
 
 
@@ -40,7 +40,7 @@ Route::get('/activated', 'Auth\LoginController@Activated')->name('activated');
   // Route::get('/', function () {
 //         return view('index');
 //     })->name('page');
-    
+
 Route::get('/front-home', function () {
   return view('front.index');
 })->name('page');
@@ -59,9 +59,9 @@ return view('schedule-timings');
 Route::get('/my-patients', function () {
 return view('front.my-patients');
 });
-Route::get('/patient-profile', function () {
-return view('front.patient-profile');
-});
+// Route::get('/patient-profile', function () {
+// return view('front.patient-profile');
+// });
 Route::get('/chat-doctor', function () {
 return view('chat-doctor');
 })->name('chat-doctor');
@@ -173,5 +173,3 @@ return view('term-condition');
 Route::get('/doctor-change-password', function () {
 return view('doctor-change-password');
 });
-
-

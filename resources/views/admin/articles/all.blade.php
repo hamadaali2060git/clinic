@@ -139,8 +139,9 @@
 <!-- /Page Content -->
 </div>
 <!-- Appointment Details Modal -->
+
 <div class="modal fade custom-modal" id="appt_details">
-			<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-dialog modal-dialog-centered modal-md">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title">Appointment Details</h5>
@@ -183,8 +184,9 @@
 		</div>
 		<!-- /Appointment Details Modal -->
     <!-- edit Modal -->
+
     <div class="modal fade custom-modal" id="edit_element">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Category</h5>

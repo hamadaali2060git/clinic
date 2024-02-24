@@ -20,6 +20,9 @@ Route::post('appointments/update/status', 'AppointmentController@updateStatus')-
    Route::resource('schedules','WorkDayController');
    Route::get('previous-appointments','AppointmentController@previous')->name('previous-appointments');
    Route::resource('patients','PatientController');
+   Route::get('patient-profile/{id}','PatientController@profile');
+   Route::get('patient-profilee','PatientController@profilee');
+
    Route::get('patients/update/status', 'PatientController@updateStatus')->name('patients.update.status');
 
 

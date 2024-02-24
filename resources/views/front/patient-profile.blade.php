@@ -18,14 +18,14 @@
 				</div>
 			</div>
 			<!-- /Breadcrumb -->
-			
+
 			<!-- Page Content -->
 			<div class="content">
 				<div class="container-fluid">
 
 					<div class="row">
 						<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar dct-dashbd-lft">
-						
+
 							<!-- Profile Widget -->
 							<div class="card widget-profile pat-widget-profile">
 								<div class="card-body">
@@ -36,7 +36,7 @@
 											</a>
 											<div class="profile-det-info">
 												<h3>Richard Wilson</h3>
-												
+
 												<div class="patient-details">
 													<h5><b>Patient ID :</b> PT0016</h5>
 													<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> Newyork, United States</h5>
@@ -54,7 +54,7 @@
 								</div>
 							</div>
 							<!-- /Profile Widget -->
-							
+
 							<!-- Last Booking -->
 							<div class="card">
 								<div class="card-header">
@@ -88,7 +88,7 @@
 								</ul>
 							</div>
 							<!-- /Last Booking -->
-							
+
 						</div>
 
 						<div class="col-md-7 col-lg-8 col-xl-9 dct-appoinment">
@@ -107,11 +107,11 @@
 											</li>
 											<li class="nav-item">
 												<a class="nav-link" href="#billing" data-toggle="tab"><span>Billing</span></a>
-											</li> 
+											</li>
 										</ul>
 									</div>
 									<div class="tab-content">
-										
+
 										<!-- Appointment Tab -->
 										<div id="pat_appointments" class="tab-pane fade show active">
 											<div class="card card-table mb-0">
@@ -360,7 +360,7 @@
 											</div>
 										</div>
 										<!-- /Appointment Tab -->
-										
+
 										<!-- Prescription Tab -->
 										<div class="tab-pane fade" id="pres">
 											<div class="text-right">
@@ -373,10 +373,10 @@
 															<thead>
 																<tr>
 																	<th>Date </th>
-																	<th>Name</th>									
+																	<th>Name</th>
 																	<th>Created by </th>
 																	<th></th>
-																</tr>     
+																</tr>
 															</thead>
 															<tbody>
 																<tr>
@@ -605,7 +605,7 @@
 																		</div>
 																	</td>
 																</tr>
-															</tbody>	
+															</tbody>
 														</table>
 													</div>
 												</div>
@@ -615,7 +615,7 @@
 
 										<!-- Medical Records Tab -->
 										<div class="tab-pane fade" id="medical">
-											<div class="text-right">		
+											<div class="text-right">
 												<a href="#" class="add-new-btn" data-toggle="modal" data-target="#add_medical_records">Add Medical Records</a>
 											</div>
 											<div class="card card-table mb-0">
@@ -630,7 +630,7 @@
 																	<th>Attachment</th>
 																	<th>Created</th>
 																	<th></th>
-																</tr>     
+																</tr>
 															</thead>
 															<tbody>
 																<tr>
@@ -879,14 +879,14 @@
 																		</div>
 																	</td>
 																</tr>
-															</tbody>  	
+															</tbody>
 														</table>
 													</div>
 												</div>
 											</div>
 										</div>
 										<!-- /Medical Records Tab -->
-										
+
 										<!-- Billing Tab -->
 										<div class="tab-pane" id="billing">
 											<div class="text-right">
@@ -895,7 +895,7 @@
 											<div class="card card-table mb-0">
 												<div class="card-body">
 													<div class="table-responsive">
-													
+
 														<table class="table table-hover table-center mb-0">
 															<thead>
 																<tr>
@@ -1170,7 +1170,7 @@
 											</div>
 										</div>
 										<!-- Billing Tab -->
-												
+
 									</div>
 								</div>
 							</div>
@@ -1179,7 +1179,7 @@
 
 				</div>
 
-			</div>		
+			</div>
             <!-- /Page Content -->
 </div>
 
@@ -1191,7 +1191,7 @@
 						<h3 class="modal-title">Medical Records</h3>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					</div>
-					<form>					
+					<form>
 						<div class="modal-body">
 							<div class="form-group">
 								<label>Date</label>
@@ -1202,12 +1202,12 @@
 								<textarea class="form-control"></textarea>
 							</div>
 							<div class="form-group">
-								<label>Upload File</label> 
+								<label>Upload File</label>
 								<input type="file" class="form-control">
-							</div>	
+							</div>
 							<div class="submit-section text-center">
 								<button type="submit" class="btn btn-primary submit-btn">Submit</button>
-								<button type="button" class="btn btn-secondary submit-btn" data-dismiss="modal">Cancel</button>							
+								<button type="button" class="btn btn-secondary submit-btn" data-dismiss="modal">Cancel</button>
 							</div>
 						</div>
 					</form>
