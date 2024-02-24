@@ -277,7 +277,7 @@ class HomeController extends Controller
         $data  =[
             'user'=>new UserResource($user),
             'diagnosis'=>$diagnosis
-            // 'count_reviews'=>$reviews,
+
         ];
         return $this -> returnDataa('data',$data,'');
     }
