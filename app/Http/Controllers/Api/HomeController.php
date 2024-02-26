@@ -431,7 +431,9 @@ class HomeController extends Controller
         $add->date   = Carbon::now()->format('d-m-Y');
         $add->time   = Carbon::now()->format('H:i:s');
         $add->save();
-        return $this -> returnDataa('data',$add,'تم الاضافة');
+        $diagnosis = Diagnos::with('categories')->where('id',$add->id)->first();
+
+        return $this -> returnDataa('data',$diagnosis,'تم الاضافة');
         // return $this -> returnSuccessMessage('تم الإضافة');
     }
     public function editDiagnos(Request $request)
@@ -446,7 +448,9 @@ class HomeController extends Controller
         $edit->date   = Carbon::now()->format('d-m-Y');
         $edit->time   = Carbon::now()->format('H:i:s');
         $edit->save();
-        return $this -> returnDataa('data',$edit,'تم التعديل');
+        $diagnosis = Diagnos::with('categories')->where('id',$edit->id)->first();
+
+        return $this -> returnDataa('data',$diagnosis,'تم التعديل');
         // return $this -> returnSuccessMessage('تم التعديل');
     }
 
