@@ -194,7 +194,7 @@
                       </div>
                       <div class="upload-img">
                         <div class="change-photo-btn">
-                          <span><i class="fa fa-upload"></i> Upload Photo</span>
+                          <span><i class="fa fa-upload"></i> Upload logo</span>
                           <input type="file" class="upload" name="logo">
                         </div>
                         <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
