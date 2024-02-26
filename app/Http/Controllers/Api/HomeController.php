@@ -37,6 +37,7 @@ use App\Review;
 use App\WorkDay;
 use App\WorkTime;
 use App\Diagnos;
+use App\Reminder;
 
 use DateTime;
 use App\Traits\ImageUploadTrait;
@@ -480,8 +481,46 @@ class HomeController extends Controller
             'data',new SettingResource($settings),''
         );
     }
+    public function reminders(Request $request)
+    {
+        $reminders = Reminder::orderBy('id', 'DESC')->paginate(10);
+        return $this -> returnDataa('data',$reminders,'');
+    }
+    public function addReminder(Request $request)
+    {
+        $user = Auth::guard('user-api')->user();
+        if(!$user)
+            return $this->returnError('يجب تسجيل الدخول أولا');
 
+        $add = new Reminder;
+        $add->title    = $request->title;
+        $add->medicine    = $request->medicine;
+        $add->dosage   = $request->dosage;
+        $add->timings   = $request->timings;
+        $add->day   = $request->day;
+        $add->duration   = $request->duration;
+        $add->save();
 
+        return $this -> returnDataa('data',$add,'تم الاضافة');
+        // return $this -> returnSuccessMessage('تم الإضافة');
+    }
+    public function editReminder(Request $request)
+    {
+        $user = Auth::guard('user-api')->user();
+        if(!$user)
+            return $this->returnError('يجب تسجيل الدخول أولا');
+        $edit = Reminder::findOrFail($request->id);
+        $edit->title    = $request->title;
+        $edit->medicine    = $request->medicine;
+        $edit->dosage   = $request->dosage;
+        $edit->timings   = $request->timings;
+        $edit->day   = $request->day;
+        $edit->duration   = $request->duration;
+        $edit->save();
+
+        return $this -> returnDataa('data',$edit,'تم التعديل');
+        // return $this -> returnSuccessMessage('تم التعديل');
+    }
 
 
 

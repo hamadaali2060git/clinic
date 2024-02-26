@@ -75,6 +75,10 @@ Route::group(['middleware' => ['api','changeLanguage'], 'namespace' => 'Api'], f
     Route::get('patient-profile', 'HomeController@patientProfile');
     Route::get('diagnosis', 'HomeController@diagnosis');
 
+Route::get('reminders', 'HomeController@reminders');
+Route::post('add-reminder', 'HomeController@addReminder');
+Route::post('edit-reminder', 'HomeController@editReminder');
+
 
     // patient_actions
 
