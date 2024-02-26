@@ -99,13 +99,14 @@ class HomeController extends Controller
         $doctor = User::where('type','doctor')->first();
         $patients = User::where('type','patient')->count();
         $reviews = Review::count();
+        $settings_price = Setting::first();
         $data  =[
             'work_day'=>$work_day,
             'doctor'=>new DoctorResource($doctor),
             'count_patients'=>$patients,
             'count_reviews'=>$reviews,
             'rate'=>2,
-            'price'=>20,
+            'price'=>$settings_price->price,
 
         ];
         return $this -> returnDataa('data',$data,'');
