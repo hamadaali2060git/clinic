@@ -10,123 +10,114 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
+use App\Traits\ImageUploadTrait;
+
 class SettingController extends Controller
 {
+    use ImageUploadTrait;
+
     public function __construct()
     {
         $this->middleware('auth');
     }
-    public function index()
+
+    public function settings()
     {
-        $id=Auth::user()->id;
-        $users=User::findOrFail($id);
-        return view('admin.profile',compact('users'));
+        $doctor=User::where('type','doctor')->first();
+        $settings=Setting::first();
+        return view('admin.settings.edit',compact('settings','doctor'));
     }
 
     public function updateProfile(Request $request)
     {
+        $edit = User::find($request->id);
+        // dd($request->all());
+        if($request->photo)
+        {
+          $file_name = $this->upload($request, 'photo', 'img/profiles');
+          if($file_name){
+            File::delete(public_path("img/profiles/". $edit->photo));
+            $edit->photo=$file_name;
+          }
 
-        // dd('dddddddsssaaaacc');
-         $users= Auth::user();
-         // dd($users->id);
-         $edit = User::find($users->id);
+        }else{
+          $edit->photo  = $edit->photo;
+        }
 
-
-
-         if($file=$request->file('photo'))
-         {
-            $file_extension = $request -> file('photo') -> getClientOriginalExtension();
-            $file_name = time().'.'.$file_extension;
-            $file_nameone = $file_name;
-            $path = 'img/users';
-            $request-> file('photo') ->move($path,$file_name);
-
-            $edit->photo  =$file_nameone;
-            File::delete(public_path("img/users/". $edit->photo));
-
-         }else{
-            $edit->photo  = $request->url;
-         }
-         $edit->name    = $request->name;
-         // $edit->dateOfBirth  = $request->dateOfBirth;
-         $edit->phone  = $request->mobile;
-         // $edit->address  = $request->address;
+        $edit->first_name    = $request->first_name;
+        $edit->last_name  = $request->last_name;
+        $edit->mobile    = $request->mobile;
+        $edit->experience  = $request->experience;
+        $edit->bio  = $request->bio;
+        $edit->detail  = $request->detail;
 
 
-
-         $edit->save();
-
-
-        // $category = Speciality::findOrFail($request->id);
-
-        // $category->update($request->all());
-
+        $edit->save();
         return back()->with("message", 'تم التعديل بنجاح');
     }
 
-    public function settings()
-    {
-        $settings=Setting::first();
-        return view('admin.settings.settings',compact('settings'));
-    }
 
 
     public function updateSettings(Request $request)
     {
         $edit = Setting::first();
-        if($file1=$request->file('image'))
+        // dd($request->all());
+        if($request->logo)
         {
-            $file_extension1 = $request -> file('image') -> getClientOriginalExtension();
-            $file_name1 = 'image'.time().'.'.$file_extension1;
-            $file_nameone1 = $file_name1;
-            $path1 = 'img/settings';
-            $request-> file('image') ->move($path1,$file_name1);
-            $edit->image  = $file_nameone1;
+          $file_name1 = $this->upload($request, 'logo', 'img/settings');
+          if($file_name1){
+            File::delete(public_path("img/settings/". $edit->logo));
+            $edit->logo=$file_name1;
+          }
         }else{
-            $edit->image  = $edit->image;
+          $edit->logo  = $edit->logo;
         }
-        if($file2=$request->file('logo'))
+        if($request->image)
         {
-            $file_extension2 = $request -> file('logo') -> getClientOriginalExtension();
-            $file_name2 = 'logo'.time().'.'.$file_extension2;
-            $file_nameone2 = $file_name2;
-            $path2 = 'img/settings';
-            $request-> file('logo') ->move($path2,$file_name2);
-            $edit->logo  = $file_nameone2;
+          $file_name2 = $this->upload($request, 'image', 'img/settings');
+          if($file_name2){
+            File::delete(public_path("img/settings/". $edit->image));
+            $edit->image=$file_name2;
+          }
+
         }else{
-            $edit->logo  = $edit->logo;
+          $edit->image  = $edit->image;
+        }
+        if($request->favicon)
+        {
+          $file_name3 = $this->upload($request, 'favicon', 'img/settings');
+          if($file_name3){
+            File::delete(public_path("img/settings/". $edit->favicon));
+            $edit->favicon=$file_name3;
+          }
+        }else{
+          $edit->favicon  = $edit->favicon;
         }
 
-        if($file3=$request->file('favicon'))
-        {
-            $file_extension3 = $request -> file('favicon') -> getClientOriginalExtension();
-            $file_name3 = 'favicon'.time().'.'. $file_extension3;
-            $file_nameone3 = $file_name3;
-            $path3 = 'img/settings';
-            $request-> file('favicon') ->move($path3,$file_name3);
-            $edit->favicon  = $file_nameone3;
-        }else{
-            $edit->favicon  = $edit->favicon;
-        }
-        $edit->title = $request->title;
-        $edit->phone = $request->phone;
-        $edit->desc  = $request->desc;
+        $edit->name = $request->name;
+        $edit->title_ar = $request->title_ar;
+        $edit->title_en = $request->title_en;
+        $edit->mail  = $request->mail;
+        $edit->phone  = $request->phone;
+        $edit->desc_ar = $request->desc_ar;
+        $edit->desc_en = $request->desc_en;
+        $edit->privacy_ar = $request->privacy_ar;
+        $edit->privacy_en = $request->privacy_en;
+
+
         $edit->save();
         return back()->with("success", 'تم التحديث ');
     }
 
-    public function updateContactData(Request $request)
+    public function updateSettingPrice(Request $request)
     {
          // $userId = 1;
-         $edit = ContactInfo::first();
-
-         // dd($request->all());
-         $edit->phone  = $request->phone;
-         $edit->email  = $request->email;
-         $edit->address_ar  = $request->address_ar;
-         $edit->address_en  = $request->address_en;
-         $edit->longitude  = $request->longitude;
-         $edit->latitude  = $request->latitude;
+        $edit = Setting::first();
+         if(isset($request->price)){
+             $edit->price  = $request->price;
+         }else{
+             $edit->price  = $edit->price;
+         }
          $edit->save();
 
         return back()->with("message", 'تم التعديل بنجاح');

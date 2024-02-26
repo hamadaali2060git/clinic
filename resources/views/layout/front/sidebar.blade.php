@@ -8,7 +8,7 @@
                                 </a>
                                 <div class="profile-det-info">
                                     <h3> {{Auth::user()->first_name}} {{Auth::user()->last_name}}</h3>
-                                    
+
                                     <div class="patient-details">
                                         <h5 class="mb-0">{{Auth::user()->bio}}</h5>
                                     </div>
@@ -66,7 +66,7 @@
                                             <span>Schedule Timings</span>
                                         </a>
                                     </li> -->
-                                    <li>
+                                    <!-- <li>
                                         <a href="invoices">
                                             <i class="fas fa-file-invoice"></i>
                                             <span>Invoices</span>
@@ -84,19 +84,19 @@
                                             <span>Message</span>
                                             <small class="unread-msg">23</small>
                                         </a>
-                                    </li>
+                                    </li> -->
                                     <li>
-                                        <a href="doctor-profile-settings">
+                                        <a href="{{url('settings')}}">
                                             <i class="fas fa-user-cog"></i>
-                                            <span>Profile Settings</span>
+                                            <span> Settings</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <!-- <li>
                                         <a href="social-media">
                                             <i class="fas fa-share-alt"></i>
                                             <span>Social Media</span>
                                         </a>
-                                    </li>
+                                    </li> -->
                                     <li>
                                         <a href="doctor-change-password">
                                             <i class="fas fa-lock"></i>
@@ -114,4 +114,3 @@
                         </div>
                     </div>
                     <!-- /Profile Sidebar -->
-                    

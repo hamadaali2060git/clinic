@@ -1,15 +1,16 @@
-<?php 
+<?php
 namespace App\Traits;
- 
+
 use Illuminate\Http\Request;
- 
-trait ImageUploadTrait 
-{ 
+use Illuminate\Support\Str;
+
+trait ImageUploadTrait
+{
     public function upload( Request $request, $fieldname, $directory) {
         if($file=$request->file($fieldname))
         {
             $file_extension = $request -> file($fieldname) -> getClientOriginalExtension();
-            $file_name = time().'.'.$file_extension;
+            $file_name = Str::random(10).'.'.$file_extension;
             $path = $directory;
             $request-> file($fieldname) ->move($path,$file_name);
             return $file_name;
@@ -25,5 +26,3 @@ trait ImageUploadTrait
         return null;
     }
 }
-
-

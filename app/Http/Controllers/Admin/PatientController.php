@@ -141,19 +141,7 @@ class PatientController extends Controller
          $records=RecordResource::collection($records_list);
         return view('admin.patients.patient-profile',compact('patients','diagnosis','appointments','records'));
     }
-    public function profilee()
-    {
-        // $patients = User::findOrFail($patient);
-        // $diagnosis = Diagnos::with('categories')->where('user_id',$patient)->orderBy('id', 'DESC')->paginate(10);
-        // $appointments = Appointment::with('categories')
-        //                 ->with('user_appointment')
-        //                 ->with('workdays')
-        //                 ->where("user_id" ,$patient)
-        //                 ->orderBy('id', 'DESC')->paginate(10);
-        // $records_list = Record::where("user_id" , $patient)->orderBy('id', 'DESC')->paginate(10);
-        //  $records=RecordResource::collection($records_list);
-        return view('admin.patients.patient-profile');
-    }
+    
    public function changePassword(Request $request){
         $patient=Patient::where('id',$request->patientId)->first();
         // dd($patient->password);

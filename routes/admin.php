@@ -21,21 +21,21 @@ Route::post('appointments/update/status', 'AppointmentController@updateStatus')-
    Route::get('previous-appointments','AppointmentController@previous')->name('previous-appointments');
    Route::resource('patients','PatientController');
    Route::get('patient-profile/{id}','PatientController@profile');
-   Route::get('patient-profilee','PatientController@profilee');
 
    Route::get('patients/update/status', 'PatientController@updateStatus')->name('patients.update.status');
 
 
 
    Route::get('settings','SettingController@settings');
+   Route::post('profile/update','SettingController@updateProfile')->name('profile/update');
    Route::post('settings/update','SettingController@updateSettings');
+Route::post('settings/price/update','SettingController@updateSettingPrice');
 
     // Route::get('about', 'ProfileController@about');
     // Route::get('contact', 'ProfileController@contact');
-    Route::get('contact', 'ProfileController@contact');
-    Route::post('settings/contactdata','ProfileController@updateContactData');
-    Route::get('profile', 'SettingController@index');
-    Route::post('profile/update','SettingController@updateProfile');
+    // Route::get('contact', 'ProfileController@contact');
+    // Route::post('settings/contactdata','ProfileController@updateContactData');
+    // Route::get('profile', 'SettingController@index');
     Route::post('user/changepassword', 'ProfileController@changePassword')->name('user.changepassword');
     //      Route::post('user/changepassword', 'ProfileController@instructorChangePassword')->name('instructor.changepassword');
 

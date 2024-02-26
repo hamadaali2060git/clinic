@@ -9,7 +9,7 @@
 	</div>
 	@endif
 	<!-- /Loader  -->
-<
+
 <!-- Header -->
 <header class="header">
 				<nav class="navbar navbar-expand-lg header-nav">
@@ -22,7 +22,7 @@
 							</span>
 						</a>
 						<a href="index" class="navbar-brand logo">
-							<img src="assets/img/logo.png" class="img-fluid" alt="Logo">
+							<img src="{{asset('img/settings/'.$contact->logo) }}" class="img-fluid" alt="Logo">
 						</a>
 					</div>
 					<div class="main-menu-wrapper">
