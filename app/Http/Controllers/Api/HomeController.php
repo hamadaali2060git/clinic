@@ -453,7 +453,24 @@ class HomeController extends Controller
         return $this -> returnDataa('data',$diagnosis,'تم التعديل');
         // return $this -> returnSuccessMessage('تم التعديل');
     }
+    public function updateStatus(Request $request)
+    {
+        $user = Auth::guard('user-api')->user();
+        if(!$user)
+          return $this->returnError('يجب تسجيل الدخول أولا');
+        $edit = Appointment::findOrFail($request->id);
+        $edit->status = $request->status;
+        $edit->save();
+        $appointments = Appointment::with('categories')
+                ->with('user_appointment')
+                ->with('reviews')
+                ->with('workdays')
+                ->where("id" ,$request->id)
+                ->first();
 
+        // return $this -> returnSuccessMessage('تم التعديل');
+        return $this -> returnDataa('data',new AppointmentResource($appointments),'تم التعديل');
+    }
 
     public function settings(Request $request)
     {

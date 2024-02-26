@@ -21,15 +21,15 @@ Route::group(['middleware' => ['api','changeLanguage'], 'namespace' => 'Api'], f
     Route::get('/admin', function () {
         return 'bbbbffff';
     });
-   
+
 ## start auth
     Route::post('login', 'AuthController@login');
   	Route::post('register', 'AuthController@register');
     Route::post('logout', 'AuthController@logOut');
 
-    
+
     Route::get('user-data', 'AuthController@getUserData');
-    
+
     Route::post('forget-password', 'AuthController@forgetPassword');
     Route::post('profile-update', 'AuthController@profileUpdate');
 
@@ -47,19 +47,21 @@ Route::group(['middleware' => ['api','changeLanguage'], 'namespace' => 'Api'], f
     Route::post('book-appointment', 'HomeController@bookAppointment');
     Route::get('patient-upcoming-ppointments', 'HomeController@patientUpcomingAppointments');
     Route::get('patient-previous-ppointments', 'HomeController@patientPreviousAppointments');
+
+    Route::post('appointment-status', 'HomeController@updateStatus');
     Route::post('add-review', 'HomeController@addReview');
     Route::post('edit-review', 'HomeController@editReview');
     Route::post('remove-review', 'HomeController@removeReview');
-    
+
     Route::post('add-record', 'HomeController@addRecord');
     Route::get('patient-records', 'HomeController@patientRecords');
 
-    
+
 ## end
 
 ## start doctor
     Route::post('add-work-days', 'HomeController@addWorkDays');
-    
+
     Route::post('edit-work-days', 'HomeController@editWorkDays');
     Route::get('doctor-work-days', 'HomeController@doctorWorkDays');
     Route::get('doctor-upcoming-appointments', 'HomeController@doctorUpcomingAppointments');
@@ -68,23 +70,23 @@ Route::group(['middleware' => ['api','changeLanguage'], 'namespace' => 'Api'], f
     Route::get('patients', 'HomeController@patients');
     Route::post('add-diagnos', 'HomeController@addDiagnos');
     Route::post('edit-diagnos', 'HomeController@editDiagnos');
-    
-    
+
+
     Route::get('patient-profile', 'HomeController@patientProfile');
     Route::get('diagnosis', 'HomeController@diagnosis');
-    
+
 
     // patient_actions
 
-  
+
     // Route::get('doctor-details', 'HomeController@doctorDetails');
 
     // Route::get('instructors', 'HomeController@getInstructor');
-    
-    
-    
 
 
-    
+
+
+
+
 
 });
