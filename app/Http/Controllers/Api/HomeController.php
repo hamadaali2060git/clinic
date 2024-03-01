@@ -521,7 +521,15 @@ class HomeController extends Controller
         return $this -> returnDataa('data',$edit,'تم التعديل');
         // return $this -> returnSuccessMessage('تم التعديل');
     }
+    public function removeReminder(Request $request){
+        $user = Auth::guard('user-api')->user();
+        if(!$user)
+            return $this->returnError('يجب تسجيل الدخول أولا');
+        $delete = Reminder::find($request->id);
+        $delete->delete();
+        return $this -> returnSuccessMessage('Deleted Successfully');
 
+    }
 
 
 

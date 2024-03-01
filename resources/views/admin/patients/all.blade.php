@@ -57,7 +57,17 @@
                                 <div class="patient-info">
                                     <ul>
                                         <li>Phone <span>{{$item->mobile}}</span></li>
-                                        <li>dateOfBirth <span>{{$item->dateOfBirth}} , {{$item->gender}}</span></li>
+                                        <li>dateOfBirth
+                                            <span>
+                                            @if($item->dateOfBirth)
+                                              {{\Carbon\Carbon::parse($item->dateOfBirth)->age}}
+                                            @endif
+                                            @if($item->gender)
+                                              , {{$item->gender}}
+                                            @endif
+
+                                            </span>
+                                        </li>
                                         <li>Blood Group <span> {{$item->bloode_group}}</span></li>
                                     </ul>
                                 </div>

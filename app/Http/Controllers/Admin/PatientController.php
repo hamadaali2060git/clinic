@@ -30,6 +30,7 @@ class PatientController extends Controller
     public function index()
     {
         $patients=User::where('type','patient')->get();
+        // return Carbon::parse('1993-01-10')->age;
         return view('admin.patients.all',compact('patients'));
     }
 
@@ -141,7 +142,7 @@ class PatientController extends Controller
          $records=RecordResource::collection($records_list);
         return view('admin.patients.patient-profile',compact('patients','diagnosis','appointments','records'));
     }
-    
+
    public function changePassword(Request $request){
         $patient=Patient::where('id',$request->patientId)->first();
         // dd($patient->password);

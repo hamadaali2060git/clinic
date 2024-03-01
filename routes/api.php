@@ -78,6 +78,8 @@ Route::group(['middleware' => ['api','changeLanguage'], 'namespace' => 'Api'], f
 Route::get('reminders', 'HomeController@reminders');
 Route::post('add-reminder', 'HomeController@addReminder');
 Route::post('edit-reminder', 'HomeController@editReminder');
+Route::post('remove-reminder', 'HomeController@removeReminder');
+
 
 
     // patient_actions
