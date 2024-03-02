@@ -23,7 +23,7 @@ class SliderController extends Controller
      public function index()
     {
         // dd('dd');
-        $sliders=Slider::all();
+        $sliders=Slider::paginate(10);
         return view('admin.sliders.all',compact('sliders'));
     }
 

@@ -28,7 +28,7 @@
               @include('layout.front.Sidebar')
               <!-- /Profile Widget -->
 
-              
+
 
             </div>
 
@@ -167,7 +167,7 @@
                                 @endforeach
 
                               </tbody>
-                            </table>
+                            </table>{{ $appointments->links('admin.custom') }}
                           </div>
                         </div>
                       </div>
@@ -221,7 +221,7 @@
                                 </tr>
                                 @endforeach
                               </tbody>
-                            </table>
+                            </table>{{ $records->links('admin.custom') }}
                           </div>
                         </div>
                       </div>
@@ -272,6 +272,7 @@
 
                               </tbody>
                             </table>
+                          {{ $diagnosis->links('admin.custom') }}
                           </div>
                         </div>
                       </div>

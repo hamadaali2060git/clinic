@@ -22,13 +22,13 @@ class AppointmentController extends Controller
                             ->with('user_appointment')
                             ->with('workdays')
                             ->where("status" ,'pending')
-                            ->orderBy('id', 'DESC')->get();
+                            ->orderBy('id', 'DESC')->paginate(10);
         $appointments_today = Appointment::with('categories')
                             ->with('user_appointment')
                             ->with('workdays')
                             ->where("status" ,'accept')
                             ->where('date',$ldate)
-                            ->orderBy('id', 'DESC')->get();
+                            ->orderBy('id', 'DESC')->paginate(10);
         // $previous_appointments = Appointment::with('categories')
         //             ->with('user_appointment')
         //             ->with('workdays')
@@ -43,7 +43,7 @@ class AppointmentController extends Controller
                             ->with('user_appointment')
                             ->with('workdays')
                             ->where("status" ,'expired')
-                            ->orderBy('id', 'DESC')->get();
+                            ->orderBy('id', 'DESC')->paginate(10);
         // $previous_appointments = Appointment::with('categories')
         //             ->with('user_appointment')
         //             ->with('workdays')
@@ -68,5 +68,5 @@ class AppointmentController extends Controller
 
 
 
-    
+
 }

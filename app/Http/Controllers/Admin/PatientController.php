@@ -29,7 +29,7 @@ class PatientController extends Controller
     // }
     public function index()
     {
-        $patients=User::where('type','patient')->get();
+        $patients=User::where('type','patient')->paginate(10);;
         // return Carbon::parse('1993-01-10')->age;
         return view('admin.patients.all',compact('patients'));
     }
@@ -132,13 +132,13 @@ class PatientController extends Controller
     public function profile($patient)
     {
         $patients = User::findOrFail($patient);
-        $diagnosis = Diagnos::with('categories')->where('user_id',$patient)->orderBy('id', 'DESC')->paginate(10);
+        $diagnosis = Diagnos::with('categories')->where('user_id',$patient)->orderBy('id', 'DESC')->paginate(2);
         $appointments = Appointment::with('categories')
                         ->with('user_appointment')
                         ->with('workdays')
                         ->where("user_id" ,$patient)
-                        ->orderBy('id', 'DESC')->paginate(10);
-        $records_list = Record::where("user_id" , $patient)->orderBy('id', 'DESC')->paginate(10);
+                        ->orderBy('id', 'DESC')->paginate(2);
+        $records_list = Record::where("user_id" , $patient)->orderBy('id', 'DESC')->paginate(2);
          $records=RecordResource::collection($records_list);
         return view('admin.patients.patient-profile',compact('patients','diagnosis','appointments','records'));
     }

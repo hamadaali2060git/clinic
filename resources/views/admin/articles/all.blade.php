@@ -92,7 +92,7 @@
                                                                 </h2>
                                                             </td>
                                                             <td>
-                                                                {{$_item->title_ar}}
+                                                                {{$_item->id}}{{$_item->title_ar}}
                                                             </td>
                                                             <td>
                                                                 {{$_item->title_en}}
@@ -123,6 +123,7 @@
                                                         @endforeach
                                                     </tbody>
                                                 </table>
+                                                {{ $articles->links('admin.custom') }}
                                             </div>
                                         </div>
                                     </div>

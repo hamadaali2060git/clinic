@@ -20,12 +20,18 @@ class ArticleController extends Controller
         // $this->middleware('permission:حذف صلاحية', ['only' => ['destroy']]);
 
     }
-     public function index()
+    public function serverSide()
     {
-        // dd('dd');
-        $articles=Article::all();
-        return view('admin.articles.all',compact('articles'));
+        $articles=Article::paginate(3);
+        return view('admin.server-side',compact('articles'));
     }
+
+    public function index()
+   {
+       // dd('dd');
+       $articles=Article::paginate(10);
+       return view('admin.articles.all',compact('articles'));
+   }
 
     public function create()
     {

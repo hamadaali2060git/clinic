@@ -78,7 +78,7 @@
 
 
                 </div>
-
+<hr>{{ $patients->links('admin.custom') }}
             </div>
         </div>
 

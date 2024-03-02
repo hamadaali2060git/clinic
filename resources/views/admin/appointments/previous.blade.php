@@ -111,6 +111,7 @@
 												</div>
 								</div>
 								@endforeach
+{{ $appointments->links('admin.custom') }}
 								<!-- /Appointment List -->
 
 

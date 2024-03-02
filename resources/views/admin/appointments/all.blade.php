@@ -157,6 +157,7 @@
                                                         @endforeach
                                                     </tbody>
                                                 </table>
+                                                {{ $appointments->links('admin.custom') }}
                                             </div>
                                         </div>
                                     </div>
@@ -272,6 +273,7 @@
                                                         @endforeach
                                                     </tbody>
                                                 </table>
+                                                {{ $appointments_today->links('admin.custom') }}
                                             </div>
                                         </div>
                                     </div>
