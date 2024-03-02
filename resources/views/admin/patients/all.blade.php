@@ -27,7 +27,7 @@
             <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
 
                 <!-- Profile Sidebar -->
-                @include('layout.front.Sidebar')
+                @include('layout.front.sidebar')
                 <!-- /Profile Sidebar -->
 
             </div>

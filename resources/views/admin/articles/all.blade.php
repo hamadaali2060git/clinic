@@ -24,7 +24,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
-                @include('layout.front.Sidebar')
+                @include('layout.front.sidebar')
             </div>
             <div class="col-md-7 col-lg-8 col-xl-9">
 
