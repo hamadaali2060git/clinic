@@ -9,16 +9,16 @@ use App\Product;
 use App\Visit;
 class DashBoardController extends Controller
 {
-       
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-   
+
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
+
     public function index()
     {
-        
+
         // $courses=Course::where('status',1)->get();
         // $courses_count=count($courses);
         $product_count=Product::count();
@@ -26,19 +26,19 @@ class DashBoardController extends Controller
         $visit_sum=Visit::sum('viewer');
         // dd($visit_sum);
         // $student_not_active_count=Instructor::where('type','student')->where('status',0)->count();
-        
+
         // $instructor_count=Instructor::where('type','instructor')->count();
         // $instructor_count_active=Instructor::where('type','instructor')->where('suspended',1)->where('blocked',1)->count();
-        
+
         // $instructor_publish_course=Instructor::where('type','instructor')->get();
         // $instructor_count_publish_course=[];
-        // foreach ($instructor_publish_course as $item) {   
+        // foreach ($instructor_publish_course as $item) {
         //     $course_sum= Course::where('userId',$item->id)->first();
         //     if($course_sum){
         //         $instructor_count_publish_course[]=$course_sum;
         //     }
         // }
-        
+
         // $balance=Transaction::orderBy('id', 'DESC')->first();
     //   dd($product_count);
         return view('admin.index_admin',compact('product_count','user_count','visit_sum'));
@@ -48,7 +48,7 @@ class DashBoardController extends Controller
     // {
     //     return view('admin.sliders.create');
     // }
-    
+
 
     // public function store(AircraftRequest $request)
     // {
@@ -63,10 +63,10 @@ class DashBoardController extends Controller
     //     $request->merge(['logo'=>$file_nameone]);
     //     //dd($request->all());
     //     Slider::create($request->all());
-    //     return redirect()->back()->with("message", __('admin.createSuccess')); 
+    //     return redirect()->back()->with("message", __('admin.createSuccess'));
     // }
 
-    
+
     // public function edit(Slider $slider)
     // {
     //     return view('admin.sliders.edit',compact('slider'));
@@ -91,22 +91,22 @@ class DashBoardController extends Controller
     //       $request->merge(['updated_by'=>$userId]);
     //       $slider->update($request->all());
     //      }
-       
+
     //     dd($request->all());
-    //     //return redirect()->route('aircraft.index')->with("message", __('admin.updateSuccess')); 
+    //     //return redirect()->route('aircraft.index')->with("message", __('admin.updateSuccess'));
     // }
 
     public function destroy(Slider $slider)
     {
 
-        $Charter=Charter::where('aircraftId',$slider->id)->get(); 
+        $Charter=Charter::where('aircraftId',$slider->id)->get();
         if(count($Charter) == 0){
             $slider->delete();
-            return redirect()->route('aircraft.index')->with("message", __('admin.deleteSuccess')); 
+            return redirect()->route('aircraft.index')->with("message", __('admin.deleteSuccess'));
         }else{
-           return redirect()->back()->with("error", 'It is not allowed to delete this item'); 
+           return redirect()->back()->with("error", 'It is not allowed to delete this item');
         }
 
-        
-    } 
+
+    }
 }

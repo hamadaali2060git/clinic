@@ -38,16 +38,19 @@
 							<li class="{{ Request::is('index') ? 'active' : '' }}">
 								<a href="index">Home</a>
 							</li>
-							<li class="{{ Request::is('index') ? 'active' : '' }}">
-								<a href="index">About</a>
+							@if(Auth::user())
+							<li class="{{ Request::is('categories') ? 'active' : '' }}">
+								<a href="index">Dashboard</a>
 							</li>
-							<li class="{{ Request::is('index') ? 'active' : '' }}">
-								<a href="index">Contact</a>
+							<li class="{{ Request::is('appointments') ? 'active' : '' }}">
+								<a href="index">appointments</a>
 							</li>
+							@endif
 
 						</ul>
 					</div>
 					<ul class="nav header-navbar-rht">
+						@if(!Auth::user())
 						<li class="nav-item contact-item">
 							<div class="header-contact-img">
 								<i class="far fa-hospital"></i>
@@ -56,36 +59,12 @@
 								<p class="contact-header">Contact</p>
 								<p class="contact-info-header"> {{$contact->phone}}</p>
 							</div>
-							@if(Route::is(['page','blank-page','term-condition','privacy-policy','blog-details','blog-grid','blog-list','forgot-password','register','login','invoice-view','doctor-register','components','calendar','map-grid','map-list','search','doctor-profile','booking','checkout','booking-success']))
 							<li class="nav-item">
-							<a class="nav-link header-login" href="login">login / Signup </a>
+							<a class="nav-link header-login" href="{{url('admin-login')}}">login</a>
 							</li>
-							@endif
+
 						</li>
-						@if(Route::is(['patient-dashboard','favourites','video-call','profile-settings','change-password','voice-call']))
-						<li class="nav-item dropdown has-arrow logged-item">
-							<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-								<span class="user-img">
-									<img class="rounded-circle" src="assets/img/patients/patient.jpg" width="31" alt="Ryan Taylor">
-								</span>
-							</a>
-							<div class="dropdown-menu dropdown-menu-right">
-								<div class="user-header">
-									<div class="avatar avatar-sm">
-										<img src="assets/img/patients/patient.jpg" alt="User Image" class="avatar-img rounded-circle">
-									</div>
-									<div class="user-text">
-										<h6>Richard Wilson</h6>
-										<p class="text-muted mb-0">Patient</p>
-									</div>
-								</div>
-								<a class="dropdown-item" href="patient-dashboard">Dashboard</a>
-								<a class="dropdown-item" href="profile-settings">Profile Settings</a>
-								<a class="dropdown-item" href="login">Logout</a>
-							</div>
-						</li>
-						@endif
-						@if(!Route::is(['page','blank-page','term-condition','privacy-policy','blog-details','blog-grid','blog-list','forgot-password','register','login','calendar','invoice-view','components','change-password','video-call','doctor-register','voice-call','favourites','map-grid','profile-settings','map-list','search','patient-dashboard','doctor-profile','booking','checkout','booking-success']))
+						@else
 						<!-- User Menu -->
 						<li class="nav-item dropdown has-arrow logged-item">
 							<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
@@ -107,7 +86,7 @@
 								<a class="dropdown-item" href="{{url('settings')}}">Profile Settings</a>
 								<!-- <a class="dropdown-item" href="login">Logout</a> -->
 
-								<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> تسجيل الخروج </a>
+								<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
 								<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
 									@csrf
 								</form>
