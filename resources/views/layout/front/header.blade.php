@@ -39,12 +39,23 @@
 								<a href="index">Home</a>
 							</li>
 							@if(Auth::user())
-							<li class="{{ Request::is('categories') ? 'active' : '' }}">
-								<a href="index">Dashboard</a>
-							</li>
-							<li class="{{ Request::is('appointments') ? 'active' : '' }}">
-								<a href="index">appointments</a>
-							</li>
+								<li class="{{ Request::is('categories') ? 'active' : '' }}">
+									<a href="index">Dashboard</a>
+								</li>
+								<li class="{{ Request::is('appointments') ? 'active' : '' }}">
+									<a href="index">appointments</a>
+								</li>
+								<li class="login-link">
+									<!-- <a class="dropdown-item" href="login.html">Logout</a> -->
+									<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+									<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+										@csrf
+									</form>
+								</li>
+							@else
+								<li class="login-link">
+									<a href="{{url('admin-login')}}">Login</a>
+								</li>
 							@endif
 
 						</ul>
