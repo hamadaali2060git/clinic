@@ -117,7 +117,7 @@ class HomeController extends Controller
         // dd($request->all());
         $user = Auth::guard('user-api')->user();
         if(!$user)
-            return $this->returnError('يجب تسجيل الدخول أولا');
+            return $this->returnError('يجب تسجيل الدخول أولا','','401');
         $check_appointment = Appointment::where("date" , $request->date)
                                     ->where("time" , $request->time)->first();
         if($check_appointment){
@@ -142,7 +142,7 @@ class HomeController extends Controller
     {
         $user = Auth::guard('user-api')->user();
         if(!$user)
-            return $this->returnError('يجب تسجيل الدخول أولا');
+            return $this->returnError('يجب تسجيل الدخول أولا','','401');
         $upcoming_appointments = Appointment::with('user_appointment')
                             ->with('workdays')
                             ->where("status" ,'pending')
@@ -165,7 +165,7 @@ class HomeController extends Controller
     {
         $user = Auth::guard('user-api')->user();
         if(!$user)
-            return $this->returnError('يجب تسجيل الدخول أولا');
+            return $this->returnError('يجب تسجيل الدخول أولا','','401');
 
         $previous_appointments = Appointment::with('user_appointment')
                     ->with('workdays')
@@ -189,7 +189,7 @@ class HomeController extends Controller
         // return response()->json([ 'status_message' => 'Unauthorised'], 401);
         $user = Auth::guard('user-api')->user();
         if(!$user)
-            return $this->returnError('يجب تسجيل الدخول أولا');
+            return $this->returnError('يجب تسجيل الدخول أولا','','401');
         $check_review = Review::where("appointment_id" , $request->appointment_id)->first();
         if($check_review){
             return $this->returnError('تم التقييم مسبقا');
@@ -209,7 +209,7 @@ class HomeController extends Controller
     {
         $user = Auth::guard('user-api')->user();
         if(!$user)
-            return $this->returnError('يجب تسجيل الدخول أولا');
+            return $this->returnError('يجب تسجيل الدخول أولا','','401');
         $edit = Review::findOrFail($request->id);
         $edit->rate   = $request->rate;
         $edit->comment   = $request->comment;
@@ -222,7 +222,7 @@ class HomeController extends Controller
     public function removeReview(Request $request){
         $user = Auth::guard('user-api')->user();
         if(!$user)
-            return $this->returnError('يجب تسجيل الدخول أولا');
+            return $this->returnError('يجب تسجيل الدخول أولا','','401');
         $review = Review::find($request->id);
         $review->delete();
         return $this -> returnSuccessMessage('Deleted Successfully');
@@ -232,7 +232,7 @@ class HomeController extends Controller
     {
         $user = Auth::guard('user-api')->user();
         if(!$user)
-            return $this->returnError('يجب تسجيل الدخول أولا');
+            return $this->returnError('يجب تسجيل الدخول أولا','','401');
         $file_redocd = $this->upload($request, 'file', 'img/records');
         $add = new Record;
         $add->user_id    = $user->id;
@@ -249,7 +249,7 @@ class HomeController extends Controller
     {
         $user = Auth::guard('user-api')->user();
         if(!$user)
-            return $this->returnError('يجب تسجيل الدخول أولا');
+            return $this->returnError('يجب تسجيل الدخول أولا','','401');
         $records = Record::where("user_id" , $user->id)->orderBy('id', 'DESC')->paginate(10);
         return RecordResource::collection($records);
         // return $this -> returnDataa('data',RecordResource::collection($records),'');
@@ -293,7 +293,7 @@ class HomeController extends Controller
         // dd($request->all());
         $user = Auth::guard('user-api')->user();
         if(!$user)
-            return $this->returnError('يجب تسجيل الدخول أولا');
+            return $this->returnError('يجب تسجيل الدخول أولا','','401');
         $add = new WorkDay();
         $add->day_id  = $request->day_id;
         $add->save();
@@ -319,7 +319,7 @@ class HomeController extends Controller
     {
         $user = Auth::guard('user-api')->user();
         if(!$user)
-            return $this->returnError('يجب تسجيل الدخول أولا');
+            return $this->returnError('يجب تسجيل الدخول أولا','','401');
         $work_times= WorkTime::where('work_day_id',$request->work_day_id)->get();
         foreach ($work_times as $item) {
             // $delete_course = Courses_joined::findOrFail($item->id);
@@ -343,7 +343,7 @@ class HomeController extends Controller
     {
         $user = Auth::guard('user-api')->user();
         if(!$user)
-            return $this->returnError('يجب تسجيل الدخول أولا');
+            return $this->returnError('يجب تسجيل الدخول أولا','','401');
         $work_day =WorkDay::selection()->with('days')->with('worktimes')->get();
         return $this -> returnDataa(
             'data',$work_day,''
@@ -422,7 +422,7 @@ class HomeController extends Controller
     {
         $user = Auth::guard('user-api')->user();
         if(!$user)
-            return $this->returnError('يجب تسجيل الدخول أولا');
+            return $this->returnError('يجب تسجيل الدخول أولا','','401');
 
         $add = new Diagnos;
         $add->user_id    = $request->user_id;
@@ -441,7 +441,7 @@ class HomeController extends Controller
     {
         $user = Auth::guard('user-api')->user();
         if(!$user)
-            return $this->returnError('يجب تسجيل الدخول أولا');
+            return $this->returnError('يجب تسجيل الدخول أولا','','401');
         $edit = Diagnos::findOrFail($request->id);
         $edit->category_id    = $request->category_id;
         $edit->medicine   = $request->medicine;
@@ -458,7 +458,7 @@ class HomeController extends Controller
     {
         $user = Auth::guard('user-api')->user();
         if(!$user)
-          return $this->returnError('يجب تسجيل الدخول أولا');
+          return $this->returnError('يجب تسجيل الدخول أولا','','401');
         $edit = Appointment::findOrFail($request->id);
         $edit->status = $request->status;
         $edit->save();
@@ -490,7 +490,7 @@ class HomeController extends Controller
     {
         $user = Auth::guard('user-api')->user();
         if(!$user)
-            return $this->returnError('يجب تسجيل الدخول أولا');
+            return $this->returnError('يجب تسجيل الدخول أولا','','401');
 
         $add = new Reminder;
         $add->title    = $request->title;
@@ -508,7 +508,7 @@ class HomeController extends Controller
     {
         $user = Auth::guard('user-api')->user();
         if(!$user)
-            return $this->returnError('يجب تسجيل الدخول أولا');
+            return $this->returnError('يجب تسجيل الدخول أولا','','401');
         $edit = Reminder::findOrFail($request->id);
         $edit->title    = $request->title;
         $edit->medicine    = $request->medicine;
@@ -524,7 +524,7 @@ class HomeController extends Controller
     public function removeReminder(Request $request){
         $user = Auth::guard('user-api')->user();
         if(!$user)
-            return $this->returnError('يجب تسجيل الدخول أولا');
+            return $this->returnError('يجب تسجيل الدخول أولا','','401');
         $delete = Reminder::find($request->id);
         $delete->delete();
         return $this -> returnSuccessMessage('Deleted Successfully');

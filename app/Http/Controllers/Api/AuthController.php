@@ -185,7 +185,7 @@ class AuthController extends Controller
     public function logOut() {
         $user = Auth::guard('user-api')->user(); 
         if(!$user)
-            return $this->returnError('يجب تسجيل الدخول أولا');
+            return $this->returnError('يجب تسجيل الدخول أولا','','401');
         Auth::guard('user-api')->logout();
         return $this -> returnSuccessMessage('تم تسجيل الخروج');
     }
@@ -193,7 +193,7 @@ class AuthController extends Controller
    {
        $userid = Auth::guard('user-api')->user();
         if(!$userid)
-            return $this->returnError(__('front.You must login first'));
+            return $this->returnError('You must login first','','401');
        $input = $request->all();
         //    $userid = Instructor::where("id" , $user->id)->first();
            $rules = array(
@@ -234,7 +234,7 @@ class AuthController extends Controller
         // return $token;
         $user_auth = Auth::guard('user-api')->user();
         if(!$user_auth)
-            return $this->returnError(__('front.You must login first'));
+            return  $this->returnError('You must login first','','401');
         $user = User::selection()->findOrFail($user_auth->id);
         $user->photo=$this->getFile('/img/profiles/',$user->photo,'/img/profiles/');
         return $this -> returnDataa(
@@ -246,7 +246,7 @@ class AuthController extends Controller
         // return $request->all();
         $user = Auth::guard('user-api')->user();
         if(!$user)
-            return $this->returnError(__('front.You must login first'));
+            return $this->returnError('You must login first','','401');
 
         $edit = User::findOrFail($user->id);
         if($file=$request->file('photo'))
@@ -327,7 +327,7 @@ class AuthController extends Controller
      {
          $user = Auth::guard('user-api')->user();
          if(!$user)
-            return $this->returnError('You must login first');
+            return  $this->returnError('You must login first','','401');
          // return $this -> returnDataa('data',$user,'');
      }
 

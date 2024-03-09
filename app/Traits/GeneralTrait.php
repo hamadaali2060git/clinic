@@ -10,14 +10,14 @@ trait GeneralTrait
         return app()->getLocale();
     }
 
-    public function returnError( $msg,$validator='')
+    public function returnError( $msg,$validator='',$errNum='200')
     {
         return response()->json([
             'status' => false,
             // 'errNum' => $errNum,
             'msg' => $msg,
             // 'massage'=>$validator
-        ],401);
+        ],$errNum);
     }
 
 
