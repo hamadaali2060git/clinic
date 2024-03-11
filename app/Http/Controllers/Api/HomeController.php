@@ -530,7 +530,15 @@ class HomeController extends Controller
         return $this -> returnSuccessMessage('Deleted Successfully');
 
     }
-
-
+    public function NotificationStatus(Request $request)
+    {
+        $user = Auth::guard('user-api')->user();
+        if(!$user)
+          return $this->returnError('يجب تسجيل الدخول أولا','','401');
+        $edit = User::findOrFail($user->id);
+        $edit->notificationـstatus = $request->notificationـstatus;
+        $edit->save();
+        return $this -> returnSuccessMessage('تم التعديل');
+    }
 
 }
