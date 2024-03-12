@@ -52,9 +52,9 @@ class AuthController extends Controller
                   $UserData->token=$token;
                   $UserData->device_token=$request->device_token;
                   $UserData->save();
-                 
+
                   $UserData->photo=$this->getFile('/img/profiles/students/',$UserData->photo,'/img/profiles/');
-                 
+
                   return $this -> returnDataa('data',$UserData,__('front.logged in'));
                 // }
             }else {
@@ -170,7 +170,7 @@ class AuthController extends Controller
 
 
                     return $this -> returnSuccessMessage(__('front.Please visit your email'));
-                
+
             } catch (\Swift_TransportException $ex) {
                 // $arr = array("status" => 400, "message" => $ex->getMessage(), "data" => []);
                 return $this -> returnError('400', $ex->getMessage());
@@ -183,7 +183,7 @@ class AuthController extends Controller
     }
 
     public function logOut() {
-        $user = Auth::guard('user-api')->user(); 
+        $user = Auth::guard('user-api')->user();
         if(!$user)
             return $this->returnError('يجب تسجيل الدخول أولا','','401');
         Auth::guard('user-api')->logout();
@@ -204,7 +204,7 @@ class AuthController extends Controller
            $validator = Validator::make($input, $rules);
            if ($validator->fails()) {
                return $this->returnError($validator->errors()->first());
-        
+
         }else {
             try {
                if ((Hash::check(request('old_password'), $userid->password)) == false) {
@@ -311,8 +311,8 @@ class AuthController extends Controller
         }else{
             $edit->marital_status  = $edit->marital_status;
         }
-        
-       
+
+
 
 
         $edit-> save();
@@ -331,6 +331,6 @@ class AuthController extends Controller
          // return $this -> returnDataa('data',$user,'');
      }
 
-    
-    
+
+
 }

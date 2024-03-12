@@ -18,26 +18,52 @@ class User extends Authenticatable implements JWTSubject
     {
         return $query->select(
         	'id',
-            'first_name' . ' as first_name',
-        	'last_name' . ' as last_name',
-            'email'. ' as email',
+          'first_name',
+        	'last_name',
+          'email',
         	// 'country'  . ' as country',
         	// 'city' . ' as city',
-            'gender'  . ' as gender',
-            'bio'  . ' as bio',
-            'detail'  . ' as detail',
-            'dateOfBirth'  . ' as dateOfBirth',
-            'mobile'  . ' as mobile',
-            // 'address'  . ' as address',
-            'photo' . ' as photo',
-            'type'  . ' as type',
-            'height'  . ' as height',
-            'weight'  . ' as weight',
-            'bloode_group'  . ' as bloode_group',
-            'marital_status'  . ' as marital_status',
-            'experience' . ' as experience',
+          'gender',
+          'bio',
+          'detail',
+          'dateOfBirth',
+          'mobile',
+          // 'address'  . ' as address',
+          'photo',
+          'type',
+          'height',
+          'weight',
+          'bloode_group',
+          'marital_status',
+          'experience',
+          'notificationـstatus'
         );
     }
+    // public function scopeSelection($query)
+    // {
+    //     return $query->select(
+    //       'id',
+    //         'first_name' . ' as first_name',
+    //       'last_name' . ' as last_name',
+    //         'email'. ' as email',
+    //       // 'country'  . ' as country',
+    //       // 'city' . ' as city',
+    //         'gender'  . ' as gender',
+    //         'bio'  . ' as bio',
+    //         'detail'  . ' as detail',
+    //         'dateOfBirth'  . ' as dateOfBirth',
+    //         'mobile'  . ' as mobile',
+    //         // 'address'  . ' as address',
+    //         'photo' . ' as photo',
+    //         'type'  . ' as type',
+    //         'height'  . ' as height',
+    //         'weight'  . ' as weight',
+    //         'bloode_group'  . ' as bloode_group',
+    //         'marital_status'  . ' as marital_status',
+    //         'experience' . ' as experience',
+    //         'notificationـstatus'
+    //     );
+    // }
     protected $fillable = [
         'name', 'email', 'password','is_activated','first_name','last_name','mobile','type'
     ];
