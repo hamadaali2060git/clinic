@@ -275,11 +275,13 @@ class HomeController extends Controller
     {
         $user = User::findOrFail($request->user_id);
         $diagnosis = Diagnos::with('categories')->where('user_id',$request->user_id)->orderBy('id', 'DESC')->take(10)->get();
-        $records= Record::where("user_id" , $request->user_id)->count();
+        $diagnosis_total = Diagnos::where('user_id',$request->user_id)->count();
+        $records_total= Record::where("user_id" , $request->user_id)->count();
         $data  =[
             'user'=>new UserResource($user),
             'diagnosis'=>$diagnosis,
-            'records'=>$records
+            'diagnosis_tital'=>$diagnosis_total,
+            'records_total'=>$records_total,
         ];
         return $this -> returnDataa('data',$data,'');
     }
