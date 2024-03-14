@@ -129,7 +129,7 @@ class HomeController extends Controller
             return $this->returnError('لديك موعد بالفعل في هذا اليوم');
         }
         $add = new Appointment();
-        $add->user_id  = $user->id;
+        $add->student_id  = $user->id;
         // $add->category_id  = $request->category_id;
         $add->work_day_id  = $request->work_day_id;
         $add->date  = $request->date;
