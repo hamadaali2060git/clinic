@@ -278,8 +278,8 @@ class HomeController extends Controller
         $records= Record::where("user_id" , $request->user_id)->count();
         $data  =[
             'user'=>new UserResource($user),
-            'diagnosis'=>$diagnosis
-            'records_total'=>$records,
+            'diagnosis'=>$diagnosis,
+            'records'=>$records
         ];
         return $this -> returnDataa('data',$data,'');
     }
