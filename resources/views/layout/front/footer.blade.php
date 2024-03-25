@@ -2,12 +2,10 @@
 	<footer class="footer">
 
 				<!-- Footer Top -->
-				<div class="footer-top">
+				<!-- <div class="footer-top">
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-lg-3 col-md-6">
-
-								<!-- Footer Widget -->
 								<div class="footer-widget footer-about">
 									<div class="footer-logo">
 										<img src="assets/img/footer-logo.png" alt="logo">
@@ -35,13 +33,11 @@
 										</div>
 									</div>
 								</div>
-								<!-- /Footer Widget -->
 
 							</div>
 
 							<div class="col-lg-3 col-md-6">
 
-								<!-- Footer Widget -->
 								<div class="footer-widget footer-menu">
 									<h2 class="footer-title">For Patients</h2>
 									<ul>
@@ -52,13 +48,11 @@
 										<li><a href="patient-dashboard">Patient Dashboard</a></li>
 									</ul>
 								</div>
-								<!-- /Footer Widget -->
 
 							</div>
 
 							<div class="col-lg-3 col-md-6">
 
-								<!-- Footer Widget -->
 								<div class="footer-widget footer-menu">
 									<h2 class="footer-title">For Doctors</h2>
 									<ul>
@@ -69,13 +63,11 @@
 										<li><a href="doctor-dashboard">Doctor Dashboard</a></li>
 									</ul>
 								</div>
-								<!-- /Footer Widget -->
 
 							</div>
 
 							<div class="col-lg-3 col-md-6">
 
-								<!-- Footer Widget -->
 								<div class="footer-widget footer-contact">
 									<h2 class="footer-title">Contact Us</h2>
 									<div class="footer-contact-info">
@@ -93,13 +85,12 @@
 										</p>
 									</div>
 								</div>
-								<!-- /Footer Widget -->
 
 							</div>
 
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<!-- /Footer Top -->
 
 				<!-- Footer Bottom -->
@@ -111,18 +102,18 @@
 							<div class="row">
 								<div class="col-md-6 col-lg-6">
 									<div class="copyright-text">
-										<p class="mb-0">&copy; 2020 Doccure. All rights reserved.</p>
+										<p class="mb-0">&copy; 2020 ehab. All rights reserved.</p>
 									</div>
 								</div>
 								<div class="col-md-6 col-lg-6">
 
 									<!-- Copyright Menu -->
-									<div class="copyright-menu">
+									<!-- <div class="copyright-menu">
 										<ul class="policy-menu">
 											<li><a href="term-condition">Terms and Conditions</a></li>
 											<li><a href="privacy-policy">Policy</a></li>
 										</ul>
-									</div>
+									</div> -->
 									<!-- /Copyright Menu -->
 
 								</div>

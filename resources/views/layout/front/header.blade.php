@@ -36,14 +36,14 @@
 						</div>
 						<ul class="main-nav">
 							<li class="{{ Request::is('index') ? 'active' : '' }}">
-								<a href="index">Home</a>
+								<a href="{{url('/')}}">Home</a>
 							</li>
 							@if(Auth::user())
 								<li class="{{ Request::is('categories') ? 'active' : '' }}">
-									<a href="index">Dashboard</a>
+									<a href="{{url('categories')}}">Dashboard</a>
 								</li>
 								<li class="{{ Request::is('appointments') ? 'active' : '' }}">
-									<a href="index">appointments</a>
+									<a href="{{url('appointments')}}">appointments</a>
 								</li>
 								<li class="login-link">
 									<!-- <a class="dropdown-item" href="login.html">Logout</a> -->

@@ -19,43 +19,43 @@
                             <nav class="dashboard-menu">
                                 <ul>
                                     <li class="{{ Request::is('categories') ? 'active' : '' }}">
-                                        <a href="categories">
+                                        <a href="{{url('categories')}}">
                                             <i class="fas fa-columns"></i>
                                             <span>categories</span>
                                         </a>
                                     </li>
                                     <li class="{{ Request::is('appointments') ? 'active' : '' }}">
-                                        <a href="appointments">
+                                        <a href="{{url('appointments')}}">
                                             <i class="fas fa-columns"></i>
                                             <span> Upcomoing</span>
                                         </a>
                                     </li>
                                     <li class="{{ Request::is('previous-appointments') ? 'active' : '' }}">
-                                        <a href="previous-appointments">
+                                        <a href="{{url('previous-appointments')}}">
                                             <i class="fas fa-calendar-check"></i>
                                             <span> previous appointments</span>
                                         </a>
                                     </li>
                                     <li class="{{ Request::is('patients') ? 'active' : '' }}">
-                                        <a href="patients">
+                                        <a href="{{url('patients')}}">
                                             <i class="fas fa-user-injured"></i>
                                             <span>Patients</span>
                                         </a>
                                     </li>
                                     <li class="{{ Request::is('articles') ? 'active' : '' }}">
-                                        <a href="articles">
+                                        <a href="{{url('articles')}}">
                                             <i class="fas fa-user-injured"></i>
                                             <span>articles</span>
                                         </a>
                                     </li>
                                     <li class="{{ Request::is('sliders') ? 'active' : '' }}">
-                                        <a href="sliders">
+                                        <a href="{{url('sliders')}}">
                                             <i class="fas fa-user-injured"></i>
                                             <span>sliders</span>
                                         </a>
                                     </li>
                                      <li class="{{ Request::is('schedules') ? 'active' : '' }}">
-                                        <a href="schedules">
+                                        <a href="{{url('schedules')}}">
                                             <i class="fas fa-user-injured"></i>
                                             <span>Schedule Timings</span>
                                         </a>
@@ -97,17 +97,21 @@
                                             <span>Social Media</span>
                                         </a>
                                     </li> -->
-                                    <li>
+                                    <!-- <li>
                                         <a href="doctor-change-password">
                                             <i class="fas fa-lock"></i>
                                             <span>Change Password</span>
                                         </a>
-                                    </li>
+                                    </li> -->
                                     <li>
-                                        <a href="index">
+                                        <a href="index" class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             <i class="fas fa-sign-out-alt"></i>
                                             <span>Logout</span>
                                         </a>
+                                        <!-- <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a> -->
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
                                     </li>
                                 </ul>
                             </nav>
