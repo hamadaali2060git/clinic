@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 ####  admin #######################
 // Auth::routes();
  Route::get('admin-login', 'Auth\LoginController@LoginAdmin')->name('admin-login');
+ Route::post('post-login', 'Auth\LoginController@postLogin')->name('login.post'); 
+
 Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function () {
 
     Route::get('server-side','ArticleController@serverSide');

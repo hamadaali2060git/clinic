@@ -53,6 +53,59 @@ class LoginController extends Controller
         return view('admin.login');
     }
 
+    public function postLogin(Request $request)
+    {
+        $this->validate(request(),[
+            'email'    => 'required',
+            'password' => 'required',
+            ],
+            [
+                'email.required'=>' البريد  الإلكتروني مطلوب',
+                'password.required'=>' كلمة المرور مطلوبة',
+            ]
+        );
+
+        
+        $credentials = $request->only('email', 'password');
+        $check_doctor = User::where("email" , $request->email)->where('type','doctor')->first();
+        if($check_doctor){
+            $good =Auth::attempt($credentials);
+            if ($good) {
+                // dd('ffn');
+                return redirect('categories');
+            }else{
+                return redirect('admin-login')->with("errorss", 'Login data is incorrect');
+            }
+        }else{
+            return redirect('admin-login')->with("errorss", 'Login data is incorrect');
+        }
+
+
+        // $credentials = $request -> only(['email','password']);
+        // $checkinstructor = Instructor::where("email" , $request->email)->first();
+        // if($checkinstructor){
+        //     if($checkinstructor->is_activated ==0)
+        //     {
+        //         return redirect('user-login')->with("errorss", 'الحساب غير مفعل');
+        //     }else{
+        //         $good = Auth::guard('instructors') -> attempt($credentials);
+        //         if($good) {
+        //             if($checkinstructor->type='instructor'){
+        //                 return redirect('instructor/courses');
+        //             }else{
+        //                 return redirect('home');
+        //             }
+        //         }else{
+        //             return redirect('user-login')->with("errorss", 'بيانات الدخول غير صحيحةة');
+        //         }
+        //     }
+        // }else{
+        //     return redirect('user-login')->with("errorss", 'بيانات الدخول غير صحيحة');
+        // }
+    }
+
+
+
     public function signOut() {
       Auth::logout();
       return redirect('/');

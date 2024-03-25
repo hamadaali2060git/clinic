@@ -18,7 +18,7 @@
                 <div class="card-content">
                   <div class="card-body">
                  
-                    <form class="form-horizontal form-simple"  novalidate method="POST" action="{{route('login')}}">
+                    <form class="form-horizontal form-simple"  novalidate method="POST" action="{{route('login.post')}}">
                       @csrf
                       <fieldset class="form-group position-relative has-icon-left mb-0">
                         <input type="text" name="email" class="form-control form-control-lg input-lg @error('email') is-invalid @enderror" id="user-name" placeholder="Your Username"
