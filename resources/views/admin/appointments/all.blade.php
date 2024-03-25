@@ -76,12 +76,12 @@
                                                         <tr>
                                                             <td>
                                                                 <h2 class="table-avatar">
-                                                                    <a href="patient-profile"
+                                                                    <a href="{{url('patient-profile/'.$item->user_appointment->id)}}"
                                                                         class="avatar avatar-sm mr-2"><img
                                                                             class="avatar-img rounded-circle"
                                                                             src="{{asset('img/profiles/'.$item->user_appointment->photo) }}"
                                                                             alt="User Image"></a>
-                                                                    <a href="patient-profile">{{$item->user_appointment->first_name}}
+                                                                    <a href="{{url('patient-profile/'.$item->user_appointment->id)}}">{{$item->user_appointment->first_name}}
                                                                         {{$item->user_appointment->last_name}}</a>
                                                                 </h2>
                                                             </td>
@@ -185,12 +185,12 @@
                                                         <tr>
                                                             <td>
                                                                 <h2 class="table-avatar">
-                                                                    <a href="patient-profile"
+                                                                    <a href="{{url('patient-profile/'.$item->user_appointment->id)}}"
                                                                         class="avatar avatar-sm mr-2"><img
                                                                             class="avatar-img rounded-circle"
                                                                             src="{{asset('img/profiles/'.$_item->user_appointment->photo) }}"
                                                                             alt="User Image"></a>
-                                                                    <a href="patient-profile">{{$_item->user_appointment->first_name}}
+                                                                    <a href="{{url('patient-profile/'.$item->user_appointment->id)}}">{{$_item->user_appointment->first_name}}
                                                                         {{$_item->user_appointment->last_name}}</a>
                                                                 </h2>
                                                             </td>

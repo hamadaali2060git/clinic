@@ -25,7 +25,7 @@
             <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar dct-dashbd-lft">
 
               <!-- Profile Widget -->
-              @include('layout.front.Sidebar')
+              @include('layout.front.sidebar')
               <!-- /Profile Widget -->
 
 

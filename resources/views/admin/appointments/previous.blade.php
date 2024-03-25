@@ -38,11 +38,11 @@
 								@foreach ($appointments as $key =>$item)
 								<div class="appointment-list">
 									<div class="profile-info-widget">
-										<a href="patient-profile" class="booking-doc-img">
+										<a href="{{url('patient-profile/'.$item->user_appointment->id)}}" class="booking-doc-img">
 											<img src="{{asset('img/profiles/'.$item->user_appointment->photo) }}" alt="User Image">
 										</a>
 										<div class="profile-det-info">
-											<h3><a href="patient-profile"> {{$item->user_appointment->first_name}}
+											<h3><a href="{{url('patient-profile/'.$item->user_appointment->id)}}"> {{$item->user_appointment->first_name}}
                                                                         {{$item->user_appointment->last_name}}</a></h3>
 											<div class="patient-details">
 												<h5><i class="far fa-clock"></i> {{$item->date}} {{$item->time}} {{$item->type}}</h5>
