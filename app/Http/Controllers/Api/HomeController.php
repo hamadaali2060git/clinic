@@ -165,11 +165,17 @@ class HomeController extends Controller
         $user = Auth::guard('user-api')->user();
         if(!$user)
             return $this->returnError('يجب تسجيل الدخول أولا','','401');
-        $upcoming_appointments = Appointment::with('user_appointment')
+        $appointments_pending = Appointment::with('user_appointment')
                             ->with('workdays')
                             ->where("status" ,'pending')
                             ->where("user_id" ,$user->id)
                             ->orderBy('id', 'DESC')->paginate(10);
+        $appointments_accept = Appointment::with('user_appointment')
+                            ->with('workdays')
+                            ->where("status" ,'accept')
+                            ->where("user_id" ,$user->id)
+                            ->orderBy('id', 'DESC')->paginate(10);
+        $upcoming_appointments = $appointments_pending->merge($appointments_accept);
 
 
 
@@ -189,12 +195,19 @@ class HomeController extends Controller
         if(!$user)
             return $this->returnError('يجب تسجيل الدخول أولا','','401');
 
-        $previous_appointments = Appointment::with('user_appointment')
+        $appointments_expired = Appointment::with('user_appointment')
                     ->with('workdays')
                     ->with('reviews')
                     ->where("status" ,'expired')
                     ->where("user_id" ,$user->id)
                     ->orderBy('id', 'DESC')->paginate(10);
+        $appointments_cancel = Appointment::with('user_appointment')
+                    ->with('workdays')
+                    ->with('reviews')
+                    ->where("status" ,'cancel')
+                    ->where("user_id" ,$user->id)
+                    ->orderBy('id', 'DESC')->paginate(10);
+        $previous_appointments = $appointments_expired->merge($appointments_cancel);
 
         return AppointmentResource::collection($previous_appointments);
         // $data  =[
@@ -379,18 +392,35 @@ class HomeController extends Controller
         $search = $request->get('name');
         if($search){
             $user = User::where('name', 'like', "%{$search}%")->first();
-            $upcoming_appointments = Appointment::with('categories')
+
+            $upcoming_pending = Appointment::with('categories')
                             ->with('user_appointment')
                             ->with('workdays')
                             ->where("status" ,'pending')
                             ->where("user_id" ,$user->id)
                             ->orderBy('id', 'DESC')->paginate(10);
+            $upcoming_accept = Appointment::with('categories')
+                            ->with('user_appointment')
+                            ->with('workdays')
+                            ->where("status" ,'accept')
+                            ->where("user_id" ,$user->id)
+                            ->orderBy('id', 'DESC')->paginate(10);
+
+            $upcoming_appointments = $upcoming_pending->merge($upcoming_accept);
         }else{
-            $upcoming_appointments = Appointment::with('categories')
+            $upcoming_pending = Appointment::with('categories')
                             ->with('user_appointment')
                             ->with('workdays')
                             ->where("status" ,'pending')
                             ->orderBy('id', 'DESC')->paginate(10);
+            
+            $upcoming_accept = Appointment::with('categories')
+                            ->with('user_appointment')
+                            ->with('workdays')
+                            ->where("status" ,'accept')
+                            ->orderBy('id', 'DESC')->paginate(10);
+            
+            $upcoming_appointments = $upcoming_pending->merge($upcoming_accept);
         }
         return AppointmentResource::collection($upcoming_appointments);
         // $data  =[
@@ -408,20 +438,35 @@ class HomeController extends Controller
        $search = $request->get('name');
         if($search){
             $user = User::where('name', 'like', "%{$search}%")->first();
-            $previous_appointments = Appointment::with('categories')
+            $appointments_expired = Appointment::with('categories')
                     ->with('user_appointment')
                     ->with('reviews')
                     ->with('workdays')
                     ->where("status" ,'expired')
                     ->where("user_id" ,$user->id)
                     ->orderBy('id', 'DESC')->paginate(10);
+            $appointments_cancel = Appointment::with('categories')
+                    ->with('user_appointment')
+                    ->with('reviews')
+                    ->with('workdays')
+                    ->where("status" ,'cancel')
+                    ->where("user_id" ,$user->id)
+                    ->orderBy('id', 'DESC')->paginate(10);
+            $previous_appointments = $appointments_expired->merge($appointments_cancel);
         }else{
-            $previous_appointments = Appointment::with('categories')
+            $appointments_expired = Appointment::with('categories')
                     ->with('user_appointment')
                     ->with('reviews')
                     ->with('workdays')
                     ->where("status" ,'expired')
                     ->orderBy('id', 'DESC')->paginate(10);
+            $appointments_cancel = Appointment::with('categories')
+                    ->with('user_appointment')
+                    ->with('reviews')
+                    ->with('workdays')
+                    ->where("status" ,'cancel')
+                    ->orderBy('id', 'DESC')->paginate(10);
+            $previous_appointments = $appointments_expired->merge($appointments_cancel);
         }
         return AppointmentResource::collection($previous_appointments);
         // $data  =[
