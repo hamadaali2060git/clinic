@@ -82,6 +82,10 @@ class HomeController extends Controller
         foreach ($notifications as $item) {
             $item->date = Carbon::parse($item->created_at)->format('Y-m-d');
             $item->time = Carbon::parse($item->created_at)->format('H:i:s');
+
+             $edit = Notification::findOrFail($item->id);
+            $edit->seen   = 'seen';
+            $edit->save();
         }
         return $this -> returnDataa(
             'data',$notifications,''
