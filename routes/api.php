@@ -49,7 +49,10 @@ Route::group(['middleware' => ['api','changeLanguage'], 'namespace' => 'Api'], f
     Route::get('patient-previous-ppointments', 'HomeController@patientPreviousAppointments');
 
     Route::post('appointment-status', 'HomeController@updateStatus');
+
+    Route::get('notifications', 'HomeController@notifications');
     Route::post('notification-status', 'HomeController@NotificationStatus');
+    
     Route::post('add-review', 'HomeController@addReview');
     Route::post('edit-review', 'HomeController@editReview');
     Route::post('remove-review', 'HomeController@removeReview');

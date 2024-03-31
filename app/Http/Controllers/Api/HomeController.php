@@ -38,6 +38,7 @@ use App\WorkDay;
 use App\WorkTime;
 use App\Diagnos;
 use App\Reminder;
+use App\Notification;
 
 use DateTime;
 use App\Traits\ImageUploadTrait;
@@ -50,19 +51,40 @@ class HomeController extends Controller
 
     public function home(Request $request)
     {
+        $user = Auth::guard('user-api')->user();
         $categotries = Category::selection()->orderBy('id', 'DESC')->get();
         $articles = Article::selection()->orderBy('id', 'DESC')->get();;
         $sliders = Slider::get();
+
+        if($user){
+            $notifications = Notification::where('user_id',$user->id)->count();
+        }else{
+            $notifications=0;
+        }
         $data  =[
             // 'upcoming_appointments'=>AppointmentResource::collection($upcoming_appointments),
             // 'previous_appointments'=>AppointmentResource::collection($previous_appointments),
             'sliders'=>SliderResource::collection($sliders),
             'categotries'=> CategoryResource::collection($categotries),
             'articles'=>   ArticleResource::collection($articles),
-
+            'notifications'=>$notifications
         ];
         return $this -> returnDataa(
             'data',$data,''
+        );
+    }
+    public function notifications(Request $request)
+    {
+        $user = Auth::guard('user-api')->user();
+        if(!$user)
+            return $this->returnError('يجب تسجيل الدخول أولا','','401');
+        $notifications = Notification::where('user_id',$user->id)->get();
+        foreach ($notifications as $item) {
+            $item->date = Carbon::parse($item->created_at)->format('Y-m-d');
+            $item->time = Carbon::parse($item->created_at)->format('H:i:s');
+        }
+        return $this -> returnDataa(
+            'data',$notifications,''
         );
     }
     public function categotries(Request $request)

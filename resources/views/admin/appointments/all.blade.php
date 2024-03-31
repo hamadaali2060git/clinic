@@ -251,6 +251,9 @@
                                                                                                         <input type="radio" name="status" class="switchBootstrap" value="expired" {{ $_item->status == 'expired' ? 'checked' : '' }}>
                                                                                                         <label>Expired</label>
                                                                                                         <br>
+                                                                                                        <input type="radio" name="status" class="switchBootstrap" value="cancel" {{ $_item->status == 'cancel' ? 'checked' : '' }}>
+                                                                                                        <label>Cancel</label>
+                                                                                                        <br>
 
                                                                                                       </div>
                                                                                                     </fieldset>
