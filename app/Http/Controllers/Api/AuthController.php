@@ -53,7 +53,7 @@ class AuthController extends Controller
                   $UserData->device_token=$request->device_token;
                   $UserData->save();
 
-                  $UserData->photo=$this->getFile('/img/profiles/students/',$UserData->photo,'/img/profiles/');
+                  $UserData->photo=$this->getFile('/img/profiles/',$UserData->photo,'/img/profiles/');
 
                   return $this -> returnDataa('data',$UserData,__('front.logged in'));
                 // }
