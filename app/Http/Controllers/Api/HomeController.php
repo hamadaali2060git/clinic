@@ -57,7 +57,7 @@ class HomeController extends Controller
         $sliders = Slider::get();
 
         if($user){
-            $notifications = Notification::where('user_id',$user->id)->count();
+            $notifications = Notification::where('user_id',$user->id)->where('seen','notseen')->count();
         }else{
             $notifications=0;
         }
