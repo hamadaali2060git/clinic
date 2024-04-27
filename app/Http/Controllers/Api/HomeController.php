@@ -141,6 +141,7 @@ class HomeController extends Controller
     public function bookAppointment(Request $request)
     {
         // dd($request->all());
+        
         $user = Auth::guard('user-api')->user();
         if(!$user)
             return $this->returnError('يجب تسجيل الدخول أولا','','401');
@@ -163,12 +164,9 @@ class HomeController extends Controller
         $add->price  = $request->price;
         $add->save();
 
-
-
-
         $SERVER_API_KEY = 'AAAAgxL_CwE:APA91bGbFh7hhGG0uM6oGdoLkkg5f8E03vg3ohKClBcNxSX0lIg5eF0RCLxlkyhnrB4rGf1F9B5sZs3YyO5fmPLeVLJMTz3tRomuHWwIgqP1PE0g02H7iIWv26sombTOrVOb-FGUbONH';
-            
-            $token_1 = $user->device_token;
+            $doctor = User::where('type','doctor')->first();
+            $token_1 = $doctor->device_token;
             $message='' ;
             if($request->header('lang') == 'en' ){
                 $message= 'An appointment has been booked ';
@@ -201,7 +199,13 @@ class HomeController extends Controller
             $response = curl_exec($ch);
 
 
+            $add = new Notification();
+            $add->user_id  = $doctor->id;
 
+            $add->message  = $message;
+            $add->date   = Carbon::now()->format('d-m-Y');
+            $add->time   = Carbon::now()->format('H:i:s');
+            $add->save();
 
 
 

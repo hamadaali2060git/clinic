@@ -15,6 +15,7 @@ class Setting extends Model
         	'desc_' . app()->getLocale() . ' as desc',
             'privacy_' . app()->getLocale() . ' as privacy',
             'phone',
+            'account_number',
             'mail',
             'logo',
             'image',

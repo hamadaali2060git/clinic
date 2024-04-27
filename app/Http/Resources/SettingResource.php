@@ -21,6 +21,7 @@ class SettingResource extends JsonResource
             'desc'=>$this->desc,
             'privacy'=>$this->privacy,
             'phone'=>$this->phone,
+            'account_number'=>$this->account_number,
             'mail'=>$this->mail,
             'logo'=>url('/img/settings/' . $this->logo),
             'image'=>url('/img/settings/' . $this->image),
