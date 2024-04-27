@@ -162,6 +162,50 @@ class HomeController extends Controller
         $add->time  = $request->time;
         $add->price  = $request->price;
         $add->save();
+
+
+
+
+        $SERVER_API_KEY = 'AAAAgxL_CwE:APA91bGbFh7hhGG0uM6oGdoLkkg5f8E03vg3ohKClBcNxSX0lIg5eF0RCLxlkyhnrB4rGf1F9B5sZs3YyO5fmPLeVLJMTz3tRomuHWwIgqP1PE0g02H7iIWv26sombTOrVOb-FGUbONH';
+            
+            $token_1 = $user->device_token;
+            $message='' ;
+            if($request->header('lang') == 'en' ){
+                $message= 'An appointment has been booked ';
+            }else{
+                $message='تم حجز موعد';
+            }
+            $data = [
+                "registration_ids" => [
+                    $token_1
+                ],
+                "notification" => [
+                    "title" => 'DR Ehab Abu Marar',
+                    "body" => $message,
+                    "sound"=> "default" // required for sound on ios
+                ],
+            ];
+
+            $dataString = json_encode($data);
+            $headers = [
+                'Authorization: key=' . $SERVER_API_KEY,
+                'Content-Type: application/json',
+            ];
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+            $response = curl_exec($ch);
+
+
+
+
+
+
+
         return $this -> returnSuccessMessage('تم الإضافة');
     }
     public function patientUpcomingAppointments(Request $request)
