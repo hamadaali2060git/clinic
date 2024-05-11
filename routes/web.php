@@ -33,6 +33,9 @@ Route::get('/activated', 'Auth\LoginController@Activated')->name('activated');
   Route::post('reset-password-api', 'Auth\LoginController@resetPasswordPostApi')->name('reset-password-post-api');
   ## end
 
+Route::get('/privacy-policy', function () {
+return view('front.privacy-policy');
+})->name('privacy-policy');
 
 
 
@@ -161,9 +164,9 @@ return view('edit-billing');
 Route::get('/edit-prescription', function () {
 return view('edit-prescription');
 });
-Route::get('/privacy-policy', function () {
-return view('privacy-policy');
-})->name('privacy-policy');
+// Route::get('/privacy-policy', function () {
+// return view('privacy-policy');
+// })->name('privacy-policy');
 Route::get('/social-media', function () {
 return view('social-media');
 })->name('social-media');

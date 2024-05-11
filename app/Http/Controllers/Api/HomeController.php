@@ -306,6 +306,16 @@ class HomeController extends Controller
         // return $this -> returnSuccessMessage('تم التعديل');
         return $this -> returnDataa('data',$edit,'تم التعديل');
     }
+    
+    public function removeAcount(Request $request){
+        $user = Auth::guard('user-api')->user();
+        if(!$user)
+            return $this->returnError('يجب تسجيل الدخول أولا','','401');
+        $delete = User::find($user->id);
+        $delete->delete();
+        return $this -> returnSuccessMessage('Deleted Successfully');
+
+    }
     public function removeReview(Request $request){
         $user = Auth::guard('user-api')->user();
         if(!$user)
