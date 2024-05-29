@@ -21,9 +21,11 @@ Auth::routes();
 
 
 // Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/', 'Admin\DashBoardController@index');
+// Route::get('/', 'Admin\DashBoardController@index');
+ Route::get('/', 'Auth\LoginController@LoginAdmin')->name('admin-login');
+ Route::get('home', 'Auth\LoginController@LoginAdmin')->name('admin-login');
 
-Route::get('home', 'Admin\DashBoardController@index');
+// Route::get('home', 'Admin\DashBoardController@index');
 Route::get('/activation/users/{token}', 'Auth\LoginController@userActivation');
 Route::get('/activated', 'Auth\LoginController@Activated')->name('activated');
 
