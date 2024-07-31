@@ -117,6 +117,8 @@ class HomeController extends Controller
     }
     public function patientWorkDays(Request $request)
     {
+       
+       
         $day_name = Carbon::parse($request->date)->format('l');
         $day =Day::where("name" ,$day_name)->first();
         $work_day =WorkDay::selection()

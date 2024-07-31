@@ -23,7 +23,7 @@ class DoctorResource extends JsonResource
             'last_name'=>$this->last_name,
             'email'=>$this->email,
             'mobile'=>$this->mobile,
-            'type'=>$this->detail,
+            'type'=>$this->type,
             'experience'=>$this->experience,
             'bio'=>$this->bio,
             'detail'=>$this->detail,
