@@ -125,7 +125,7 @@ class HomeController extends Controller
                         ->with('days')
                         ->with('worktimes')
                         ->where("day_id" ,$day->id)->first();
-        $doctor = User::where('type','doctor')->first();
+        $doctor = User::selection()->where('type','doctor')->first();
         $patients = User::where('type','patient')->count();
         $reviews = Review::count();
         $settings_price = Setting::first();
