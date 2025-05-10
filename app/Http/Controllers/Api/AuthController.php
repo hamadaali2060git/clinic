@@ -81,7 +81,7 @@ class AuthController extends Controller
         }
         $checkemail = User::where("email" , $request->email)->first();
         if($checkemail){
-            return $this -> returnError('001',__('front.Email already exists'));
+            return $this -> returnError(__('front.Email already exists'));
         }else{
             $token = Str::random(60);
             $add = User::create([
