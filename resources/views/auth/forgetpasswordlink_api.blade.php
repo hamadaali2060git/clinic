@@ -23,7 +23,7 @@
 						<div style="position:relative" id="eye-password-0">
 							<label for="email">{{__('front.enter the new password')}}</label>
 							<input type="password" class="form-control @error('password') is-invalid @enderror"
-								name="password" style="padding-right: 60px;">
+								name="password" style="padding-right: 60px;text-align: left;">
 						</div>
 						@error('password')
 						<strong>{{ $message }}</strong>
@@ -34,7 +34,7 @@
 							<label for="email">{{__('front.confirm the password')}}</label>
 							<input type="password"
 								class="form-control @error('password_confirmation') is-invalid @enderror"
-								name="password_confirmation" style="padding-right: 60px;">
+								name="password_confirmation" style="padding-right: 60px;text-align: left;">
 						</div>
 						@error('password_confirmation')
 						<strong>{{ $message }}</strong>

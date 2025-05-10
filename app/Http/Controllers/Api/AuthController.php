@@ -146,7 +146,7 @@ class AuthController extends Controller
         //        return $this->returnError($validator->errors()->first());
         $checkemail = User::where("email" , $request->email)->first();
         if (!$checkemail) {
-            return $this -> returnError('001',__('front.email invalid'));
+            return $this -> returnError(__('front.email invalid'));
         } else {
             try {
                 $token = Str::random(64);
@@ -173,9 +173,9 @@ class AuthController extends Controller
 
             } catch (\Swift_TransportException $ex) {
                 // $arr = array("status" => 400, "message" => $ex->getMessage(), "data" => []);
-                return $this -> returnError('400', $ex->getMessage());
+                return $this -> returnError($ex->getMessage());
             } catch (Exception $ex) {
-                return $this -> returnError('400', $ex->getMessage());
+                return $this -> returnError($ex->getMessage());
                 // $arr = array("status" => 400, "message" => $ex->getMessage(), "data" => []);
             }
         }

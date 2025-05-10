@@ -22,7 +22,7 @@
                                             window.location.href = 'https://apps.apple.com/app/dr-ehab-abo-marar/id6744272221';
                                           }
                                         }, 1500);">
-                                <button> Back to app </button>
+                                Back to app
                             </a>
 
                             @endif
